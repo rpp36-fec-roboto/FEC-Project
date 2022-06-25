@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "react-dev": "webpack --mode development --watch"
+    "react-dev": "webpack -w",
+    "server-dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",

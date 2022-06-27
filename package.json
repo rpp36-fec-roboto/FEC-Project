@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "open http://localhost:5555/",
     "react-dev": "webpack -w",
     "server-dev": "nodemon server.js"
   },

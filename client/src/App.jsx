@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      productId: 71697
+      productId: 71697 // default id to render when open the webpage
     }
   }
 

@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      productId: 0
+      productId: 71697
     }
   }
 

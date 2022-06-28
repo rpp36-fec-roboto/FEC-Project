@@ -7,13 +7,13 @@ class App extends React.Component {
     super();
     this.state = {
       productId: 71697 // default id to render when open the webpage
-    }
+    };
   }
 
   render() {
     return (
       <Overview productId={this.state.productId} />
-    )
+    );
   }
 }
 

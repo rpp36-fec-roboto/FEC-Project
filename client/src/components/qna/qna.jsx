@@ -2,6 +2,8 @@ import React from 'react';
 import SearchBar from './searchbar.jsx';
 import QuestionAnswer from './questionAnswer.jsx';
 import BottomButtons from './bottomButtons.jsx';
+import data from '../../data/sampleData.js';
+
 
 class Qna extends React.Component {
   constructor(props) {

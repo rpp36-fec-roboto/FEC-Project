@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Overview from './Widgets/Overview/Overview.jsx';
+// import Overview from './components/Overview/Overview.jsx';
+import Qna from './components/qna/qna.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -12,7 +13,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <Overview productId={this.state.productId} />
+      // <Overview productId={this.state.productId} />
+      <Qna />
     )
   }
 }

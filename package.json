@@ -1,10 +1,10 @@
 {
-  "name": "fec-structure-proposal",
+  "name": "fec-atelier-project",
   "version": "1.0.0",
-  "description": "FEC folder structure",
+  "description": "Shopping page makeover",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "open http://localhost:5555/",
     "react-dev": "webpack -w",
     "server-dev": "nodemon server.js"
@@ -15,15 +15,21 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
+    "@testing-library/react": "^13.3.0",
+    "babel-jest": "^28.1.1",
     "babel-loader": "^8.2.1",
+    "jest": "^28.1.1",
+    "react-test-renderer": "18.2.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "eslint": "^8.18.0",
     "express": "^4.15.0",
+    "jest-environment-jsdom": "^28.1.1",
     "jquery": "^3.1.1",
-    "react": "^16.4",
-    "react-dom": "^16.4"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

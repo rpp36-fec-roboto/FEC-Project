@@ -7,6 +7,6 @@ var ProductInfo = (props) => {
   // price: style specific, may be on sale
   // product overview: may be null
   // star to click to add to MyOutfit
-}
+};
 
 export default ProductInfo;

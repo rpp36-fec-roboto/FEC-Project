@@ -9,9 +9,8 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
-import App from '../client/src/App.jsx';
-import Overview from '../client/src/components/Overview/Overview.jsx';
-import Qna from '../client/src/components/qna/qna.jsx';
+import App from '../../App.jsx';
+import Qna from './qna.jsx';
 
 describe('App', () => {
   let container;
@@ -41,33 +40,6 @@ describe('App', () => {
 
 });
 
-// Overview Portion /////////////////////////////////////////////////////////
-
-describe('Overview Component', () => {
-  let container = null;
-  beforeEach(() => {
-    // setup a DOM element as a render target
-    container = document.createElement('div');
-    document.body.appendChild(container);
-  });
-
-  afterEach(() => {
-    // cleanup on exiting
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
-  });
-
-  it('render Overview component without crash', () => {
-    act(() => {
-      render(<Overview />, container);
-    });
-    expect(container).not.toBeNull();
-  });
-});
-
-// Q&A Portion ////////////////////////////////////////////////////////////////////
-
 describe('Questions & Answers Component', () => {
   let container = null;
   beforeEach(() => {
@@ -90,5 +62,3 @@ describe('Questions & Answers Component', () => {
     expect(container).not.toBeNull();
   });
 });
-
-// Related Items Portion ////////////////////////////////////////////////////////////////////

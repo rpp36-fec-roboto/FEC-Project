@@ -1,6 +1,6 @@
 import React from 'react';
 import Overview from './components/Overview/Overview.jsx';
-import Qna from './components/qna/qna.jsx'
+import Qna from './components/qna/qna.jsx';
 
 class App extends React.Component {
   constructor() {

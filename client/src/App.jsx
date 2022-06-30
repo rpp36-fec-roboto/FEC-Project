@@ -1,8 +1,7 @@
 import React from 'react';
 import Overview from './components/Overview/Overview.jsx';
-import RelatedItems from './components/relatedItems/RelatedItems.jsx';
 import Qna from './components/qna/qna.jsx';
-
+import RelatedItems from './components/relatedItems/RelatedItems.jsx';
 
 class App extends React.Component {
   constructor() {

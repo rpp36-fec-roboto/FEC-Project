@@ -1,6 +1,7 @@
 import React from 'react';
 import Overview from './components/Overview/Overview.jsx';
-import Qna from './components/qna/qna.jsx'
+import RelatedItems from './components/relatedItems/RelatedItems.jsx';
+import Qna from './components/qna/qna.jsx';
 
 
 class App extends React.Component {
@@ -15,6 +16,7 @@ class App extends React.Component {
     return (
       <div>
         <Overview productId={this.state.productId} />
+        <RelatedItems productId={this.state.productId}/>
         <Qna productId={this.state.productId}/>
       </div>
     );

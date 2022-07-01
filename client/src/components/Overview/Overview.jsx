@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import sampleData from '../../data/sampleData.js';
+import helper from './helper.js';
 
 import ProductInfo from './ProductInfo.jsx';
 import Style from './Style.jsx';
@@ -14,22 +15,12 @@ var Overview = (props) => {
   var productInfo = sampleData.productInfo; // initiate by GET GET /products/:product_id
   var productStyle = sampleData.productStyle; // initiate by GET 'products/:product/styles/'
 
-  // set styleId to the default
-  const [currentStyle, setStyle] = useState(productStyle.results.find(style => style['default?']));
+  // set currentStyle to the default
+  const [currentStyle, setStyle] = useState(helper.findDefaultStyle(productStyle));
 
   // ComponentDidMount
   useEffect(() => {
   }, []);
-
-  // find default style id
-  var findDefaultStyle = (productStyle) => {
-    console.log(productStyle.results.find(style => style['default?']));
-    return productStyle.results.find(style => style['default?']);
-  };
-
-  // takes the rating object, returns average rating
-  var calculateRating = (ratings) => {
-  };
 
   // handle style change
   var handleStyleChange = (style) => {
@@ -38,9 +29,9 @@ var Overview = (props) => {
 
   return (
     <div className="overview">
-      <div classaName="row-1">
+      <div className="row-1">
 
-        <div classaName="col-2-3">
+        <div className="col-2-3">
           <ImageGallery
             currentStyle={currentStyle}
           />
@@ -49,7 +40,7 @@ var Overview = (props) => {
         <div className="col-1-3">
           <ProductInfo
             productInfo={productInfo}
-            rating={calculateRating(reviewsMeta.ratings)}
+            rating={helper.calculateRating(reviewsMeta.rating)}
           />
 
           <Style

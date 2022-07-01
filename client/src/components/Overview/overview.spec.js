@@ -9,8 +9,22 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
+import sampleData from '../../data/sampleData.js';
+import helper from './helper.js';
+
 import App from '../../App.jsx';
 import Overview from './Overview.jsx';
+
+describe('helper function unit tests', () => {
+  it('should find the default style', () => {
+    var defaultStyle = sampleData.productStyle.results[0];
+    expect(helper.findDefaultStyle(sampleData.productStyle)).toBe(defaultStyle);
+  });
+
+  it('should calculate average rating', () => {
+    expect(helper.calculateRating(sampleData.reviewsMeta.ratings)).toBe(3.86);
+  });
+});
 
 describe('App', () => {
   let container;
@@ -57,7 +71,7 @@ describe('Overview Component', () => {
 
   it('render Overview component without crash', () => {
     act(() => {
-      render(<Overview />, container);
+      render(<Overview reviewsMeta={sampleData.reviewsMeta}/>, container);
     });
     expect(container).not.toBeNull();
   });

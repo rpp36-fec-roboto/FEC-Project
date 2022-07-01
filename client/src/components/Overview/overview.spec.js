@@ -9,8 +9,8 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
-import App from '../client/src/App.jsx';
-import Overview from '../client/src/components/Overview/Overview.jsx';
+import App from '../../App.jsx';
+import Overview from './Overview.jsx';
 
 describe('App', () => {
   let container;

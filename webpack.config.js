@@ -2,6 +2,7 @@ var path = require("path");
 var SRC_DIR = path.join(__dirname, "/client/src");
 var DIST_DIR = path.join(__dirname, "/client/dist");
 
+
 module.exports = {
   entry: `${SRC_DIR}/index.js`,
   mode: "development",
@@ -12,6 +13,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader",],
+      },
+      {
         test: /\.jsx?/,
         exclude: /node_modules/,
         use: {
@@ -19,5 +24,5 @@ module.exports = {
         },
       },
     ],
-  },
+  }
 };

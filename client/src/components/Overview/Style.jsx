@@ -29,9 +29,17 @@ var Style = (props) => {
       var styleName = style.name;
 
       return (
-        <div key={index}>
+        <div className='style-container' key={index}>
           {style.style_id === currentStyle.style_id &&
-          <IoIosCheckmarkCircleOutline />}
+          <IoIosCheckmarkCircleOutline
+            style={{
+              position: 'absolute',
+              background: 'white',
+              'border-radius': '50%',
+              left: '80%',
+              height: '1.2em',
+              width: 'auto'
+            }}/>}
           <img className='style-thumbnail' src={imageURL} alt={styleName}
             onClick={e => { handleStyleChange(style); }}/>
         </div>

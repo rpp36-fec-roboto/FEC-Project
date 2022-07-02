@@ -44,6 +44,14 @@ body {
   padding-bottom: 5%;
 }
 
+.ov-all-cap {
+  text-transform: uppercase;
+}
+
+.ov-bold {
+  font-weight: bold;
+}
+
 /*
 //////// QNA SECTION //////////////////////////////////////////////
 */

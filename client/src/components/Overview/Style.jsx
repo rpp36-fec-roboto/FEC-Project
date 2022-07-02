@@ -50,7 +50,14 @@ var Style = (props) => {
   // rendering Style component
   return (
     <div>
-      <div className="ov-price ov-padding-verticle">{price(currentStyle)}</div>
+      <div className="ov-price">{price(currentStyle)}</div>
+      <div>
+        <p>
+          <span className="ov-all-cap ov-bold">style </span>
+          <span className=".ov-bold">{'> '}</span>
+          <span>{currentStyle.name}</span>
+        </p>
+      </div>
       <div className="style-grid">
         {thumnails(productStyle, currentStyle)}
       </div>

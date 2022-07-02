@@ -1,17 +1,17 @@
 import React from 'react';
 import Answer from './answer.jsx';
 import Question from './question.jsx';
+import Userhelpful from './userhelpful.jsx';
 
 var questionAnswer = (props) => (
   <div>
     <Question />
     <Answer />
-    <div className='paddingleft'> by user, date | helpful? Yes (2) | Report</div><br></br>
-
+    <Userhelpful /><br></br>
 
     <Question />
     <Answer />
-    <div className='paddingleft'> by user, date | helpful? Yes (1) | Report</div>
+    <Userhelpful />
   </div>
 );
 

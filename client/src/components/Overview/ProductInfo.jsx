@@ -9,7 +9,7 @@ var ProductInfo = (props) => {
   return (
     <div className="col-1-3">
       <div className="rating">
-        <p>rating: {rating}/5</p>
+        <p>Star rating: {rating}/5</p>
         <a>Read all reviews</a> {/* links to reviews widget */}
       </div>
 
@@ -19,14 +19,6 @@ var ProductInfo = (props) => {
       </div>
     </div>
   );
-
-  // star rating
-  // product category
-  // product title
-  // price: style specific, may be on sale
-  // product overview: may be null
-  // add to Cart
-  // star to click to add to MyOutfit
 };
 
 export default ProductInfo;

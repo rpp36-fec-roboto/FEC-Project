@@ -1,9 +1,14 @@
 import React from 'react';
 
 var AddToCart = (props) => {
-  // size selector
-  // quantity selector
-  // button: add to cart
-}
+  return (
+    <div>
+      <div>size selector</div>
+      <div>quantity selector</div>
+      <button>Add to cart</button>
+      <button>Star to add to MyOutfit</button>
+    </div>
+  );
+};
 
 export default AddToCart;

@@ -6,11 +6,16 @@ var Style = (props) => {
   var originalPrice = currentStyle['original_price'];
   var salePrice = currentStyle['sale_price'];
 
-  // thumbnails of style, clickable
-  // 4 in a roll
-  // click on thumbnail should toggle between each style
-  // click current thumbnail have no effect
-  // default style selected is the first in the list
+  return (
+    <div>
+      <div>price: based on style selected</div>
+      <div>
+        4/roll thumnails of styles, clickable images,
+        no effect when clicking current selected.
+        Checkmark present at current selected style
+      </div>
+    </div>
+  );
 };
 
 export default Style;

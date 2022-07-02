@@ -4,7 +4,7 @@ import Style from './Style.jsx';
 
 var ProductInfo = (props) => {
   var rating = props.rating;
-  var productInfo = props.productInfo; // initiate by GET GET /products/:product_id
+  var productInfo = props.productInfo; // initiate by GET /products/:product_id
 
   return (
     <div>

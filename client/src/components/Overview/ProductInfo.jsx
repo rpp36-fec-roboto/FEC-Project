@@ -7,7 +7,7 @@ var ProductInfo = (props) => {
   var productInfo = props.productInfo; // initiate by GET GET /products/:product_id
 
   return (
-    <div className="col-1-3">
+    <div>
       <div className="rating">
         <p>Star rating: {rating}/5</p>
         <a>Read all reviews</a> {/* links to reviews widget */}

@@ -2,6 +2,23 @@ body {
   background:white;
 }
 
+/*
+//////// OVERVIEW SECTION //////////////////////////////////////////////
+*/
+.overview-grid {
+  display: grid;
+  grid-gap: 2em;
+  grid-template-rows: 10fr 2fr;
+}
+
+.ov-top-row, .ov-bottom-row {
+  display: grid;
+  grid-gap: 2em;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+
 
 /*
 //////// QNA SECTION //////////////////////////////////////////////

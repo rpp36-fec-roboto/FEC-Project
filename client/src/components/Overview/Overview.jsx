@@ -28,16 +28,16 @@ var Overview = (props) => {
   };
 
   return (
-    <div className="overview">
-      <div className="row-1">
+    <div className="overview-grid">
+      <div className="top-row-grid">
 
-        <div className="col-2-3">
+        <div className="left-2">
           <ImageGallery
             currentStyle={currentStyle}
           />
         </div>
 
-        <div className="col-1-3">
+        <div className="right-1">
           <ProductInfo
             productInfo={productInfo}
             rating={helper.calculateRating(reviewsMeta.ratings)}
@@ -55,9 +55,7 @@ var Overview = (props) => {
 
       </div>
 
-      <div className="row-2">
-        <OtherInfo />
-      </div>
+      <OtherInfo />
     </div>
   );
 };

@@ -46,6 +46,7 @@ var Overview = (props) => {
           <Style
             productStyle={productStyle}
             currentStyle={currentStyle}
+            handleStyleChange={handleStyleChange}
           />
 
           <AddToCart

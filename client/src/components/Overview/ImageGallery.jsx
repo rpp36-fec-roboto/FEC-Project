@@ -11,7 +11,7 @@ var ImageGallery = (props) => {
         <div>current selected image. Default is first image</div>
         <div>thumbnail images of overlaying the default view image. Selection match current view.
           up to 7 thumbnail images in a column
-        <button>arrow to scroll for more thumbnail images</button>
+        <button>arrows to scroll for more thumbnail images</button>
         </div>
         <button>Right arrow</button>
         <button>Left arrow</button>

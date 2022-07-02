@@ -11,7 +11,7 @@ body {
   grid-template-rows: 10fr 2fr;
 }
 
-.top-row-grid, .bottom-row-grid {
+.ov-top-row, .ov-bottom-row {
   display: grid;
   grid-gap: 2em;
   grid-template-columns: 2fr 1fr;

@@ -40,7 +40,7 @@ var Overview = (props) => {
         <div className="col-1-3">
           <ProductInfo
             productInfo={productInfo}
-            rating={helper.calculateRating(reviewsMeta.rating)}
+            rating={helper.calculateRating(reviewsMeta.ratings)}
           />
 
           <Style

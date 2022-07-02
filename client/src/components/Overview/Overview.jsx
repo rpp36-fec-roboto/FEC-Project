@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import sampleData from '../../data/sampleData.js';
-import helper from './helper.js';
+import helper from '../../../../lib/clientHelpers.js';
 
 import ProductInfo from './ProductInfo.jsx';
 import Style from './Style.jsx';
@@ -29,15 +29,15 @@ var Overview = (props) => {
 
   return (
     <div className="overview-grid">
-      <div className="top-row-grid">
+      <div className="ov-top-row">
 
-        <div className="left-2">
+        <div className="ov-left-2">
           <ImageGallery
             currentStyle={currentStyle}
           />
         </div>
 
-        <div className="right-1">
+        <div className="ov-right-1">
           <ProductInfo
             productInfo={productInfo}
             rating={helper.calculateRating(reviewsMeta.ratings)}

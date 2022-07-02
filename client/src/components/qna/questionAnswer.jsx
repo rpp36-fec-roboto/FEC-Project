@@ -1,15 +1,18 @@
 import React from 'react';
 import Answer from './answer.jsx';
+import Question from './question.jsx';
 
 var questionAnswer = (props) => (
   <div>
-    <div>Q: test question</div>
+    <Question />
     <Answer />
-    <div> by user, date | helpful? Yes (2) | Report</div><br></br>
-    <div>Q: test question 2</div>
+    <div className='paddingleft'> by user, date | helpful? Yes (2) | Report</div><br></br>
+
+
+    <Question />
     <Answer />
-    <div> by user, date | helpful? Yes (1) | Report</div>
+    <div className='paddingleft'> by user, date | helpful? Yes (1) | Report</div>
   </div>
-)
+);
 
 export default questionAnswer;

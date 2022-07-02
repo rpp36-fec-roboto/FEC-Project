@@ -2,6 +2,37 @@ body {
   background:white;
 }
 
-.test {
-  width: 500px;
+
+/*
+//////// QNA SECTION //////////////////////////////////////////////
+*/
+.bar {
+  width: 100%;
+  height: 50px;
+  padding-left: 20px;
+}
+
+.paddingleft {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.paddingbottom {
+  padding-bottom: 1em;
+}
+
+.q-grid {
+  display: grid;
+  grid-template-columns: 4fr 125fr 30fr;
+  grid-template-rows: 1fr;
+}
+
+.qabold {
+  font-weight: bold
+}
+
+.a-grid {
+  display: grid;
+  grid-template-columns: 4fr 150fr;
+  grid-template-rows: 1fr;
 }

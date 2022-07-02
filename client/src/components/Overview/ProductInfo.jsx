@@ -9,7 +9,7 @@ var ProductInfo = (props) => {
   return (
     <div>
       <div className="rating">
-        <p>Star rating: {rating}/5</p>
+        <span>Star rating: {rating}/5 </span>
         <a>Read all reviews</a> {/* links to reviews widget */}
       </div>
 

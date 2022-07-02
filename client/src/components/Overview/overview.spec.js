@@ -10,7 +10,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import sampleData from '../../data/sampleData.js';
-import helper from './helper.js';
+import helper from '../../../../lib/clientHelpers.js';
 
 import App from '../../App.jsx';
 import Overview from './Overview.jsx';

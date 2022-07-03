@@ -4,12 +4,12 @@ import Style from './Style.jsx';
 
 var ProductInfo = (props) => {
   var rating = props.rating;
-  var productInfo = props.productInfo; // initiate by GET GET /products/:product_id
+  var productInfo = props.productInfo; // initiate by GET /products/:product_id
 
   return (
     <div>
       <div className="rating">
-        <p>Star rating: {rating}/5</p>
+        <span>Star rating: {rating}/5 </span>
         <a>Read all reviews</a> {/* links to reviews widget */}
       </div>
 

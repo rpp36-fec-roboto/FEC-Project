@@ -2,9 +2,9 @@ import React from 'react';
 import QuestionHelpful from './questionHelpful.jsx';
 
 var question = (props) => (
-  <div className='q-grid paddingleft paddingbottom'>
-    <div className='qabold'>Q:</div>
-    <div className='qabold'>Test question </div>
+  <div className='paddingleft paddingbottom'>
+    <div className='qabold qa-float'>Q:</div>
+    <div className='qabold qa-float'>Test question </div>
     <QuestionHelpful />
   </div>
 );

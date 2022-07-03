@@ -2,15 +2,15 @@ import React from 'react';
 
 var userhelpful = (props) => (
   <div className='paddingleft qa-userhelpful'>
-    <div>by</div>
-    <div>username,</div>
-    <div>May 1, 2019</div>
-    <div>|</div>
-    <div>Helpful?</div>
-    <div className='qa-underline'>Yes</div>
-    <div>(20)</div>
-    <div>|</div>
-    <div className='qa-underline'>Report</div>
+    <div className='qa-float' >by</div>
+    <div className='qa-float' >username,</div>
+    <div className='qa-float' >May 1, 2019</div>
+    <div className='qa-float' >|</div>
+    <div className='qa-float' >Helpful?</div>
+    <div className='qa-underline qa-float'>Yes</div>
+    <div className='qa-float' >(20)</div>
+    <div className='qa-float' >|</div>
+    <div className='qa-underline qa-float'>Report</div>
   </div>
 );
 

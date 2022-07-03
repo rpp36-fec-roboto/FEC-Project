@@ -70,26 +70,28 @@ body {
   padding-bottom: 1em;
 }
 
-.q-grid {
+.paddingtop {
+  padding-top: 1em;
+}
+
+/* .q-grid {
   display: grid;
   grid-template-columns: 4fr 125fr 30fr;
   grid-template-rows: 1fr;
-}
+} */
 
 .qabold {
   font-weight: bold
 }
 
-.a-grid {
+/* .a-grid {
   display: grid;
   grid-template-columns: 4fr 150fr;
   grid-template-rows: 1fr;
-}
+} */
 
 .qa-qhelpful {
-  display: grid;
-  grid-template-columns: 3fr 1.5fr 2fr 1fr 5fr;
-  grid-template-rows: 1fr;
+  float:right;
 }
 
 .qa-underline {
@@ -97,7 +99,10 @@ body {
 }
 
 .qa-userhelpful {
-  display: grid;
-  grid-template-columns: 1.25fr 4fr 5.25fr 1fr 3.5fr 1.5fr 2fr 1fr 6fr 45fr;
-  grid-template-rows: 1fr;
+  padding-bottom: 3em;
+}
+
+.qa-float {
+  float:left;
+  padding-right: 10px;
 }

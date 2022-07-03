@@ -3,21 +3,32 @@ import SearchBar from './searchbar.jsx';
 import QuestionAnswer from './questionAnswer.jsx';
 import BottomButtons from './bottomButtons.jsx';
 import data from '../../data/sampleData.js';
+import $ from 'jquery';
 
 
 class Qna extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      questions: data.questions
     };
   }
+
+  //props.productId = 71697
+
+  // componentDidMount() {
+  //   //get request to get all question/answers
+  //   $.get(url, (data) => {
+  //     //do sort with data then add to state
+  //   });
+  // }
 
   render() {
     return (
       <div>
         <div>QNA</div><br></br>
         <SearchBar /><br></br>
-        <QuestionAnswer /><br></br>
+        <QuestionAnswer questions={this.state.questions.results} /><br></br>
         <BottomButtons />
       </div>
     );

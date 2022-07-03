@@ -55,40 +55,28 @@ body {
 /*
 //////// QNA SECTION //////////////////////////////////////////////
 */
-.bar {
+.qa-bar {
   width: 100%;
   height: 50px;
   padding-left: 20px;
 }
 
-.paddingleft {
+.qa-paddingleft {
   padding-left: 10%;
   padding-right: 10%;
 }
 
-.paddingbottom {
+.qa-paddingbottom {
   padding-bottom: 1em;
 }
 
-.paddingtop {
+.qa-paddingtop {
   padding-top: 1em;
 }
 
-/* .q-grid {
-  display: grid;
-  grid-template-columns: 4fr 125fr 30fr;
-  grid-template-rows: 1fr;
-} */
-
-.qabold {
+.qa-bold {
   font-weight: bold
 }
-
-/* .a-grid {
-  display: grid;
-  grid-template-columns: 4fr 150fr;
-  grid-template-rows: 1fr;
-} */
 
 .qa-qhelpful {
   float:right;

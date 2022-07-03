@@ -1,7 +1,7 @@
 import React from 'react';
 
 var userhelpful = (props) => (
-  <div className='paddingleft qa-userhelpful'>
+  <div className='qa-paddingleft qa-userhelpful'>
     <div className='qa-float' >by</div>
     <div className='qa-float' >username,</div>
     <div className='qa-float' >May 1, 2019</div>

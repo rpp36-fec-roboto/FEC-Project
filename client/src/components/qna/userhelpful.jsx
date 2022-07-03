@@ -1,7 +1,7 @@
 import React from 'react';
 
 var userhelpful = (props) => {
-  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   var d = new Date(props.answer.date);
   var day = d.getDate();
   var month = d.getMonth();

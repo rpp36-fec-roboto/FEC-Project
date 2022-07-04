@@ -6,10 +6,16 @@ var ImageGallery = (props) => {
   var handleImgBtnClick = props.handleImgBtnClick;
   var handleImgThumbnailClick = props.handleImgThumbnailClick;
 
-  var imgThumbnails = (currentStyle) => {
+  // client's request of showing up to 7 thumbnails, using 4 to test up/down arrow function
+  var maxThumbnails = 4;
+
+  const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
+
+  var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
     // needs update for scrolling functionality
+    console.log(thumbnailStartIndex);
     var thumbnails = currentStyle.photos.map((photo, index) => {
-      if (index < 7) {
+      if (index >= thumbnailStartIndex && index < thumbnailStartIndex + maxThumbnails) {
         return (
           <li className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-thumbnail-selected" : "") }>
             <img
@@ -22,6 +28,26 @@ var ImageGallery = (props) => {
       }
     });
     return thumbnails;
+  };
+
+  // handle up/down arrow click in thumbnail img
+  var handleThumbnailScroll = (event) => {
+    // scroll by 3
+    var startIndex = thumbnailStartIndex;
+    if (event.target.name === 'up-click') {
+      startIndex += 3;
+    } else {
+      startIndex -= 3;
+    }
+
+    if (startIndex >= currentStyle.photos.length - 1) {
+      startIndex = currentStyle.photos.length - 1 - maxThumbnails;
+    }
+    if (startIndex < 0) {
+      startIndex = 0;
+    }
+
+    setThumbnailStartIndex(startIndex);
   };
 
   return (
@@ -37,15 +63,25 @@ var ImageGallery = (props) => {
         </div>
 
         <div className="ov-thumbnails-list-container">
-          <button className="ov-btn" onClick={() => {}}>up arrow</button>
+          <button
+            name="up-click"
+            disabled={thumbnailStartIndex === 0 ? true : false}
+            className="ov-btn"
+            onClick={handleThumbnailScroll}
+          >up arrow</button>
 
           <div className="ov-thumbnails-list">
             <ul>
-              {imgThumbnails(currentStyle)}
+              {imgThumbnails(currentStyle, thumbnailStartIndex)}
             </ul>
           </div>
 
-          <button className="ov-btn" onClick={() => {}}>down arrow</button>
+          <button
+            name="down-click"
+            disabled={maxThumbnails - thumbnailStartIndex <= 0 ? true : false}
+            className="ov-btn"
+            onClick={handleThumbnailScroll}
+          >down arrow</button>
         </div>
 
         {/* conditionally rendering of left and right arrow button */}

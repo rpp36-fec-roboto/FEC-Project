@@ -49,9 +49,6 @@ var Overview = (props) => {
     setMainImgIndex(imgIndex);
   };
 
-  // handle up/down arrow click in thumbnail img
-  var handleThumbnailScroll = () => {};
-
   return (
     <div className="overview-grid">
       <div className="ov-top-row">

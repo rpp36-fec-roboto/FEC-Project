@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 var ImageGallery = (props) => {
-  // images of selected style
-  // default view
-  // expaned view
+  var currentStyle = props.currentStyle;
+  var mainImgIndex = props.mainImgIndex;
+  var handleImgThumbnailClick = props.handleImgThumbnailClick;
 
   return (
     <div>
-      <div>Default view
-        <div>current selected image. Default is first image</div>
+      <div className="ov-default-view">
+        <img
+          className="ov-main-img"
+          src={currentStyle.photos[mainImgIndex].url}
+          alt={`#${mainImgIndex + 1} image of ${currentStyle.name}`}
+        />
         <div>thumbnail images of overlaying the default view image. Selection match current view.
           up to 7 thumbnail images in a column
         <button>arrows to scroll for more thumbnail images</button>

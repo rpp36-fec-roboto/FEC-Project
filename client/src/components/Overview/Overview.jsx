@@ -18,6 +18,12 @@ var Overview = (props) => {
   // set currentStyle to the default
   const [currentStyle, setStyle] = useState(helper.findDefaultStyle(productStyle));
 
+  // initiate app showing main image as the 1st image
+  const [mainImgIndex, setMainImgIndex] = useState(0);
+
+  // not decided on how to change between views
+  const [isDefaultView, setIsDefaultView] = useState(true);
+
   // ComponentDidMount
   useEffect(() => {
   }, []);
@@ -27,6 +33,9 @@ var Overview = (props) => {
 
   };
 
+  // handle mainImgIndex change
+  var handleImgThumbnailClick = (imgIndex) => {};
+
   return (
     <div className="overview-grid">
       <div className="ov-top-row">
@@ -34,6 +43,8 @@ var Overview = (props) => {
         <div className="ov-left-2">
           <ImageGallery
             currentStyle={currentStyle}
+            mainImgIndex={mainImgIndex}
+            handleImgThumbnailClick={handleImgThumbnailClick}
           />
         </div>
 

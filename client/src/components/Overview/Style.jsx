@@ -39,7 +39,9 @@ var Style = (props) => {
               height: '1.2em',
               width: 'auto'
             }}/>}
-          <img className='style-thumbnail' src={imageURL} alt={styleName}
+          <img
+            className='style-thumbnail'
+            src={imageURL} alt={styleName}
             onClick={e => { handleStyleChange(style); }}/>
         </div>
       );
@@ -57,7 +59,7 @@ var Style = (props) => {
           <span>{currentStyle.name}</span>
         </p>
       </div>
-      <div className="style-grid">
+      <div className="style-grid ov-padding-verticle">
         {thumnails(productStyle, currentStyle)}
       </div>
     </div>

@@ -6,6 +6,7 @@
 import React from 'react';
 import ReactDOMClient from 'react-dom/client';
 import { render, fireEvent, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
@@ -24,6 +25,20 @@ describe('helper function unit tests', () => {
 
   it('should calculate average rating', () => {
     expect(helper.calculateRating(sampleData.reviewsMeta.ratings)).toBe(3.86);
+  });
+
+  it('should return false when quantity of all skus in a style is 0', () => {
+    expect(helper.inStock(sampleData.outOfStockStyle.skus)).toBe(false);
+  });
+});
+
+describe('App rendering', () => {
+  let container = document.createElement('div');
+  it('render App without crashing', () => {
+    act(() => {
+      ReactDOMClient.createRoot(container).render(<App />);
+    });
+    expect(container).not.toBeNull();
   });
 });
 
@@ -47,13 +62,6 @@ describe('Components rendering', () => {
     expect(element).not.toBeNull();
   });
 
-  // it('render App without crashing', () => {
-  //   act(() => {
-  //     ReactDOMClient.createRoot(container).render(<App />);
-  //   });
-  //   expect(container).not.toBeNull();
-  // });
-
   it('render Overview component without crash', () => {
     act(() => {
       render(<Overview reviewsMeta={sampleData.reviewsMeta}/>, container);
@@ -68,8 +76,15 @@ describe('Components rendering', () => {
     // expect(container).not.toBeNull();
     render(<Cart currentStyle={sampleData.outOfStockStyle} />);
     expect(screen.getAllByRole('option').length).toBe(2);
-    expect(screen.getByRole('option', {name: 'OUT OF STOCK'})).not.toBeNull();
-    expect(screen.getByRole('option', {name: '-'})).not.toBeNull();
+    expect(screen.getByRole('option', {name: 'OUT OF STOCK'})).toBeInTheDocument();
+    expect(screen.getByRole('option', {name: '-'})).toBeInTheDocument();
   });
 
+});
+
+describe('User interaction', () => {
+  it('should switch between solid and empty star when click to add/remove from my outfit', () => {
+    render(<Cart currentStyle={sampleData.productStyle.results[0]} />);
+    // expect(screen.getByRole('div', { name: 'AiOutlineStar'})).toBeInTheDocument();
+  });
 });

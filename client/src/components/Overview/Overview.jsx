@@ -4,7 +4,7 @@ import helper from '../../../../lib/clientHelpers.js';
 
 import ProductInfo from './ProductInfo.jsx';
 import Style from './Style.jsx';
-import AddToCart from './AddToCart.jsx';
+import Cart from './Cart.jsx';
 import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
 
@@ -49,7 +49,7 @@ var Overview = (props) => {
             handleStyleChange={handleStyleChange}
           />
 
-          <AddToCart
+          <Cart
             currentStyle={currentStyle}
           />
         </div>

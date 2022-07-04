@@ -2,7 +2,6 @@ import React from 'react';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 
 var Style = (props) => {
-
   var currentStyle = props.currentStyle;
   var productStyle = props.productStyle;
   var handleStyleChange = props.handleStyleChange;
@@ -35,12 +34,14 @@ var Style = (props) => {
             style={{
               position: 'absolute',
               background: 'white',
-              'border-radius': '50%',
+              borderRadius: '50%',
               left: '80%',
               height: '1.2em',
               width: 'auto'
             }}/>}
-          <img className='style-thumbnail' src={imageURL} alt={styleName}
+          <img
+            className='style-thumbnail'
+            src={imageURL} alt={styleName}
             onClick={e => { handleStyleChange(style); }}/>
         </div>
       );
@@ -58,7 +59,7 @@ var Style = (props) => {
           <span>{currentStyle.name}</span>
         </p>
       </div>
-      <div className="style-grid">
+      <div className="style-grid ov-padding-verticle">
         {thumnails(productStyle, currentStyle)}
       </div>
     </div>

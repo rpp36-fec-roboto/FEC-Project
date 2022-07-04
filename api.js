@@ -13,7 +13,7 @@ let getData = (url, param, callback) => {
       callback(null, data.data);
     })
     .catch((error) => {
-      console.log('error getting data from api');
+      callback(error);
     });
 };
 

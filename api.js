@@ -16,4 +16,4 @@ let getData = (url, token, param, callback) => {
     });
 };
 
-module.exports = getData;
+module.exports.getData = getData;

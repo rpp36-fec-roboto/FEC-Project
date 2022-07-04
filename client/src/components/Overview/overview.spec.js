@@ -14,6 +14,7 @@ import helper from '../../../../lib/clientHelpers.js';
 
 import App from '../../App.jsx';
 import Overview from './Overview.jsx';
+import Cart from './Cart.jsx';
 
 describe('helper function unit tests', () => {
   it('should find the default style', () => {
@@ -26,36 +27,8 @@ describe('helper function unit tests', () => {
   });
 });
 
-describe('App', () => {
+describe('Components rendering', () => {
   let container;
-  beforeEach(() => {
-    // setup a DOM element as a render target
-    container = document.createElement('div');
-    document.body.appendChild(container);
-  });
-
-  afterEach(() => {
-    // cleanup on exiting
-    container.remove();
-    container = null;
-  });
-
-  it('use jsdom in this test file', () => {
-    const element = document.createElement('div');
-    expect(element).not.toBeNull();
-  });
-
-  it('render App without crashing', () => {
-    act(() => {
-      ReactDOMClient.createRoot(container).render(<App />);
-    });
-  });
-  expect(container).not.toBeNull();
-
-});
-
-describe('Overview Component', () => {
-  let container = null;
   beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement('div');
@@ -69,10 +42,34 @@ describe('Overview Component', () => {
     container = null;
   });
 
+  it('use jsdom in this test file', () => {
+    const element = document.createElement('div');
+    expect(element).not.toBeNull();
+  });
+
+  // it('render App without crashing', () => {
+  //   act(() => {
+  //     ReactDOMClient.createRoot(container).render(<App />);
+  //   });
+  //   expect(container).not.toBeNull();
+  // });
+
   it('render Overview component without crash', () => {
     act(() => {
       render(<Overview reviewsMeta={sampleData.reviewsMeta}/>, container);
     });
     expect(container).not.toBeNull();
   });
+
+  it('render Cart when style is out of stock', () => {
+    // act(() => {
+    //   render(<Cart currentStyle={sampleData.outOfStockStyle} />, container);
+    // });
+    // expect(container).not.toBeNull();
+    render(<Cart currentStyle={sampleData.outOfStockStyle} />);
+    expect(screen.getAllByRole('option').length).toBe(2);
+    expect(screen.getByRole('option', {name: 'OUT OF STOCK'})).not.toBeNull();
+    expect(screen.getByRole('option', {name: '-'})).not.toBeNull();
+  });
+
 });

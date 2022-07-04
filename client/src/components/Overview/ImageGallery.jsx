@@ -12,14 +12,14 @@ var ImageGallery = (props) => {
     var thumbnails = currentStyle.photos.map((photo, index) => {
       if (index < 7) {
         return (
-          <div className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-bottom-border" : "") }>
+          <li className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-thumbnail-selected" : "") }>
             <img
               className="ov-img-thumbnail"
               src={photo.thumbnail_url}
-              alt={`#${index + 1} image of ${currentStyle.name}`}
+              alt={`image #${index + 1} of ${currentStyle.name}`}
               onClick={ (e) => { handleImgThumbnailClick(index); } }
             />
-          </div>);
+          </li>);
       }
     });
     return thumbnails;
@@ -37,14 +37,22 @@ var ImageGallery = (props) => {
           />
         </div>
 
-        <div className="ov-thumbnails-grid">
-          {mainImgIndex !== 0 && (<button>upward arrow</button>)}
-          {imgThumbnails(currentStyle)}
-          {mainImgIndex !== currentStyle.photos.length - 1 && (<button>downward arrow</button>)}
+        <div className="ov-thumbnails-list-container">
+          <button className="ov-btn" onClick={() => {}}>up arrow</button>
+          <div className="ov-thumbnails-list">
+            <ul>
+              {imgThumbnails(currentStyle)}
+            </ul>
+          </div>
+          <button className="ov-btn" onClick={() => {}}>down arrow</button>
         </div>
 
-        <button>Right arrow</button>
-        <button>Left arrow</button>
+        {mainImgIndex !== 0 &&
+          <button className="ov-btn ov-left-btn">Left arrow</button>
+        }
+        {mainImgIndex !== currentStyle.photos.length - 1 &&
+          <button className="ov-btn ov-right-btn">Right arrow</button>
+        }
       </div>
 
       <div>Expaneded view

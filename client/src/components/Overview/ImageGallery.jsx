@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 var ImageGallery = (props) => {
   var currentStyle = props.currentStyle;
   var mainImgIndex = props.mainImgIndex;
+  var handleImgBtnClick = props.handleImgBtnClick;
   var handleImgThumbnailClick = props.handleImgThumbnailClick;
-
-  // const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(mainImgIndex);
 
   var imgThumbnails = (currentStyle) => {
     // needs update for scrolling functionality
@@ -33,25 +32,36 @@ var ImageGallery = (props) => {
           <img
             className="ov-main-img"
             src={currentStyle.photos[mainImgIndex].url}
-            alt={`#${mainImgIndex + 1} image of ${currentStyle.name}`}
+            alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
           />
         </div>
 
         <div className="ov-thumbnails-list-container">
           <button className="ov-btn" onClick={() => {}}>up arrow</button>
+
           <div className="ov-thumbnails-list">
             <ul>
               {imgThumbnails(currentStyle)}
             </ul>
           </div>
+
           <button className="ov-btn" onClick={() => {}}>down arrow</button>
         </div>
 
+        {/* conditionally rendering of left and right arrow button */}
         {mainImgIndex !== 0 &&
-          <button className="ov-btn ov-left-btn">Left arrow</button>
+          <button
+            name="left-click"
+            className="ov-btn ov-left-btn"
+            onClick={handleImgBtnClick}
+          >Left arrow</button>
         }
         {mainImgIndex !== currentStyle.photos.length - 1 &&
-          <button className="ov-btn ov-right-btn">Right arrow</button>
+          <button
+            name="right-click"
+            className="ov-btn ov-right-btn"
+            onClick={handleImgBtnClick}
+          >Right arrow</button>
         }
       </div>
 

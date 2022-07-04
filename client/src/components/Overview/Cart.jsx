@@ -48,7 +48,7 @@ var Cart = (props) => {
     }
   };
 
-  var handleAddMyOutfit = (e) => {
+  var handleAddMyOutfit = (event) => {
     if (isMyOutfit) {
       // remove from myOutfit
     } else {
@@ -58,8 +58,8 @@ var Cart = (props) => {
     setIsMyOutfit(!isMyOutfit);
   };
 
-  var handleAddToCart = (e) => {
-    e.preventDefault();
+  var handleAddToCart = (event) => {
+    event.preventDefault();
 
     var body = {
       size: selectedSize,

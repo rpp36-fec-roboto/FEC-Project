@@ -33,8 +33,24 @@ var Overview = (props) => {
 
   };
 
-  // handle mainImgIndex change
-  var handleImgThumbnailClick = (imgIndex) => {};
+  // handle left/right button click on main image
+  var handleImgBtnClick = (event) => {
+    // increase/decrease mainImgIndex by 1
+    if (event.target.name === 'left-click') {
+      setMainImgIndex(mainImgIndex - 1);
+    }
+    if (event.target.name === 'right-click') {
+      setMainImgIndex(mainImgIndex + 1);
+    }
+  };
+
+  // handle thumbnail img click
+  var handleImgThumbnailClick = (imgIndex) => {
+    setMainImgIndex(imgIndex);
+  };
+
+  // handle up/down arrow click in thumbnail img
+  var handleThumbnailScroll = () => {};
 
   return (
     <div className="overview-grid">
@@ -44,6 +60,7 @@ var Overview = (props) => {
           <ImageGallery
             currentStyle={currentStyle}
             mainImgIndex={mainImgIndex}
+            handleImgBtnClick={handleImgBtnClick}
             handleImgThumbnailClick={handleImgThumbnailClick}
           />
         </div>

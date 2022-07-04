@@ -23,6 +23,7 @@ class Qna extends React.Component {
       data: {'product_id': this.props.productId},
       success: (data) => {
         console.log(data);
+        this.setState({questions: data});
       }
     });
   }
@@ -30,10 +31,9 @@ class Qna extends React.Component {
   render() {
     return (
       <div>
-        <div>QNA</div><br></br>
         <SearchBar /><br></br>
         <QuestionAnswer questions={this.state.questions.results} /><br></br>
-        <BottomButtons />
+        <BottomButtons questions={this.state.questions.results} />
       </div>
     );
   }

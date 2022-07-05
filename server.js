@@ -12,7 +12,7 @@ app.get('/qa/questions', (req, res) => {
   var param = req._parsedOriginalUrl.search; //will give you the product_id param  ?product_id=71697
   api.getData('/qa/questions', param, (err, data) => {
     if (err) {
-      console.log('error getting data in server');
+      res.status(404).send('Error getting data from the API');
     } else {
       res.send(data);
     }

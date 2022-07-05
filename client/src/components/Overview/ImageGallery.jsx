@@ -3,26 +3,51 @@ import React, { useState } from 'react';
 var ImageGallery = (props) => {
   var currentStyle = props.currentStyle;
   var mainImgIndex = props.mainImgIndex;
+  var handleImgBtnClick = props.handleImgBtnClick;
   var handleImgThumbnailClick = props.handleImgThumbnailClick;
 
-  // const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(mainImgIndex);
+  // client's request of showing up to 7 thumbnails, using 4 to test up/down arrow function
+  var maxThumbnails = 4;
 
-  var imgThumbnails = (currentStyle) => {
+  const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
+
+  var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
     // needs update for scrolling functionality
+    console.log(thumbnailStartIndex);
     var thumbnails = currentStyle.photos.map((photo, index) => {
-      if (index < 7) {
+      if (index >= thumbnailStartIndex && index < thumbnailStartIndex + maxThumbnails) {
         return (
-          <div className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-bottom-border" : "") }>
+          <li className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-thumbnail-selected" : "") }>
             <img
               className="ov-img-thumbnail"
               src={photo.thumbnail_url}
-              alt={`#${index + 1} image of ${currentStyle.name}`}
+              alt={`image #${index + 1} of ${currentStyle.name}`}
               onClick={ (e) => { handleImgThumbnailClick(index); } }
             />
-          </div>);
+          </li>);
       }
     });
     return thumbnails;
+  };
+
+  // handle up/down arrow click in thumbnail img
+  var handleThumbnailScroll = (event) => {
+    // scroll by 3
+    var startIndex = thumbnailStartIndex;
+    if (event.target.name === 'up-click') {
+      startIndex += 3;
+    } else {
+      startIndex -= 3;
+    }
+
+    if (startIndex >= currentStyle.photos.length - 1) {
+      startIndex = currentStyle.photos.length - 1 - maxThumbnails;
+    }
+    if (startIndex < 0) {
+      startIndex = 0;
+    }
+
+    setThumbnailStartIndex(startIndex);
   };
 
   return (
@@ -33,18 +58,47 @@ var ImageGallery = (props) => {
           <img
             className="ov-main-img"
             src={currentStyle.photos[mainImgIndex].url}
-            alt={`#${mainImgIndex + 1} image of ${currentStyle.name}`}
+            alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
           />
         </div>
 
-        <div className="ov-thumbnails-grid">
-          {mainImgIndex !== 0 && (<button>upward arrow</button>)}
-          {imgThumbnails(currentStyle)}
-          {mainImgIndex !== currentStyle.photos.length - 1 && (<button>downward arrow</button>)}
+        <div className="ov-thumbnails-list-container">
+          <button
+            name="up-click"
+            disabled={thumbnailStartIndex === 0 ? true : false}
+            className="ov-btn"
+            onClick={handleThumbnailScroll}
+          >up arrow</button>
+
+          <div className="ov-thumbnails-list">
+            <ul>
+              {imgThumbnails(currentStyle, thumbnailStartIndex)}
+            </ul>
+          </div>
+
+          <button
+            name="down-click"
+            disabled={maxThumbnails - thumbnailStartIndex <= 0 ? true : false}
+            className="ov-btn"
+            onClick={handleThumbnailScroll}
+          >down arrow</button>
         </div>
 
-        <button>Right arrow</button>
-        <button>Left arrow</button>
+        {/* conditionally rendering of left and right arrow button */}
+        {mainImgIndex !== 0 &&
+          <button
+            name="left-click"
+            className="ov-btn ov-left-btn"
+            onClick={handleImgBtnClick}
+          >Left arrow</button>
+        }
+        {mainImgIndex !== currentStyle.photos.length - 1 &&
+          <button
+            name="right-click"
+            className="ov-btn ov-right-btn"
+            onClick={handleImgBtnClick}
+          >Right arrow</button>
+        }
       </div>
 
       <div>Expaneded view

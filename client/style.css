@@ -25,37 +25,55 @@ body {
 /* Image Gallery Styling*/
 .ov-default-view-container {
   text-align: center;
-  height: 800px;
+  height: 620px;
   width: auto;
   position: relative;
 }
 
 .ov-main-img-container {
   height: 100%;
-  width:100%;
+  width: 100%;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-/* .ov-thumbnails-container {
-  z-index: 5px;
-  margin: 10px;
-  height: 500px;
-  width: 5em;
+.ov-thumbnails-list-container {
+  z-index: 5;
   position: absolute;
-} */
-
-.ov-thumbnails-grid {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 7px;
-  width: 4.5em;
 }
 
-.ov-thumbnails-container {
-  height: 4.1em;
-  width: 4.1em;
+.ov-img-thumbnail {
+  z-index: 1;
+}
+
+.ov-thumbnails-list {
+  text-align: center;
+}
+
+.ov-thumbnails-list ul {
+  display: inline-block;
+  list-style: none;
+  padding: 0px;
+}
+
+.ov-thumbnail-container {
+  height: 70px;
+  width: 70px;
+  margin-top: 6px;
+}
+
+.ov-left-btn, .ov-right-btn {
+  position: absolute;
+  top: 50%;
+}
+
+.ov-left-btn {
+  left: 90px;
+}
+
+.ov-right-btn {
+  right: 0;
 }
 
 /* Style styling*/
@@ -71,7 +89,7 @@ body {
   height: auto;
 }
 
-/* Image Styling */
+/* Images styling */
 .style-thumbnail, .ov-img-thumbnail {
   border: 1.5px solid rgb(65, 64, 64);
   height: 4em;
@@ -90,7 +108,7 @@ body {
   object-fit: contain;
 }
 
-/* Text Styling*/
+/* Text styling*/
 .ov-all-cap {
   text-transform: uppercase;
 }
@@ -99,7 +117,13 @@ body {
   font-weight: bold;
 }
 
-/* Other Styling*/
+/* Other styling*/
+.ov-btn {
+  /* border-style: none; */
+  background-color: rgba(0, 0, 0, 0);
+  height: 2em;
+}
+
 .ov-border {
   border: 1px solid rgb(66, 63, 63);
 }
@@ -109,7 +133,7 @@ body {
   padding-bottom: 5%;
 }
 
-.ov-bottom-border {
+.ov-thumbnail-selected {
   border-bottom: 2px solid rgb(45, 43, 43);
 }
 

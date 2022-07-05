@@ -5,13 +5,13 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 var Cart = (props) => {
   var skus = props.currentStyle.skus;
 
-  var [selectedSize, setSize] = useState('');
-  var [noSizes, setNoSizes] = useState(false);
-  var [selectedQuant, setQuant] = useState(1);
+  const [selectedSize, setSize] = useState('');
+  const [noSizes, setNoSizes] = useState(false);
+  const [selectedQuant, setQuant] = useState(1);
 
   // this should be determined by getting information from locally saved myOutfit
   // may need a helper function VS server request to determine initial state
-  var [isMyOutfit, setIsMyOutfit] = useState(false);
+  const [isMyOutfit, setIsMyOutfit] = useState(false);
 
   var sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
@@ -48,7 +48,7 @@ var Cart = (props) => {
     }
   };
 
-  var handleAddMyOutfit = (e) => {
+  var handleAddMyOutfit = (event) => {
     if (isMyOutfit) {
       // remove from myOutfit
     } else {
@@ -58,8 +58,8 @@ var Cart = (props) => {
     setIsMyOutfit(!isMyOutfit);
   };
 
-  var handleAddToCart = (e) => {
-    e.preventDefault();
+  var handleAddToCart = (event) => {
+    event.preventDefault();
 
     var body = {
       size: selectedSize,

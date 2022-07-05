@@ -18,6 +18,12 @@ var Overview = (props) => {
   // set currentStyle to the default
   const [currentStyle, setStyle] = useState(helper.findDefaultStyle(productStyle));
 
+  // initiate app showing main image as the 1st image
+  const [mainImgIndex, setMainImgIndex] = useState(0);
+
+  // not decided on how to change between views
+  const [isDefaultView, setIsDefaultView] = useState(true);
+
   // ComponentDidMount
   useEffect(() => {
   }, []);
@@ -27,6 +33,22 @@ var Overview = (props) => {
 
   };
 
+  // handle left/right button click on main image
+  var handleImgBtnClick = (event) => {
+    // increase/decrease mainImgIndex by 1
+    if (event.target.name === 'left-click') {
+      setMainImgIndex(mainImgIndex - 1);
+    }
+    if (event.target.name === 'right-click') {
+      setMainImgIndex(mainImgIndex + 1);
+    }
+  };
+
+  // handle thumbnail img click
+  var handleImgThumbnailClick = (imgIndex) => {
+    setMainImgIndex(imgIndex);
+  };
+
   return (
     <div className="overview-grid">
       <div className="ov-top-row">
@@ -34,6 +56,9 @@ var Overview = (props) => {
         <div className="ov-left-2">
           <ImageGallery
             currentStyle={currentStyle}
+            mainImgIndex={mainImgIndex}
+            handleImgBtnClick={handleImgBtnClick}
+            handleImgThumbnailClick={handleImgThumbnailClick}
           />
         </div>
 

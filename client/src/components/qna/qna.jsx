@@ -16,20 +16,24 @@ class Qna extends React.Component {
 
   //props.productId = 71697
 
-  // componentDidMount() {
-  //   //get request to get all question/answers
-  //   $.get(url, (data) => {
-  //     //do sort with data then add to state
-  //   });
-  // }
+  componentDidMount() {
+    //get request to get all question/answers
+    $.ajax({
+      url: '/qa/questions',
+      data: {'product_id': this.props.productId},
+      success: (data) => {
+        console.log(data);
+        this.setState({questions: data});
+      }
+    });
+  }
 
   render() {
     return (
       <div>
-        <div>QNA</div><br></br>
         <SearchBar /><br></br>
         <QuestionAnswer questions={this.state.questions.results} /><br></br>
-        <BottomButtons />
+        <BottomButtons questions={this.state.questions.results} />
       </div>
     );
   }

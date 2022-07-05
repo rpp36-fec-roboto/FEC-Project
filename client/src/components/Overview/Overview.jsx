@@ -118,7 +118,8 @@ var Overview = (props) => {
 
       </div>
 
-      <OtherInfo />
+      <OtherInfo
+        productInfo={productInfo}/>
     </div>
   );
 };

@@ -15,7 +15,10 @@ var ImageGallery = (props) => {
     var thumbnails = currentStyle.photos.map((photo, index) => {
       if (index >= thumbnailStartIndex && index < thumbnailStartIndex + maxThumbnails) {
         return (
-          <li className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-thumbnail-selected" : "") }>
+          <li
+            key={index.toString()}
+            className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-thumbnail-selected" : "") }
+          >
             <img
               className="ov-img-thumbnail"
               src={photo.thumbnail_url}
@@ -79,10 +82,6 @@ var ImageGallery = (props) => {
             onClick={handleImgBtnClick}
           >Right arrow</button>
         }
-      </div>
-
-      <div>Expaneded view
-        <div>current image overlaying entire overview besides other info</div>
       </div>
     </div>
   );

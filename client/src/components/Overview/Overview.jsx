@@ -15,13 +15,8 @@ var Overview = (props) => {
   var productInfo = sampleData.productInfo; // initiate by GET GET /products/:product_id
   var productStyle = sampleData.productStyle; // initiate by GET 'products/:product/styles/'
 
-  // not decided on how to change between views
-  const [isDefaultView, setIsDefaultView] = useState(true);
-
-  // set currentStyle to the default
   const [currentStyle, setStyle] = useState(helper.findDefaultStyle(productStyle));
-
-  // initiate app showing main image as the 1st image
+  const [isDefaultView, setIsDefaultView] = useState(true);
   const [mainImgIndex, setMainImgIndex] = useState(0);
 
   // client's request of showing up to 7 thumbnails, using 4 to test up/down arrow function
@@ -58,11 +53,6 @@ var Overview = (props) => {
 
   };
 
-  // handle thumbnail img click
-  var handleImgThumbnailClick = (imgIndex) => {
-    setMainImgIndex(imgIndex);
-  };
-
   var handleThumbnailScroll = (event) => {
     // scroll by 3
     var startIndex = thumbnailStartIndex;
@@ -79,9 +69,20 @@ var Overview = (props) => {
     setThumbnailStartIndex(startIndex);
   };
 
+  // handle thumbnail img click
+  var handleImgThumbnailClick = (imgIndex) => {
+    setMainImgIndex(imgIndex);
+  };
+
+  // handle main image click
+  var handleImgClick = () => {
+    console.log('img clicked');
+    setIsDefaultView(!isDefaultView);
+  };
+
   return (
     <div className="overview-grid">
-      <div className="ov-top-row">
+      <div className={`ov-top-row-${isDefaultView ? 'default' : 'expended'}`}>
 
         <div className="ov-left-2">
           <ImageGallery
@@ -92,25 +93,28 @@ var Overview = (props) => {
             handleImgBtnClick={handleImgBtnClick}
             handleImgThumbnailClick={handleImgThumbnailClick}
             handleThumbnailScroll={handleThumbnailScroll}
+            handleImgClick={handleImgClick}
           />
         </div>
 
-        <div className="ov-right-1">
-          <ProductInfo
-            productInfo={productInfo}
-            rating={helper.calculateRating(reviewsMeta.ratings)}
-          />
+        {// Only in default view, show product info, style selector and cart
+          isDefaultView &&
+          <div className="ov-right-1">
+            <ProductInfo
+              productInfo={productInfo}
+              rating={helper.calculateRating(reviewsMeta.ratings)}
+            />
 
-          <Style
-            productStyle={productStyle}
-            currentStyle={currentStyle}
-            handleStyleChange={handleStyleChange}
-          />
+            <Style
+              productStyle={productStyle}
+              currentStyle={currentStyle}
+              handleStyleChange={handleStyleChange}
+            />
 
-          <Cart
-            currentStyle={currentStyle}
-          />
-        </div>
+            <Cart
+              currentStyle={currentStyle}
+            />
+          </div>}
 
       </div>
 

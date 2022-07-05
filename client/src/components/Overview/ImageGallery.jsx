@@ -9,6 +9,7 @@ var ImageGallery = (props) => {
   var handleImgBtnClick = props.handleImgBtnClick;
   var handleImgThumbnailClick = props.handleImgThumbnailClick;
   var handleThumbnailScroll = props.handleThumbnailScroll;
+  var handleImgClick = props.handleImgClick;
 
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
     var thumbnails = currentStyle.photos.map((photo, index) => {
@@ -29,11 +30,12 @@ var ImageGallery = (props) => {
 
   return (
     <div>
-      <div className="ov-default-view-container">
+      <div className="ov-img-view-container">
 
         <div className="ov-main-img-container">
           <img
             className="ov-main-img"
+            onClick={handleImgClick}
             src={currentStyle.photos[mainImgIndex].url}
             alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
           />
@@ -61,15 +63,16 @@ var ImageGallery = (props) => {
           >down arrow</button>
         </div>
 
-        {/* conditionally rendering of left and right arrow button */}
-        {mainImgIndex !== 0 &&
+        { // conditionally rendering of left arrow button
+          mainImgIndex !== 0 &&
           <button
             name="left-click"
             className="ov-btn ov-left-btn"
             onClick={handleImgBtnClick}
           >Left arrow</button>
         }
-        {mainImgIndex !== currentStyle.photos.length - 1 &&
+        { // conditionally rendering of left arrow button
+          mainImgIndex !== currentStyle.photos.length - 1 &&
           <button
             name="right-click"
             className="ov-btn ov-right-btn"

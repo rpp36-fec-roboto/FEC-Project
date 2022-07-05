@@ -31,18 +31,18 @@ var ImageGallery = (props) => {
   };
 
   // handle up/down arrow click in thumbnail img
-  var handleThumbnailScroll = (event) => {
+  var handleThumbnailScroll = (director, thumbnailStartIndex) => {
     // scroll by 3
     var startIndex = thumbnailStartIndex;
-    if (event.target.name === 'up-click') {
+    if (director === 'down') {
       startIndex += 3;
     } else {
       startIndex -= 3;
     }
 
-    if (startIndex >= currentStyle.photos.length - 1) {
-      startIndex = currentStyle.photos.length - 1 - maxThumbnails;
-    }
+    // if (startIndex >= currentStyle.photos.length - 1) {
+    //   startIndex = currentStyle.photos.length - 1 - maxThumbnails;
+    // }
     if (startIndex < 0) {
       startIndex = 0;
     }
@@ -64,10 +64,9 @@ var ImageGallery = (props) => {
 
         <div className="ov-thumbnails-list-container">
           <button
-            name="up-click"
             disabled={thumbnailStartIndex === 0 ? true : false}
             className="ov-btn"
-            onClick={handleThumbnailScroll}
+            onClick={(e) => { handleThumbnailScroll('up', thumbnailStartIndex); }}
           >up arrow</button>
 
           <div className="ov-thumbnails-list">
@@ -77,10 +76,9 @@ var ImageGallery = (props) => {
           </div>
 
           <button
-            name="down-click"
-            disabled={maxThumbnails - thumbnailStartIndex <= 0 ? true : false}
+            disabled={maxThumbnails >= (currentStyle.photos.length - thumbnailStartIndex) ? true : false}
             className="ov-btn"
-            onClick={handleThumbnailScroll}
+            onClick={ (e) => { handleThumbnailScroll('down', thumbnailStartIndex); }}
           >down arrow</button>
         </div>
 

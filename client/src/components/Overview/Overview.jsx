@@ -10,7 +10,6 @@ import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
 
 var Overview = (props) => {
-
   // data props
   var productId = props.productId; // props from App level state
   var reviewsMeta = props.reviewsMeta; // props from the App level state
@@ -19,6 +18,7 @@ var Overview = (props) => {
   // event handler props
   var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
+  // managed state
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
   const [productStyle, setProductStyle] = useState(sampleData.productStyle);
   const [currentStyle, setCurrentStyle] = useState(helper.findDefaultStyle(productStyle));

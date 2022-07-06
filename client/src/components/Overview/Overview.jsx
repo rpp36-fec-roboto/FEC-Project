@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import sampleData from '../../data/sampleData.js';
 import helper from '../../../../lib/clientHelpers.js';
 
@@ -18,19 +19,30 @@ var Overview = (props) => {
   // event handler props
   var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
-  var productInfo = sampleData.productInfo; // initiate by GET /products/:product_id
-  var productStyle = sampleData.productStyle; // initiate by GET 'products/:product/styles/'
-
+  const [productInfo, setProductInfo] = useState(sampleData.productInfo);
+  const [productStyle, setProductStyle] = useState(sampleData.productStyle);
   const [currentStyle, setCurrentStyle] = useState(helper.findDefaultStyle(productStyle));
   const [isDefaultView, setIsDefaultView] = useState(true);
   const [mainImgIndex, setMainImgIndex] = useState(0);
 
-  // client's request of showing up to 7 thumbnails, using 4 to test up/down arrow function
+  // client requests to show up to 7 thumbnails, using 4 to test up/down arrow function
   var maxThumbnails = 4;
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
 
   // ComponentDidMount
   useEffect(() => {
+    var productInfoRequest = axios.get(`/products/${productId}`);
+    var styleRequest = axios.get(`/products/${productId}/styles`);
+
+    axios.all([productInfoRequest, styleRequest])
+      .then(axios.spread((...responses) => {
+        console.dir(responses[0].data);
+        console.dir(responses[1].data);
+        setProductInfo(responses[0].data);
+        setProductStyle(responses[1].data);
+      }))
+      .catch( err => { console.log(err); });
+
   }, []);
 
   // handle style change
@@ -82,7 +94,6 @@ var Overview = (props) => {
 
   // handle main image click
   var handleImgClick = () => {
-    console.log('img clicked');
     setIsDefaultView(!isDefaultView);
   };
 

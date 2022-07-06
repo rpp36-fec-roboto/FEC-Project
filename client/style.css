@@ -16,14 +16,14 @@ body {
   min-width: 1000px;
 }
 
-.ov-top-row, .ov-bottom-row {
+.ov-top-row-default, .ov-bottom-row {
   display: grid;
   grid-gap: 2em;
   grid-template-columns: 2fr 1fr;
 }
 
 /* Image Gallery Styling*/
-.ov-default-view-container {
+.ov-img-view-container {
   text-align: center;
   height: 620px;
   width: auto;
@@ -108,6 +108,13 @@ body {
   object-fit: contain;
 }
 
+.ov-top-row-default .ov-main-img:hover {
+  cursor: zoom-in;
+}
+.ov-main-img:hover {
+  cursor: zoom-out;
+}
+
 /* Text styling*/
 .ov-all-cap {
   text-transform: uppercase;
@@ -136,6 +143,10 @@ body {
 .ov-thumbnail-selected {
   border-bottom: 2px solid rgb(45, 43, 43);
 }
+
+/* .ov-product-feature ul {
+  list-style: '√';
+} */
 
 /*
 //////// QNA SECTION //////////////////////////////////////////////

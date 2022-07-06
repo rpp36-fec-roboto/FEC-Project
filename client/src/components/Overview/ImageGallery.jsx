@@ -3,21 +3,22 @@ import React, { useState } from 'react';
 var ImageGallery = (props) => {
   var currentStyle = props.currentStyle;
   var mainImgIndex = props.mainImgIndex;
+  var thumbnailStartIndex = props.thumbnailStartIndex;
+  var maxThumbnails = props.maxThumbnails;
+
   var handleImgBtnClick = props.handleImgBtnClick;
   var handleImgThumbnailClick = props.handleImgThumbnailClick;
-
-  // client's request of showing up to 7 thumbnails, using 4 to test up/down arrow function
-  var maxThumbnails = 4;
-
-  const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
+  var handleThumbnailScroll = props.handleThumbnailScroll;
+  var handleImgClick = props.handleImgClick;
 
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
-    // needs update for scrolling functionality
-    console.log(thumbnailStartIndex);
     var thumbnails = currentStyle.photos.map((photo, index) => {
       if (index >= thumbnailStartIndex && index < thumbnailStartIndex + maxThumbnails) {
         return (
-          <li className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-thumbnail-selected" : "") }>
+          <li
+            key={index.toString()}
+            className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-thumbnail-selected" : "") }
+          >
             <img
               className="ov-img-thumbnail"
               src={photo.thumbnail_url}
@@ -30,33 +31,14 @@ var ImageGallery = (props) => {
     return thumbnails;
   };
 
-  // handle up/down arrow click in thumbnail img
-  var handleThumbnailScroll = (event) => {
-    // scroll by 3
-    var startIndex = thumbnailStartIndex;
-    if (event.target.name === 'up-click') {
-      startIndex += 3;
-    } else {
-      startIndex -= 3;
-    }
-
-    if (startIndex >= currentStyle.photos.length - 1) {
-      startIndex = currentStyle.photos.length - 1 - maxThumbnails;
-    }
-    if (startIndex < 0) {
-      startIndex = 0;
-    }
-
-    setThumbnailStartIndex(startIndex);
-  };
-
   return (
     <div>
-      <div className="ov-default-view-container">
+      <div className="ov-img-view-container">
 
         <div className="ov-main-img-container">
           <img
             className="ov-main-img"
+            onClick={handleImgClick}
             src={currentStyle.photos[mainImgIndex].url}
             alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
           />
@@ -78,31 +60,28 @@ var ImageGallery = (props) => {
 
           <button
             name="down-click"
-            disabled={maxThumbnails - thumbnailStartIndex <= 0 ? true : false}
+            disabled={maxThumbnails >= (currentStyle.photos.length - thumbnailStartIndex) ? true : false}
             className="ov-btn"
             onClick={handleThumbnailScroll}
           >down arrow</button>
         </div>
 
-        {/* conditionally rendering of left and right arrow button */}
-        {mainImgIndex !== 0 &&
+        { // conditionally rendering of left arrow button
+          mainImgIndex !== 0 &&
           <button
             name="left-click"
             className="ov-btn ov-left-btn"
             onClick={handleImgBtnClick}
           >Left arrow</button>
         }
-        {mainImgIndex !== currentStyle.photos.length - 1 &&
+        { // conditionally rendering of left arrow button
+          mainImgIndex !== currentStyle.photos.length - 1 &&
           <button
             name="right-click"
             className="ov-btn ov-right-btn"
             onClick={handleImgBtnClick}
           >Right arrow</button>
         }
-      </div>
-
-      <div>Expaneded view
-        <div>current image overlaying entire overview besides other info</div>
       </div>
     </div>
   );

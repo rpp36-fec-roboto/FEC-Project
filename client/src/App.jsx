@@ -9,8 +9,30 @@ class App extends React.Component {
     super();
     this.state = {
       productId: 71697, // default id to render when open the webpage
-      reviewsMeta: sampleData.reviewsMeta
+      reviewsMeta: sampleData.reviewsMeta,
+      yourOutfit: [],
+      isYourOutfit: false
     };
+  }
+
+  handleYourOutfitStarClick (productId) {
+    // make a copy of yourOutfit
+    var updatedYourOutfit = this.state.yourOutfit.slice();
+    var indexOfProduct = this.state.yourOutfit.indexOf(productId);
+
+    if (indexOfProduct === -1) {
+      updatedYourOutfit.unshift(productId);
+      this.setState({
+        yourOutfit: updatedYourOutfit,
+        isYourOutfit: !this.state.isYourOutfit
+      });
+    } else {
+      this.state.yourOutfit.splice(indexOfProduct, 1);
+      this.setState({
+        yourOutfit: updatedYourOutfit,
+        isYourOutfit: !this.state.isYourOutfit
+      });
+    }
   }
 
   render() {
@@ -19,6 +41,8 @@ class App extends React.Component {
         <Overview
           productId={this.state.productId}
           reviewsMeta={this.state.reviewsMeta}
+          isYourOutfit={this.state.isYourOutfit}
+          handleYourOutfitStarClick={ () => { this.handleYourOutfitStarClick(this.state.productId); } }
         />
         <RelatedItems productId={this.state.productId}/>
         <Qna productId={this.state.productId}/>

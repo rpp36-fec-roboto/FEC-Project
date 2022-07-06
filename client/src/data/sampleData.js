@@ -443,7 +443,7 @@ module.exports.relatedProduct = [
   71699,
   71704,
   71703
-] // product_ids
+]; // product_ids
 
 module.exports.reviews = {
   "product": "71697",

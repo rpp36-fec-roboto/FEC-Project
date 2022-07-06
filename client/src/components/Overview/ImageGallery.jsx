@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 
 var ImageGallery = (props) => {
+  // data props
   var currentStyle = props.currentStyle;
   var mainImgIndex = props.mainImgIndex;
   var thumbnailStartIndex = props.thumbnailStartIndex;
   var maxThumbnails = props.maxThumbnails;
 
+  // event handlers props
   var handleImgBtnClick = props.handleImgBtnClick;
   var handleImgThumbnailClick = props.handleImgThumbnailClick;
   var handleThumbnailScroll = props.handleThumbnailScroll;
   var handleImgClick = props.handleImgClick;
 
+  // generate thumbnail img list
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
     var thumbnails = currentStyle.photos.map((photo, index) => {
       if (index >= thumbnailStartIndex && index < thumbnailStartIndex + maxThumbnails) {

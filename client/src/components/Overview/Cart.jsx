@@ -4,6 +4,9 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 var Cart = (props) => {
   var skus = props.currentStyle.skus;
+  var isYourOutfit = props.isYourOutfit;
+
+  var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
   const [selectedSize, setSize] = useState('');
   const [noSizes, setNoSizes] = useState(false);
@@ -19,7 +22,6 @@ var Cart = (props) => {
     } else {
       var sizes = Object.keys(skus).map(sku => {
         var skuObj = skus[sku];
-
         if (skuObj.quantity) {
           return <option key={sku} value={sku}>{skuObj.size}</option>;
         }
@@ -86,14 +88,15 @@ var Cart = (props) => {
           {quantitySelector(selectedSize)}
         </select>
 
+        <br></br>
         <input type="submit" value="ADD TO CART                    +" className="ov-boarder"></input>
       </form>
-      <div className="my-outfit-star">{
-        isMyOutfit ?
-          <AiFillStar onClick={handleAddMyOutfit}/>
+      <button className="my-outfit-star">{
+        isYourOutfit ?
+          <AiFillStar onClick={handleYourOutfitStarClick}/>
           :
-          <AiOutlineStar onClick={handleAddMyOutfit}/>
-      }</div>
+          <AiOutlineStar onClick={handleYourOutfitStarClick}/>
+      }</button>
     </div>
   );
 };

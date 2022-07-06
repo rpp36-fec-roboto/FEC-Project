@@ -19,22 +19,18 @@ var Overview = (props) => {
   // event handler props
   var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
-  // var productInfo = sampleData.productInfo; // initiate by GET /products/:product_id
-  // var productStyle = sampleData.productStyle; // initiate by GET 'products/:product/styles/'
-
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
   const [productStyle, setProductStyle] = useState(sampleData.productStyle);
   const [currentStyle, setCurrentStyle] = useState(helper.findDefaultStyle(productStyle));
   const [isDefaultView, setIsDefaultView] = useState(true);
   const [mainImgIndex, setMainImgIndex] = useState(0);
 
-  // client's request of showing up to 7 thumbnails, using 4 to test up/down arrow function
+  // client requests to show up to 7 thumbnails, using 4 to test up/down arrow function
   var maxThumbnails = 4;
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
 
   // ComponentDidMount
   useEffect(() => {
-    // make get request to server for ProductInfo and ProductStyle
     var params = { 'product_id': productId };
     var productInfoRequest = axios.get('/products', { params });
     var styleRequest = axios.get('/products/styles', { params });

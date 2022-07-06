@@ -6,6 +6,7 @@ var Style = (props) => {
   var productStyle = props.productStyle;
   var handleStyleChange = props.handleStyleChange;
 
+  // conditionally render price based on on-sale/not-on-sale
   var price = (currentStyle) => {
     var originalPrice = currentStyle['original_price'];
     var salePrice = currentStyle['sale_price'];
@@ -23,7 +24,8 @@ var Style = (props) => {
     }
   };
 
-  var thumnails = (productStyle, currentStyle) => {
+  // render list of thumnails
+  var thumbnailList = (productStyle, currentStyle) => {
     return productStyle.results.map((style, index) => {
       var imageURL = style.photos[0].thumbnail_url;
       var styleName = style.name;
@@ -61,7 +63,7 @@ var Style = (props) => {
         </p>
       </div>
       <div className="style-grid ov-padding-verticle">
-        {thumnails(productStyle, currentStyle)}
+        {thumbnailList(productStyle, currentStyle)}
       </div>
     </div>
   );

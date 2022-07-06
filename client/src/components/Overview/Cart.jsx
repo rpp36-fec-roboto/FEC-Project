@@ -5,11 +5,14 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 var Cart = (props) => {
   var skus = props.currentStyle.skus;
   var isYourOutfit = props.isYourOutfit;
+  var selectedSize = props.selectedSize;
+  var selectedQuant = props.selectedQuant;
+  var handleSelect = props.handleSelect;
+  var handleAddToCart = props.handleAddToCart;
   var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
-  const [selectedSize, setSize] = useState('Select Size');
-  // const [noSizes, setNoSizes] = useState(false);
-  const [selectedQuant, setQuant] = useState(0);
+  // const [selectedSize, setSize] = useState('Select Size');
+  // const [selectedQuant, setQuant] = useState(0);
 
   var sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
@@ -44,30 +47,32 @@ var Cart = (props) => {
     }
   };
 
-  var handleAddToCart = (event) => {
-    event.preventDefault();
+  // var handleAddToCart = (event) => {
+  //   event.preventDefault();
 
-    var body = {
-      size: selectedSize,
-      quantity: selectedQuant
-    };
+  //   var body = {
+  //     size: selectedSize,
+  //     quantity: selectedQuant
+  //   };
 
-    // post request to server
-  };
+  //   // post request to server
+  // };
 
   return (
     <div>
       <form onSubmit={handleAddToCart}>
         <select
+          name="ov-size"
           disabled={ !helper.inStock(skus) }
-          onChange={ (e) => { setSize(e.target.value); } }
+          onChange={handleSelect}
           className="ov-boarder">
           {sizeSelector(skus)}
         </select>
 
         <select
+          name="ov-quantity"
           disabled={ selectedSize === 'Select Size' }
-          onChange={ (e) => { setQuant(e.target.value); } }
+          onChange={handleSelect}
           className="ov-boarder">
           {quantitySelector(selectedSize)}
         </select>

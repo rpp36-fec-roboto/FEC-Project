@@ -10,10 +10,17 @@ import ImageGallery from './ImageGallery.jsx';
 
 var Overview = (props) => {
 
+  // data props
   var productId = props.productId; // props from App level state
   var reviewsMeta = props.reviewsMeta; // props from the App level state
-  var productInfo = sampleData.productInfo; // initiate by GET GET /products/:product_id
+  var isYourOutfit = props.isYourOutfit;
+
+  // event handler props
+  var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
+
+  var productInfo = sampleData.productInfo; // initiate by GET /products/:product_id
   var productStyle = sampleData.productStyle; // initiate by GET 'products/:product/styles/'
+
 
   const [currentStyle, setStyle] = useState(helper.findDefaultStyle(productStyle));
   const [isDefaultView, setIsDefaultView] = useState(true);
@@ -113,6 +120,8 @@ var Overview = (props) => {
 
             <Cart
               currentStyle={currentStyle}
+              isYourOutfit={isYourOutfit}
+              handleYourOutfitStarClick={handleYourOutfitStarClick}
             />
           </div>}
 

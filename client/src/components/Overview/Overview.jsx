@@ -31,9 +31,8 @@ var Overview = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    var params = { 'product_id': productId };
-    var productInfoRequest = axios.get('/products', { params });
-    var styleRequest = axios.get('/products/styles', { params });
+    var productInfoRequest = axios.get(`/products/${productId}`);
+    var styleRequest = axios.get(`/products/${productId}/styles`);
 
     axios.all([productInfoRequest, styleRequest])
       .then(axios.spread((...responses) => {

@@ -21,8 +21,8 @@ app.get('/qa/questions', (req, res) => {
   });
 });
 
-app.get('/products', (req, res) => {
-  var pathVariable = req.query.product_id;
+app.get('/products/:product_id', (req, res) => {
+  var pathVariable = req.params.product_id;
   var url = `products/${pathVariable}`;
 
   api.getData(url, {}, (err, data) => {
@@ -34,8 +34,8 @@ app.get('/products', (req, res) => {
   });
 });
 
-app.get('/products/styles', (req, res) => {
-  var pathVariable = req.query.product_id;
+app.get('/products/:product_id/styles', (req, res) => {
+  var pathVariable = req.params.product_id;
   var url = `products/${pathVariable}/styles`;
 
   api.getData(url, {}, (err, data) => {

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import sampleData from '../../data/sampleData.js';
 import helper from '../../../../lib/clientHelpers.js';
 
@@ -18,9 +19,11 @@ var Overview = (props) => {
   // event handler props
   var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
-  var productInfo = sampleData.productInfo; // initiate by GET /products/:product_id
-  var productStyle = sampleData.productStyle; // initiate by GET 'products/:product/styles/'
+  // var productInfo = sampleData.productInfo; // initiate by GET /products/:product_id
+  // var productStyle = sampleData.productStyle; // initiate by GET 'products/:product/styles/'
 
+  const [productInfo, setProductInfo] = useState(sampleData.productInfo);
+  const [productStyle, setProductStyle] = useState(sampleData.productStyle);
   const [currentStyle, setCurrentStyle] = useState(helper.findDefaultStyle(productStyle));
   const [isDefaultView, setIsDefaultView] = useState(true);
   const [mainImgIndex, setMainImgIndex] = useState(0);
@@ -31,6 +34,20 @@ var Overview = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
+    // make get request to server for ProductInfo and ProductStyle
+    var params = { 'product_id': productId };
+    var productInfoRequest = axios.get('/products', { params });
+    var styleRequest = axios.get('/products/styles', { params });
+
+    axios.all([productInfoRequest, styleRequest])
+      .then(axios.spread((...responses) => {
+        console.dir(responses[0].data);
+        console.dir(responses[1].data);
+        setProductInfo(responses[0].data);
+        setProductStyle(responses[1].data);
+      }))
+      .catch( err => { console.log(err); });
+
   }, []);
 
   // handle style change
@@ -82,7 +99,6 @@ var Overview = (props) => {
 
   // handle main image click
   var handleImgClick = () => {
-    console.log('img clicked');
     setIsDefaultView(!isDefaultView);
   };
 

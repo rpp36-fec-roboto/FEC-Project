@@ -3,7 +3,11 @@ const API_KEY = require('./config.js');
 
 let getData = (url, param, callback) => {
   let options = {
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${url}${param}`,
+    // url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${url}${param}`,
+    url,
+    baseURL: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/',
+    params: param,
+    method: 'get',
     headers: {
       'Authorization': `${API_KEY.TOKEN}`
     }
@@ -17,4 +21,6 @@ let getData = (url, param, callback) => {
     });
 };
 
-module.exports.getData = getData;
+module.exports = {
+  getData
+};

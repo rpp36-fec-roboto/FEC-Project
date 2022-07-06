@@ -6,6 +6,7 @@ var Style = (props) => {
   var productStyle = props.productStyle;
   var handleStyleChange = props.handleStyleChange;
 
+  // conditionally render price based on on-sale/not-on-sale
   var price = (currentStyle) => {
     var originalPrice = currentStyle['original_price'];
     var salePrice = currentStyle['sale_price'];
@@ -16,19 +17,21 @@ var Style = (props) => {
       return (
         <p>
           <span>${salePrice}</span>
-          <span style={{ 'text-decoration': 'line-through' }}>${originalPrice}</span>
+          <span>&nbsp;&nbsp;</span>
+          <span style={{ textDecoration: 'line-through' }}>${originalPrice}</span>
         </p>
       );
     }
   };
 
-  var thumnails = (productStyle, currentStyle) => {
+  // render list of thumnails
+  var thumbnailList = (productStyle, currentStyle) => {
     return productStyle.results.map((style, index) => {
       var imageURL = style.photos[0].thumbnail_url;
       var styleName = style.name;
 
       return (
-        <div className='style-container' key={index}>
+        <div className='style-container' key={index.toString()}>
           {style.style_id === currentStyle.style_id &&
           <IoIosCheckmarkCircleOutline
             style={{
@@ -42,7 +45,7 @@ var Style = (props) => {
           <img
             className='style-thumbnail'
             src={imageURL} alt={styleName}
-            onClick={e => { handleStyleChange(style); }}/>
+            onClick={ e => { handleStyleChange(style); }}/>
         </div>
       );
     });
@@ -60,7 +63,7 @@ var Style = (props) => {
         </p>
       </div>
       <div className="style-grid ov-padding-verticle">
-        {thumnails(productStyle, currentStyle)}
+        {thumbnailList(productStyle, currentStyle)}
       </div>
     </div>
   );

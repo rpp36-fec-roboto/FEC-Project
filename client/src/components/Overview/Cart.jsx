@@ -4,14 +4,12 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 var Cart = (props) => {
   var skus = props.currentStyle.skus;
+  var isYourOutfit = props.isYourOutfit;
+  var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
   const [selectedSize, setSize] = useState('');
   const [noSizes, setNoSizes] = useState(false);
   const [selectedQuant, setQuant] = useState(1);
-
-  // this should be determined by getting information from locally saved myOutfit
-  // may need a helper function VS server request to determine initial state
-  const [isMyOutfit, setIsMyOutfit] = useState(false);
 
   var sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
@@ -19,7 +17,6 @@ var Cart = (props) => {
     } else {
       var sizes = Object.keys(skus).map(sku => {
         var skuObj = skus[sku];
-
         if (skuObj.quantity) {
           return <option key={sku} value={sku}>{skuObj.size}</option>;
         }
@@ -46,16 +43,6 @@ var Cart = (props) => {
       quantities.unshift(<option defaultValue={selectedQuant}>{selectedQuant}</option>);
       return quantities;
     }
-  };
-
-  var handleAddMyOutfit = (event) => {
-    if (isMyOutfit) {
-      // remove from myOutfit
-    } else {
-      // add to myOutfit
-    }
-
-    setIsMyOutfit(!isMyOutfit);
   };
 
   var handleAddToCart = (event) => {
@@ -86,14 +73,15 @@ var Cart = (props) => {
           {quantitySelector(selectedSize)}
         </select>
 
+        <br></br>
         <input type="submit" value="ADD TO CART                    +" className="ov-boarder"></input>
       </form>
-      <div className="my-outfit-star">{
-        isMyOutfit ?
-          <AiFillStar onClick={handleAddMyOutfit}/>
+      <button className="my-outfit-star">{
+        isYourOutfit ?
+          <AiFillStar onClick={handleYourOutfitStarClick}/>
           :
-          <AiOutlineStar onClick={handleAddMyOutfit}/>
-      }</div>
+          <AiOutlineStar onClick={handleYourOutfitStarClick}/>
+      }</button>
     </div>
   );
 };

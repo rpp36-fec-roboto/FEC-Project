@@ -16,6 +16,7 @@ var Style = (props) => {
       return (
         <p>
           <span>${salePrice}</span>
+          <span>&nbsp;&nbsp;</span>
           <span style={{ 'text-decoration': 'line-through' }}>${originalPrice}</span>
         </p>
       );
@@ -28,7 +29,7 @@ var Style = (props) => {
       var styleName = style.name;
 
       return (
-        <div className='style-container' key={index}>
+        <div className='style-container' key={index.toString()}>
           {style.style_id === currentStyle.style_id &&
           <IoIosCheckmarkCircleOutline
             style={{
@@ -42,7 +43,7 @@ var Style = (props) => {
           <img
             className='style-thumbnail'
             src={imageURL} alt={styleName}
-            onClick={e => { handleStyleChange(style); }}/>
+            onClick={ e => { handleStyleChange(style); }}/>
         </div>
       );
     });

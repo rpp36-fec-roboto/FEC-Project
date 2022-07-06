@@ -21,8 +21,7 @@ var Overview = (props) => {
   var productInfo = sampleData.productInfo; // initiate by GET /products/:product_id
   var productStyle = sampleData.productStyle; // initiate by GET 'products/:product/styles/'
 
-
-  const [currentStyle, setStyle] = useState(helper.findDefaultStyle(productStyle));
+  const [currentStyle, setCurrentStyle] = useState(helper.findDefaultStyle(productStyle));
   const [isDefaultView, setIsDefaultView] = useState(true);
   const [mainImgIndex, setMainImgIndex] = useState(0);
 
@@ -36,7 +35,7 @@ var Overview = (props) => {
 
   // handle style change
   var handleStyleChange = (style) => {
-
+    setCurrentStyle(style);
   };
 
   // handle left/right button click on main image

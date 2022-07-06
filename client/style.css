@@ -20,6 +20,7 @@ body {
   display: grid;
   grid-gap: 2em;
   grid-template-columns: 2fr 1fr;
+  min-width: 1200px;
 }
 
 /* Image Gallery Styling*/

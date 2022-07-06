@@ -5,7 +5,7 @@ var OtherInfo = (props) => {
 
   var featuresList = (features) => {
     return features.map((feature, index) => (
-      <li key={index.toString()}>{`feature: ${feature.feature}: ${feature.value}`}</li>
+      <li key={index.toString()}>{`${feature.feature}: ${feature.value}`}</li>
     ));
   };
 

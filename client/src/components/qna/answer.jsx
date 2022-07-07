@@ -16,6 +16,7 @@ var answer = (props) => {
       </div>
     );
   } else if (props.answersid.length === 2) {
+    console.log(props.answers);
     return (
       <div>
         <div>
@@ -30,7 +31,7 @@ var answer = (props) => {
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[1]].body}</div>
           </div>
-          <Userhelpful answer={props.answers[props.answersid[2]]} />
+          <Userhelpful answer={props.answers[props.answersid[1]]} />
         </div>
       </div>
     );
@@ -49,7 +50,7 @@ var answer = (props) => {
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[1]].body}</div>
           </div>
-          <Userhelpful answer={props.answers[props.answersid[2]]} />
+          <Userhelpful answer={props.answers[props.answersid[1]]} />
         </div>
         <div className='qa-paddingleft'>
           <button >SEE MORE ANSWERS</button>

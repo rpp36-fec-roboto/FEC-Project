@@ -7,15 +7,41 @@ var questionAnswer = (props) => {
   var id1 = Object.keys(props.questions[0].answers);
   var id2 = Object.keys(props.questions[1].answers);
 
+  var sort = (id) => {
+    for (var i = 0; i < props.questions.length; i++) {
+      var id = Object.keys(props.questions[i].answers);
+      if (id.length > 1) {
+        id.sort(function(a, b) {
+          return b.helpfulness - a.helpfulness;
+        });
+      }
+    }
+  };
+
+  sort(id1);
+  sort(id2);
+
   return (
-    <div>
-      <Question questions={props.questions[0]}/>
-      <Answer answer={props.questions[0].answers[id1[0]]}/>
-      <Userhelpful answer={props.questions[0].answers[id1[0]]}/>
+    <div className='questions'>
+      <div className='question0'>
+        <Question questions={props.questions[0]}/>
+        <Answer
+          answer={props.questions[0].answers[id1[0]]}
+          answers={props.questions[0].answers}
+          answersid={id1}
+          id={props.questions[0].question_id}
+          update={props.update}/>
+      </div>
       <br></br>
-      <Question questions={props.questions[1]}/>
-      <Answer answer={props.questions[1].answers[id2[0]]}/>
-      <Userhelpful answer={props.questions[1].answers[id2[0]]}/>
+      <div className='question1'>
+        <Question questions={props.questions[1]}/>
+        <Answer
+          answer={props.questions[1].answers[id2[0]]}
+          answers={props.questions[1].answers}
+          answersid={id2}
+          id={props.questions[1].question_id}
+          update={props.update}/>
+      </div>
     </div>
   );
 };

@@ -32,7 +32,6 @@ var Cart = (props) => {
   };
 
   var quantitySelector = (selectedSize) => {
-    console.log(selectedSize);
     if (selectedSize === 'Select Size') {
       return <option>-</option>;
     } else {

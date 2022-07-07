@@ -114,7 +114,6 @@ var Overview = (props) => {
   };
 
   var handleSelect = (event) => {
-    console.log(event.target.name);
     if (event.target.name === 'ov-size') {
       setSize(event.target.value);
     } else {

@@ -1,8 +1,8 @@
 import React from 'react';
 import {IoIosStarOutline, IoIosCloseCircleOutline} from 'react-icons/io';
 
-var addBtn = <button>{IoIosStarOutline()}</button>;
-var removeBtn = <button>{IoIosCloseCircleOutline()}</button>;
+var addBtn = <button className="rp-card-action-btn">{IoIosStarOutline()}</button>;
+var removeBtn = <button className="rp-card-action-btn">{IoIosCloseCircleOutline()}</button>;
 
 var ActionBtn = function (props) {
   let actionBtn = props.list === 'relatedProducts'

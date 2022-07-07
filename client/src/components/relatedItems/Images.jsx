@@ -15,9 +15,7 @@ var PrimaryImage = function (props) {
   let image = props.productStyle.photos[0].url; // forced selection, ensure proper photo is selected
 
   return (
-    <div>
-      <img src={image}></img>
-    </div>
+    <img src={image} alt="placeholder" style={{ width: '100%' }}></img>
   );
 };
 

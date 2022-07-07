@@ -5,15 +5,17 @@ import RelatedProductsList from './RelatedProductsList.jsx';
 import YourOutfitList from './YourOutfitList.jsx';
 
 var RelatedItems = function (props) {
-  var productId = props.productId;
-  var productInfo = sampleData.productInfo;
-  var productStyle = sampleData.productStyle;
-  var relatedProduct = sampleData.relatedProduct;
+  const productId = props.productId;
+  const productInfo = sampleData.productInfo;
+  const productStyle = sampleData.productStyle;
+  const relatedProduct = sampleData.relatedProduct;
+  // Not passing your outfit yet, use dummmy
+  var yourOutfit = [71698, 71699, 71704, 71703];
 
   return (
-    <div>
+    <div className="ri-grid">
       <RelatedProductsList productId={productId} />
-      <YourOutfitList />
+      <YourOutfitList productId={productId} yourOutfit={yourOutfit}/>
     </div>
   );
 };

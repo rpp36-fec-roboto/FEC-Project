@@ -21,26 +21,30 @@ var RelatedProductCard = function (props) {
   let name = `${productInfo.name}, ${productStyle.name}`;
 
   return (
-    <div>
-      <div>
-        <ActionBtn list={props.list}/>
+    <div className="rp-card">
+      <div className="rp-card-container">
         <PrimaryImage productStyle={productStyle} />
+        <div className="rp-card-top-right">
+          <ActionBtn list={props.list}/>
+        </div>
       </div>
 
       <div>
-        {category}
-      </div>
+        <div>
+          {category}
+        </div>
 
-      <div>
-        <b>{name}</b>
-      </div>
+        <div>
+          <b>{name}</b>
+        </div>
 
-      <div>
-        <Price productInfo={productInfo} productStyle={productStyle} />
-      </div>
+        <div>
+          <Price productInfo={productInfo} productStyle={productStyle} />
+        </div>
 
-      <div>
-        <Rating ratings={productRatings}/>
+        <div>
+          <Rating ratings={productRatings}/>
+        </div>
       </div>
     </div>
   );

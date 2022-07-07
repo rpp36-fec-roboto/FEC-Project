@@ -10,7 +10,6 @@ import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
 
 var Overview = (props) => {
-
   // data props
   var productId = props.productId; // props from App level state
   var reviewsMeta = props.reviewsMeta; // props from the App level state
@@ -19,15 +18,10 @@ var Overview = (props) => {
   // event handler props
   var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
+  // Shared managed state
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
   const [productStyle, setProductStyle] = useState(sampleData.productStyle);
   const [currentStyle, setCurrentStyle] = useState(helper.findDefaultStyle(productStyle));
-  const [isDefaultView, setIsDefaultView] = useState(true);
-  const [mainImgIndex, setMainImgIndex] = useState(0);
-
-  // client requests to show up to 7 thumbnails, using 4 to test up/down arrow function
-  var maxThumbnails = 4;
-  const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
 
   // ComponentDidMount
   useEffect(() => {
@@ -48,7 +42,16 @@ var Overview = (props) => {
   // handle style change
   var handleStyleChange = (style) => {
     setCurrentStyle(style);
+    setSize('Select Size');
   };
+
+  // IMAGE GALLERY component state and function
+  const [isDefaultView, setIsDefaultView] = useState(true);
+  const [mainImgIndex, setMainImgIndex] = useState(0);
+  const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
+
+  // client requests to show up to 7 thumbnails, using 4 to test up/down arrow function
+  var maxThumbnails = 4;
 
   // handle left/right button click on main image
   var handleImgBtnClick = (event) => {
@@ -87,14 +90,35 @@ var Overview = (props) => {
     setThumbnailStartIndex(startIndex);
   };
 
-  // handle thumbnail img click
   var handleImgThumbnailClick = (imgIndex) => {
     setMainImgIndex(imgIndex);
   };
 
-  // handle main image click
   var handleImgClick = () => {
     setIsDefaultView(!isDefaultView);
+  };
+
+  // CART component state and function
+  const [selectedSize, setSize] = useState('Select Size');
+  const [selectedQuant, setQuant] = useState(0);
+
+  var handleAddToCart = (event) => {
+    event.preventDefault();
+
+    var body = {
+      size: selectedSize,
+      quantity: selectedQuant
+    };
+
+    // post request to server
+  };
+
+  var handleSelect = (event) => {
+    if (event.target.name === 'ov-size') {
+      setSize(event.target.value);
+    } else {
+      setQuant(event.target.value);
+    }
   };
 
   return (
@@ -131,6 +155,10 @@ var Overview = (props) => {
             <Cart
               currentStyle={currentStyle}
               isYourOutfit={isYourOutfit}
+              selectedSize={selectedSize}
+              selectedQuant={selectedQuant}
+              handleSelect={handleSelect}
+              handleAddToCart={handleAddToCart}
               handleYourOutfitStarClick={handleYourOutfitStarClick}
             />
           </div>}

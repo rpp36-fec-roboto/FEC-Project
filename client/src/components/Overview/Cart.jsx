@@ -5,11 +5,14 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 var Cart = (props) => {
   var skus = props.currentStyle.skus;
   var isYourOutfit = props.isYourOutfit;
+  var selectedSize = props.selectedSize;
+  var selectedQuant = props.selectedQuant;
+  var handleSelect = props.handleSelect;
+  var handleAddToCart = props.handleAddToCart;
   var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
-  const [selectedSize, setSize] = useState('');
-  const [noSizes, setNoSizes] = useState(false);
-  const [selectedQuant, setQuant] = useState(1);
+  // const [selectedSize, setSize] = useState('Select Size');
+  // const [selectedQuant, setQuant] = useState(0);
 
   var sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
@@ -23,52 +26,52 @@ var Cart = (props) => {
       });
 
       // add the default value to size options
-      sizes.unshift(<option defaultValue='' key=''>Select Size</option>);
+      sizes.unshift(<option defaultValue={selectedSize} key='select-size'>Select Size</option>);
       return sizes;
     }
   };
 
   var quantitySelector = (selectedSize) => {
-    if (!selectedSize) {
+    if (selectedSize === 'Select Size') {
       return <option>-</option>;
     } else {
       var maxQuant = skus[selectedSize].quantity < 15 ? skus[selectedSize].quantity : 15;
 
       // generate option from 1 to maxQuant
-      var quantities = [...Array(maxQuant).keys()].map(i => {
-        return <option value={i + 1}>{i + 1}</option>;
-      });
+      var quantities = Array(maxQuant).fill(0).map((val, i) => (
+        <option value={i + 1} key={(i + 1).toString()}>{i + 1}</option>
+      ));
 
-      // add default value to quantity selector
-      quantities.unshift(<option defaultValue={selectedQuant}>{selectedQuant}</option>);
       return quantities;
     }
   };
 
-  var handleAddToCart = (event) => {
-    event.preventDefault();
+  // var handleAddToCart = (event) => {
+  //   event.preventDefault();
 
-    var body = {
-      size: selectedSize,
-      quantity: selectedQuant
-    };
+  //   var body = {
+  //     size: selectedSize,
+  //     quantity: selectedQuant
+  //   };
 
-    // post request to server
-  };
+  //   // post request to server
+  // };
 
   return (
     <div>
       <form onSubmit={handleAddToCart}>
         <select
+          name="ov-size"
           disabled={ !helper.inStock(skus) }
-          onChange={ (e) => { setSize(e.target.value); } }
+          onChange={handleSelect}
           className="ov-boarder">
           {sizeSelector(skus)}
         </select>
 
         <select
-          disabled={ !selectedSize }
-          onChange={ (e) => { setQuant(e.target.value); } }
+          name="ov-quantity"
+          disabled={ selectedSize === 'Select Size' }
+          onChange={handleSelect}
           className="ov-boarder">
           {quantitySelector(selectedSize)}
         </select>
@@ -76,12 +79,12 @@ var Cart = (props) => {
         <br></br>
         <input type="submit" value="ADD TO CART                    +" className="ov-boarder"></input>
       </form>
-      <button className="my-outfit-star">{
+      <div className="my-outfit-star">{
         isYourOutfit ?
           <AiFillStar onClick={handleYourOutfitStarClick}/>
           :
           <AiOutlineStar onClick={handleYourOutfitStarClick}/>
-      }</button>
+      }</div>
     </div>
   );
 };

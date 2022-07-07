@@ -39,7 +39,7 @@ describe('App', () => {
   });
 });
 
-describe('Related Items & Comparison Component', () => {
+describe('Related Items & Comparison Components', () => {
   let container = null;
   beforeEach(() => {
     // setup a DOM element as a render target
@@ -54,7 +54,7 @@ describe('Related Items & Comparison Component', () => {
     container = null;
   });
 
-  it('render Related Items & Comparison component without crash', () => {
+  it('render Related Items component without crash', () => {
     act(() => {
       render(<RelatedItems />, container);
     });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import helper from '../../../../lib/clientHelpers.js';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
@@ -7,12 +7,10 @@ var Cart = (props) => {
   var isYourOutfit = props.isYourOutfit;
   var selectedSize = props.selectedSize;
   var selectedQuant = props.selectedQuant;
+
   var handleSelect = props.handleSelect;
   var handleAddToCart = props.handleAddToCart;
   var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
-
-  // const [selectedSize, setSize] = useState('Select Size');
-  // const [selectedQuant, setQuant] = useState(0);
 
   var sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
@@ -46,24 +44,36 @@ var Cart = (props) => {
     }
   };
 
-  // var handleAddToCart = (event) => {
-  //   event.preventDefault();
+  const sizeInput = useRef(null);
 
-  //   var body = {
-  //     size: selectedSize,
-  //     quantity: selectedQuant
-  //   };
+  var handleAddToCart = (event) => {
+    // console.log('clicked');
+    event.preventDefault();
+    var size = selectedSize;
+    var quantity = selectedQuant;
+    if (size !== 'Select Size') {
+      submitCartRequest({ size, quantity });
+    }
 
-  //   // post request to server
-  // };
+    // if no size selected
+    if (size === 'Select Size') {
+      console.log(sizeInput.current);
+      // click on the select size dropdown
+      sizeInput.current.focus();
+      // add the line of message
+    }
+  };
 
   return (
     <div>
       <form onSubmit={handleAddToCart}>
+      {/* <form> */}
+        {/* show <p>Please select a size</p> when clicking on add to cart but  */}
         <select
           name="ov-size"
           disabled={ !helper.inStock(skus) }
           onChange={handleSelect}
+          ref={sizeInput}
           className="ov-boarder">
           {sizeSelector(skus)}
         </select>
@@ -76,9 +86,12 @@ var Cart = (props) => {
           {quantitySelector(selectedSize)}
         </select>
 
-        <br></br>
-        <input type="submit" value="ADD TO CART                    +" className="ov-boarder"></input>
+        <br></br> {helper.inStock(skus) &&
+          <input type="submit" value="ADD TO CART                    +" className="ov-boarder"></input>
+          // <button onClick={handleAddToCart} className="ov-boarder">Add to cart</button>
+        }
       </form>
+
       <div className="my-outfit-star">{
         isYourOutfit ?
           <AiFillStar onClick={handleYourOutfitStarClick}/>

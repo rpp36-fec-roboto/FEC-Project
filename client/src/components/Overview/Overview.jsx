@@ -102,15 +102,9 @@ var Overview = (props) => {
   const [selectedSize, setSize] = useState('Select Size');
   const [selectedQuant, setQuant] = useState(0);
 
-  var handleAddToCart = (event) => {
-    event.preventDefault();
-
-    var body = {
-      size: selectedSize,
-      quantity: selectedQuant
-    };
-
+  var submitCartRequest = () => {
     // post request to server
+
   };
 
   var handleSelect = (event) => {
@@ -158,7 +152,7 @@ var Overview = (props) => {
               selectedSize={selectedSize}
               selectedQuant={selectedQuant}
               handleSelect={handleSelect}
-              handleAddToCart={handleAddToCart}
+              submitCartRequest={submitCartRequest}
               handleYourOutfitStarClick={handleYourOutfitStarClick}
             />
           </div>}

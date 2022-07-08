@@ -47,6 +47,19 @@ app.get('/products/:product_id/styles', (req, res) => {
   });
 });
 
+app.get('/products/:product_id/related', (req, res) => {
+  var pathVariable = req.params.product_id;
+  var url = `products/${pathVariable}/related`;
+
+  api.getData(url, {}, (err, data) => {
+    if (err) {
+      res.status(500).send('Error getting data from the API');
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.post('/cart', (req, res) => {
   console.log(req.body);
   let sku = Number(req.body.sku);

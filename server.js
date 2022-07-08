@@ -47,6 +47,19 @@ app.get('/products/:product_id/styles', (req, res) => {
   });
 });
 
+app.post('/cart', (req, res) => {
+  console.log(req.body);
+  let sku = Number(req.body.sku);
+
+  api.postData('cart', { 'sku_id': sku })
+    .then(response => {
+      res.sendStatus(201);
+    })
+    .catch( err => {
+      res.status(500).send( err );
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });

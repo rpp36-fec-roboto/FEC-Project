@@ -12,13 +12,13 @@ var Cart = (props) => {
   const submitCartRequest = props.submitCartRequest;
   const handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
-  var [showMessage, setShowMessage] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     setShowMessage(false);
   }, [selectedSize]);
 
-  var sizeSelector = (skus) => {
+  const sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
       return <option>OUT OF STOCK</option>;
     } else {
@@ -35,7 +35,7 @@ var Cart = (props) => {
     }
   };
 
-  var quantitySelector = (selectedSize) => {
+  const quantitySelector = (selectedSize) => {
     if (selectedSize === 'Select Size') {
       return <option>-</option>;
     } else {
@@ -52,14 +52,14 @@ var Cart = (props) => {
 
   const sizeInput = useRef(null);
 
-  var handleAddToCart = (event) => {
+  const handleAddToCart = (event) => {
     // console.log('clicked');
     event.preventDefault();
     var size = selectedSize;
     var quantity = selectedQuant;
     if (size !== 'Select Size') {
       setShowMessage(false);
-      submitCartRequest({ size, quantity });
+      submitCartRequest({ sku: size });
     }
 
     // if no size selected
@@ -73,8 +73,9 @@ var Cart = (props) => {
   return (
     <div>
       <form onSubmit={handleAddToCart}>
-        {/* show <p>Please select a size</p> when clicking on add to cart but  */}
+        {/* show warning when no size selected at submit */}
         {showMessage && <div>Please select a size</div>}
+
         <select
           name="ov-size"
           disabled={ !helper.inStock(skus) }

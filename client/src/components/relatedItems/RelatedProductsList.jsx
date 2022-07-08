@@ -5,9 +5,12 @@ import sampleData from '../../data/sampleData.js';
 
 var RelatedProductsList = function (props) {
   const productId = props.productId;
-  const productInfo = sampleData.productInfo;
-  const productStyle = sampleData.productStyle;
+  // const productInfo = sampleData.productInfo;
+  const productInfo = props.productInfo;
+  // const productStyle = sampleData.productStyle;
+  const productStyle = props.productStyle;
   const [relatedProduct, setRelatedProduct] = useState(sampleData.relatedProduct);
+  // const relatedProduct = props.relatedProduct;
   const [show, setShow] = useState(4);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(relatedProduct.length);

@@ -1,16 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import helper from '../../../../lib/clientHelpers.js';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 var Cart = (props) => {
-  var skus = props.currentStyle.skus;
-  var isYourOutfit = props.isYourOutfit;
-  var selectedSize = props.selectedSize;
-  var selectedQuant = props.selectedQuant;
+  const skus = props.currentStyle.skus;
+  const isYourOutfit = props.isYourOutfit;
+  const selectedSize = props.selectedSize;
+  const selectedQuant = props.selectedQuant;
 
-  var handleSelect = props.handleSelect;
-  var handleAddToCart = props.handleAddToCart;
-  var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
+  const handleSelect = props.handleSelect;
+  const submitCartRequest = props.submitCartRequest;
+  const handleYourOutfitStarClick = props.handleYourOutfitStarClick;
+
+  var [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    setShowMessage(false);
+  }, [selectedSize]);
 
   var sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
@@ -52,23 +58,23 @@ var Cart = (props) => {
     var size = selectedSize;
     var quantity = selectedQuant;
     if (size !== 'Select Size') {
+      setShowMessage(false);
       submitCartRequest({ size, quantity });
     }
 
     // if no size selected
     if (size === 'Select Size') {
       console.log(sizeInput.current);
-      // click on the select size dropdown
+      setShowMessage(true);
       sizeInput.current.focus();
-      // add the line of message
     }
   };
 
   return (
     <div>
       <form onSubmit={handleAddToCart}>
-      {/* <form> */}
         {/* show <p>Please select a size</p> when clicking on add to cart but  */}
+        {showMessage && <div>Please select a size</div>}
         <select
           name="ov-size"
           disabled={ !helper.inStock(skus) }

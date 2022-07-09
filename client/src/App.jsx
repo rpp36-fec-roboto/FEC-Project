@@ -8,7 +8,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      productId: 71697, // default id to render when open the webpage
+      // productId: 71697, // default id to render when open the webpage
+      productId: 71701,
       reviewsMeta: sampleData.reviewsMeta,
       yourOutfit: [],
       isYourOutfit: false

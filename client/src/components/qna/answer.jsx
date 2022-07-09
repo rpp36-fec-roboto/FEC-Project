@@ -1,6 +1,7 @@
 import React from 'react';
 import Userhelpful from './userhelpful.jsx';
 import $ from 'jquery';
+import Picture from './pictures.jsx';
 
 var count = 0;
 
@@ -12,11 +13,11 @@ var answer = (props) => {
           <div className='qa-bold qa-float'>A:</div>
           <div>{props.answers[props.answersid[0]].body}</div>
         </div>
+        <Picture picture={props.answers[props.answersid[0]].photos}/>
         <Userhelpful answer={props.answers[props.answersid[0]]} />
       </div>
     );
   } else if (props.answersid.length === 2) {
-    console.log(props.answers);
     return (
       <div>
         <div>
@@ -24,6 +25,7 @@ var answer = (props) => {
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[0]].body}</div>
           </div>
+          <Picture picture={props.answers[props.answersid[0]].photos}/>
           <Userhelpful answer={props.answers[props.answersid[0]]} />
         </div>
         <div>
@@ -31,6 +33,7 @@ var answer = (props) => {
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[1]].body}</div>
           </div>
+          <Picture picture={props.answers[props.answersid[0]].photos}/>
           <Userhelpful answer={props.answers[props.answersid[1]]} />
         </div>
       </div>
@@ -43,6 +46,7 @@ var answer = (props) => {
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[0]].body}</div>
           </div>
+          <Picture picture={props.answers[props.answersid[0]].photos}/>
           <Userhelpful answer={props.answers[props.answersid[0]]} />
         </div>
         <div>
@@ -50,6 +54,7 @@ var answer = (props) => {
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[1]].body}</div>
           </div>
+          <Picture picture={props.answers[props.answersid[0]].photos}/>
           <Userhelpful answer={props.answers[props.answersid[1]]} />
         </div>
         <div className='qa-paddingleft'>

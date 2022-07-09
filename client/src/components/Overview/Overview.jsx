@@ -63,7 +63,6 @@ var Overview = (props) => {
       if (newMainImgIndex < thumbnailStartIndex) {
         setThumbnailStartIndex(newMainImgIndex);
       }
-
       setMainImgIndex(newMainImgIndex);
     } else {
       newMainImgIndex = mainImgIndex + 1;
@@ -75,19 +74,27 @@ var Overview = (props) => {
 
   };
 
-  const handleThumbnailScroll = (event) => {
+  const handleThumbnailScrollUp = (event) => {
     // scroll by 3
+    console.log('thumbnail scroll');
+    console.log(event.target);
     let startIndex = thumbnailStartIndex;
-    if (event.target.name === 'down-click') {
-      startIndex += 3;
-    } else {
-      startIndex -= 3;
-    }
-
+    startIndex -= 3;
     if (startIndex < 0) {
       startIndex = 0;
     }
+    console.log(startIndex);
+    setThumbnailStartIndex(startIndex);
+  };
 
+  const handleThumbnailScrollDown = (event) => {
+    // scroll by 3
+    console.log('thumbnail scroll');
+    console.log(event.target.name);
+    let startIndex = thumbnailStartIndex;
+    startIndex += 3;
+
+    console.log(startIndex);
     setThumbnailStartIndex(startIndex);
   };
 
@@ -134,7 +141,8 @@ var Overview = (props) => {
             thumbnailStartIndex={thumbnailStartIndex}
             handleImgBtnClick={handleImgBtnClick}
             handleImgThumbnailClick={handleImgThumbnailClick}
-            handleThumbnailScroll={handleThumbnailScroll}
+            handleThumbnailScrollUp={handleThumbnailScrollUp}
+            handleThumbnailScrollDown={handleThumbnailScrollDown}
             handleImgClick={handleImgClick}
           />
         </div>

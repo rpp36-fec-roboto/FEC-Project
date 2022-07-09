@@ -5,10 +5,12 @@ import sampleData from '../../data/sampleData.js';
 
 var RelatedProductsList = function (props) {
   const productId = props.productId;
-  const productInfo = sampleData.productInfo;
-  const productStyle = sampleData.productStyle;
-  const [relatedProduct, setRelatedProduct] = useState(sampleData.relatedProduct);
-  const [show, setShow] = useState(4);
+  const productInfo = props.productInfo;
+  const productStyle = props.productStyle;
+  const relatedProduct = props.relatedProduct;
+  const yourOutfit = props.yourOutfit;
+  const show = 4;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(relatedProduct.length);
 
@@ -17,8 +19,9 @@ var RelatedProductsList = function (props) {
       <div key={id.toString()}>
         <div style={{ padding: 8 }}>
           <RelatedProductCard
-            list={'relatedProducts'}
-            productId={id} // send 1st product only to start
+            listType={'relatedProducts'}
+            productId={id}
+            onStarClick={props.onStarClick}
           />
         </div>
       </div>

@@ -8,7 +8,8 @@ var question = (props) => (
     <QuestionHelpful
       help={props.questions.question_helpfulness}
       yesQuestion={props.yesQuestion}
-      addAnswer={props.addAnswer}/>
+      addAnswer={props.addAnswer}
+      qid={props.questions.question_id}/>
   </div>
 );
 

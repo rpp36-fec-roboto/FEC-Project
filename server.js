@@ -22,13 +22,24 @@ app.get('/qa/questions', (req, res) => {
 });
 
 
-app.get('/qa/questions/:question_id/answers', (req, res) => {
-  var param = req._parsedOriginalUrl.search;
-  api.getData(req._parsedOriginalUrl.pathname, param, (err, data) => {
+// app.get('/qa/questions/:question_id/answers', (req, res) => {
+//   var param = req._parsedOriginalUrl.search;
+//   api.getData(req._parsedOriginalUrl.pathname, param, (err, data) => {
+//     if (err) {
+//       res.status(404).send('Error getting data from the API');
+//     } else {
+//       res.send(data);
+//     }
+//   });
+// });
+
+app.put('/qa/questions/:question_id/helpful', (req, res) => {
+  let qid = `/qa/questions/${req.params.question_id}/helpful`;
+  api.putData(qid, (err, data) => {
     if (err) {
-      res.status(404).send('Error getting data from the API');
+      res.status(500).send('Error updating question helpful');
     } else {
-      res.send(data);
+      res.status(204).send('Updated helpfulness on question');
     }
   });
 });

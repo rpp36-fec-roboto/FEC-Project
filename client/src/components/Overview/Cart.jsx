@@ -24,14 +24,14 @@ var Cart = (props) => {
       return <option>OUT OF STOCK</option>;
     } else {
       var sizes = Object.keys(skus).map(sku => {
-        var skuObj = skus[sku];
+        let skuObj = skus[sku];
         if (skuObj.quantity) {
           return <option key={sku} value={sku}>{skuObj.size}</option>;
         }
       });
 
       // add the default value to size options
-      sizes.unshift(<option defaultValue={selectedSize} key='select-size'>Select Size</option>);
+      sizes.unshift(<option key='select-size'>Select Size</option>);
       return sizes;
     }
   };
@@ -80,6 +80,7 @@ var Cart = (props) => {
         <select
           name="ov-size"
           disabled={ !helper.inStock(skus) }
+          defaultValue={selectedSize}
           onChange={handleSelect}
           ref={sizeInput}
           className="ov-boarder">

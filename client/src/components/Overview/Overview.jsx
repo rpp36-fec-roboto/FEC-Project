@@ -16,7 +16,7 @@ var Overview = (props) => {
   const isYourOutfit = props.isYourOutfit;
 
   // event handler props
-  const handleYourOutfitStarClick = props.handleYourOutfitStarClick;
+  const handleAddToYourOutfit = props.handleAddToYourOutfit;
 
   // Shared managed state
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
@@ -159,7 +159,7 @@ var Overview = (props) => {
               selectedQuant={selectedQuant}
               handleSelect={handleSelect}
               submitCartRequest={submitCartRequest}
-              handleYourOutfitStarClick={handleYourOutfitStarClick}
+              handleAddToYourOutfit={handleAddToYourOutfit}
             />
           </div>}
 

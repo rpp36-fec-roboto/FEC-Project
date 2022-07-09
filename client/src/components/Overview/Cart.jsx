@@ -10,7 +10,7 @@ var Cart = (props) => {
 
   const handleSelect = props.handleSelect;
   const submitCartRequest = props.submitCartRequest;
-  const handleYourOutfitStarClick = props.handleYourOutfitStarClick;
+  const handleAddToYourOutfit = props.handleAddToYourOutfit;
 
   const [showMessage, setShowMessage] = useState(false);
 
@@ -103,7 +103,7 @@ var Cart = (props) => {
         isYourOutfit ?
           <AiFillStar onClick={handleYourOutfitStarClick}/>
           :
-          <AiOutlineStar onClick={handleYourOutfitStarClick}/>
+          <AiOutlineStar onClick={handleAddToYourOutfit}/>
       }</div>
     </div>
   );

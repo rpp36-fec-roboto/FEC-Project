@@ -44,6 +44,14 @@ describe('App rendering', () => {
 
 describe('Components rendering', () => {
   let container;
+  let state = {
+    currentStyle: sampleData.productStyle.results[0],
+    reviewsMeta: sampleData.reviewsMeta,
+    isYourOutfit: false,
+    selectedSize: 'Select Size',
+    selectedQuant: 0,
+  };
+
   beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement('div');
@@ -64,17 +72,33 @@ describe('Components rendering', () => {
 
   it('render Overview component without crash', () => {
     act(() => {
-      render(<Overview reviewsMeta={sampleData.reviewsMeta}/>, container);
+      render(<Overview reviewsMeta={state.reviewsMeta}/>, container);
+    });
+    expect(container).not.toBeNull();
+  });
+
+  it('render Cart component without crassh', () => {
+    act(() => {
+      render(<Cart
+        currentStyle={state.currentStyle}
+        // isYourOutfit={state.isYourOutfit}
+        selectedSize={state.selectedSize}
+        selectedQuant={state.selectedQuant}
+      />, container);
     });
     expect(container).not.toBeNull();
   });
 
   it('render Cart when style is out of stock', () => {
-    // act(() => {
-    //   render(<Cart currentStyle={sampleData.outOfStockStyle} />, container);
-    // });
-    // expect(container).not.toBeNull();
-    render(<Cart currentStyle={sampleData.outOfStockStyle} />);
+    render(<Cart
+      currentStyle={sampleData.outOfStockStyle}
+      isYourOutfit={state.isYourOutfit}
+      selectedSize={state.selectedSize}
+      selectedQuant={state.selectedQuant}
+      // handleSelect={handleSelect}
+      // handleAddToCart={handleAddToCart}
+      // handleYourOutfitStarClick={handleYourOutfitStarClick}
+    />);
     expect(screen.getAllByRole('option').length).toBe(2);
     expect(screen.getByRole('option', {name: 'OUT OF STOCK'})).toBeInTheDocument();
     expect(screen.getByRole('option', {name: '-'})).toBeInTheDocument();
@@ -84,7 +108,7 @@ describe('Components rendering', () => {
 
 describe('User interaction', () => {
   it('should switch between solid and empty star when click to add/remove from my outfit', () => {
-    render(<Cart currentStyle={sampleData.productStyle.results[0]} />);
+    // render(<Cart currentStyle={sampleData.productStyle.results[0]} />);
     // expect(screen.getByRole('div', { name: 'AiOutlineStar'})).toBeInTheDocument();
   });
 });

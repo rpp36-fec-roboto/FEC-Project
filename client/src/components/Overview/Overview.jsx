@@ -11,12 +11,12 @@ import ImageGallery from './ImageGallery.jsx';
 
 var Overview = (props) => {
   // data props
-  var productId = props.productId; // props from App level state
-  var reviewsMeta = props.reviewsMeta; // props from the App level state
-  var isYourOutfit = props.isYourOutfit;
+  const productId = props.productId; // props from App level state
+  const reviewsMeta = props.reviewsMeta; // props from the App level state
+  const isYourOutfit = props.isYourOutfit;
 
   // event handler props
-  var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
+  const handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
   // Shared managed state
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
@@ -40,7 +40,7 @@ var Overview = (props) => {
   }, []);
 
   // handle style change
-  var handleStyleChange = (style) => {
+  const handleStyleChange = (style) => {
     setCurrentStyle(style);
     setSize('Select Size');
   };
@@ -51,11 +51,11 @@ var Overview = (props) => {
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
 
   // client requests to show up to 7 thumbnails, using 4 to test up/down arrow function
-  var maxThumbnails = 4;
+  const maxThumbnails = 4;
 
   // handle left/right button click on main image
-  var handleImgBtnClick = (event) => {
-    var newMainImgIndex;
+  const handleImgBtnClick = (event) => {
+    let newMainImgIndex;
 
     if (event.target.name === 'left-click') {
       newMainImgIndex = mainImgIndex - 1;
@@ -74,9 +74,9 @@ var Overview = (props) => {
 
   };
 
-  var handleThumbnailScroll = (event) => {
+  const handleThumbnailScroll = (event) => {
     // scroll by 3
-    var startIndex = thumbnailStartIndex;
+    let startIndex = thumbnailStartIndex;
     if (event.target.name === 'down-click') {
       startIndex += 3;
     } else {
@@ -90,11 +90,11 @@ var Overview = (props) => {
     setThumbnailStartIndex(startIndex);
   };
 
-  var handleImgThumbnailClick = (imgIndex) => {
+  const handleImgThumbnailClick = (imgIndex) => {
     setMainImgIndex(imgIndex);
   };
 
-  var handleImgClick = () => {
+  const handleImgClick = () => {
     setIsDefaultView(!isDefaultView);
   };
 
@@ -102,23 +102,23 @@ var Overview = (props) => {
   const [selectedSize, setSize] = useState('Select Size');
   const [selectedQuant, setQuant] = useState(0);
 
-  var handleAddToCart = (event) => {
-    event.preventDefault();
-
-    var body = {
-      size: selectedSize,
-      quantity: selectedQuant
-    };
-
-    // post request to server
-  };
-
-  var handleSelect = (event) => {
+  const handleSelect = (event) => {
     if (event.target.name === 'ov-size') {
       setSize(event.target.value);
+      setQuant(1);
     } else {
       setQuant(event.target.value);
     }
+  };
+
+  const submitCartRequest = (data) => {
+    // post request to server
+    axios.post('/cart', data)
+      .then(response => {
+        setSize('Select Size');
+        setQuant(0);
+      })
+      .catch( err => console.log(err) );
   };
 
   return (
@@ -158,7 +158,7 @@ var Overview = (props) => {
               selectedSize={selectedSize}
               selectedQuant={selectedQuant}
               handleSelect={handleSelect}
-              handleAddToCart={handleAddToCart}
+              submitCartRequest={submitCartRequest}
               handleYourOutfitStarClick={handleYourOutfitStarClick}
             />
           </div>}

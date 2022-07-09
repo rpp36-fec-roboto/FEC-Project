@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import helper from '../../../../lib/clientHelpers.js';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 var Cart = (props) => {
-  var skus = props.currentStyle.skus;
-  var isYourOutfit = props.isYourOutfit;
-  var selectedSize = props.selectedSize;
-  var selectedQuant = props.selectedQuant;
-  var handleSelect = props.handleSelect;
-  var handleAddToCart = props.handleAddToCart;
-  var handleYourOutfitStarClick = props.handleYourOutfitStarClick;
+  const skus = props.currentStyle.skus;
+  const isYourOutfit = props.isYourOutfit;
+  const selectedSize = props.selectedSize;
+  const selectedQuant = props.selectedQuant;
 
-  // const [selectedSize, setSize] = useState('Select Size');
-  // const [selectedQuant, setQuant] = useState(0);
+  const handleSelect = props.handleSelect;
+  const submitCartRequest = props.submitCartRequest;
+  const handleYourOutfitStarClick = props.handleYourOutfitStarClick;
 
-  var sizeSelector = (skus) => {
+  const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    setShowMessage(false);
+  }, [selectedSize]);
+
+  const sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
       return <option>OUT OF STOCK</option>;
     } else {
@@ -31,7 +35,7 @@ var Cart = (props) => {
     }
   };
 
-  var quantitySelector = (selectedSize) => {
+  const quantitySelector = (selectedSize) => {
     if (selectedSize === 'Select Size') {
       return <option>-</option>;
     } else {
@@ -46,24 +50,37 @@ var Cart = (props) => {
     }
   };
 
-  // var handleAddToCart = (event) => {
-  //   event.preventDefault();
+  const sizeInput = useRef(null);
 
-  //   var body = {
-  //     size: selectedSize,
-  //     quantity: selectedQuant
-  //   };
+  const handleAddToCart = (event) => {
+    // console.log('clicked');
+    event.preventDefault();
+    var size = selectedSize;
+    var quantity = selectedQuant;
+    if (size !== 'Select Size') {
+      setShowMessage(false);
+      submitCartRequest({ sku: size });
+    }
 
-  //   // post request to server
-  // };
+    // if no size selected
+    if (size === 'Select Size') {
+      console.log(sizeInput.current);
+      setShowMessage(true);
+      sizeInput.current.focus();
+    }
+  };
 
   return (
     <div>
       <form onSubmit={handleAddToCart}>
+        {/* show warning when no size selected at submit */}
+        {showMessage && <div>Please select a size</div>}
+
         <select
           name="ov-size"
           disabled={ !helper.inStock(skus) }
           onChange={handleSelect}
+          ref={sizeInput}
           className="ov-boarder">
           {sizeSelector(skus)}
         </select>
@@ -76,9 +93,12 @@ var Cart = (props) => {
           {quantitySelector(selectedSize)}
         </select>
 
-        <br></br>
-        <input type="submit" value="ADD TO CART                    +" className="ov-boarder"></input>
+        <br></br> {helper.inStock(skus) &&
+          <input type="submit" value="ADD TO CART                    +" className="ov-boarder"></input>
+          // <button onClick={handleAddToCart} className="ov-boarder">Add to cart</button>
+        }
       </form>
+
       <div className="my-outfit-star">{
         isYourOutfit ?
           <AiFillStar onClick={handleYourOutfitStarClick}/>

@@ -13,7 +13,8 @@ class Qna extends React.Component {
       questions: data.questions.results,
       answers: {},
       questionhelpful: [],
-      answerhelpful: []
+      answerhelpful: [],
+      reportAnswer: []
     };
     this.updateAnswers = this.updateAnswers.bind(this);
     this.yesQuestionButton = this.yesQuestionButton.bind(this);
@@ -86,8 +87,22 @@ class Qna extends React.Component {
     }
   }
 
-  reportAnswerButton(e) {
+  reportAnswerButton(id) {
     console.log('report answer button');
+    if (!this.state.reportAnswer.includes(id)) {
+      $.ajax({
+        method: 'put',
+        url: `/qa/answer/${id}/report`,
+        success: () => {
+          console.log('Thank you for reporting this answer!');
+          let tempState = this.state.answerhelpful;
+          tempState.push(id);
+          this.setState({reportAnswer: tempState});
+        }
+      });
+    } else {
+      console.log('You have already reported this answer');
+    }
   }
 
   addQuestionButton(e) {

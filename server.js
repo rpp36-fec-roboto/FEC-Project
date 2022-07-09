@@ -55,6 +55,17 @@ app.put('/qa/answer/:answer_id/helpful', (req, res) => {
   });
 });
 
+app.put('/qa/answer/:answer_id/report', (req, res) => {
+  let id = `/qa/answers/${req.params.answer_id}/report`;
+  api.putData(id, (err, data) => {
+    if (err) {
+      res.status(500).send('Error reporting answer');
+    } else {
+      res.status(204).send('Updated report on answer');
+    }
+  });
+});
+
 app.get('/products/:product_id', (req, res) => {
   var pathVariable = req.params.product_id;
   var url = `products/${pathVariable}`;

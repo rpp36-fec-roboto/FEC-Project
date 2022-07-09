@@ -33,6 +33,18 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
   });
 });
 
+app.get('/reviews/meta', (req, res) => {
+  var param = req.query;
+  var url = 'reviews/meta';
+  api.getData(url, param, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.get('/products/:product_id', (req, res) => {
   var pathVariable = req.params.product_id;
   var url = `products/${pathVariable}`;

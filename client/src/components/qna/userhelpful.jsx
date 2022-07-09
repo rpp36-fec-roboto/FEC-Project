@@ -14,21 +14,12 @@ var userhelpful = (props) => {
       <div className='qa-float' >{date}</div>
       <div className='qa-float' >|</div>
       <div className='qa-float' >Helpful?</div>
-      <div className='qa-underline qa-float'>Yes</div>
+      <div className='qa-underline qa-float' onClick={(e) => { props.yesAnswer(e); }}>Yes</div>
       <div className='qa-float' >({props.answer.helpfulness})</div>
       <div className='qa-float' >|</div>
-      <div className='qa-underline qa-float'>Report</div>
+      <div className='qa-underline qa-float' onClick={(e) => { props.reportAnswer(e); }}>Report</div>
     </div>
   );
 };
 
 export default userhelpful;
-
-//               "5986024": {
-//                   "id": 5986024,
-//                   "body": "I hide in the woods all the time in my camo onesie and no one has ever noticed me!",
-//                   "date": "2022-06-09T00:00:00.000Z",
-//                   "answerer_name": "sneakyPete",
-//                   "helpfulness": 2,
-//                   "photos": []
-//               },

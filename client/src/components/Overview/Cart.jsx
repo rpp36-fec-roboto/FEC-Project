@@ -11,6 +11,7 @@ var Cart = (props) => {
   const handleSelect = props.handleSelect;
   const submitCartRequest = props.submitCartRequest;
   const handleAddToYourOutfit = props.handleAddToYourOutfit;
+  const handleRemoveYourOutfit = props.handleRemoveYourOutfit;
 
   const [showMessage, setShowMessage] = useState(false);
 
@@ -50,8 +51,8 @@ var Cart = (props) => {
     }
   };
 
+  // add to cart button, underconstruction for all features
   const sizeInput = useRef(null);
-
   const handleAddToCart = (event) => {
     // console.log('clicked');
     event.preventDefault();
@@ -101,7 +102,7 @@ var Cart = (props) => {
 
       <div className="my-outfit-star">{
         isYourOutfit ?
-          <AiFillStar onClick={handleYourOutfitStarClick}/>
+          <AiFillStar onClick={handleRemoveYourOutfit}/>
           :
           <AiOutlineStar onClick={handleAddToYourOutfit}/>
       }</div>

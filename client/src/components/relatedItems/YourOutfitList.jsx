@@ -5,10 +5,11 @@ import sampleData from '../../data/sampleData.js';
 
 var YourOutfitList = function (props) {
   const productId = props.productId;
+  const yourOutfit = props.yourOutfit;
+  const show = 4;
   const productInfo = sampleData.productInfo;
   const productStyle = sampleData.productStyle;
-  const [yourOutfit, setYourOutfit] = useState(props.yourOutfit);
-  const [show, setShow] = useState(4);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(yourOutfit.length);
 
@@ -17,8 +18,9 @@ var YourOutfitList = function (props) {
       <div key={id.toString()}>
         <div style={{ padding: 8 }}>
           <RelatedProductCard
-            list={'yourOutfit'}
+            listType={'yourOutfit'}
             productId={id}
+            onXClick={props.onXClick}
           />
         </div>
       </div>

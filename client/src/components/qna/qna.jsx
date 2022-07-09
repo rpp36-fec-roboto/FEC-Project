@@ -12,7 +12,8 @@ class Qna extends React.Component {
     this.state = {
       questions: data.questions.results,
       answers: {},
-      questionhelpful: false
+      questionhelpful: [],
+      answerhelpful: []
     };
     this.updateAnswers = this.updateAnswers.bind(this);
     this.yesQuestionButton = this.yesQuestionButton.bind(this);
@@ -47,13 +48,15 @@ class Qna extends React.Component {
   }
 
   yesQuestionButton(qid) {
-    if (this.state.questionhelpful === false) {
+    if (!this.state.questionhelpful.includes(qid)) {
       $.ajax({
         method: 'put',
         url: `/qa/questions/${qid}/helpful`,
         success: () => {
           console.log('Thank you for marking this helpful!');
-          this.setState({questionhelpful: true});
+          let tempState = this.state.questionhelpful;
+          tempState.push(qid);
+          this.setState({questionhelpful: tempState});
         }
       });
     } else {
@@ -66,8 +69,21 @@ class Qna extends React.Component {
     console.log('add answer button');
   }
 
-  yesAnswerButton(e) {
-    console.log('yes answer button');
+  yesAnswerButton(id) {
+    if (!this.state.answerhelpful.includes(id)) {
+      $.ajax({
+        method: 'put',
+        url: `/qa/answer/${id}/helpful`,
+        success: () => {
+          console.log('Thank you for marking this helpful!');
+          let tempState = this.state.answerhelpful;
+          tempState.push(id);
+          this.setState({answerhelpful: tempState});
+        }
+      });
+    } else {
+      console.log('You have already marked this as helpful');
+    }
   }
 
   reportAnswerButton(e) {

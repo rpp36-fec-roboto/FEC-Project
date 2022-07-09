@@ -14,6 +14,13 @@ class Qna extends React.Component {
       answers: {}
     };
     this.updateAnswers = this.updateAnswers.bind(this);
+    this.yesQuestionButton = this.yesQuestionButton.bind(this);
+    this.addAnswerButton = this.addAnswerButton.bind(this);
+    this.yesAnswerButton = this.yesAnswerButton.bind(this);
+    this.reportAnswerButton = this.reportAnswerButton.bind(this);
+    this.addQuestionButton = this.addQuestionButton.bind(this);
+    this.moreQuestions = this.moreQuestions.bind(this);
+    this.moreAnswers = this.moreAnswers.bind(this);
   }
 
   componentDidMount() {
@@ -38,15 +45,53 @@ class Qna extends React.Component {
     this.setState({answers: answers});
   }
 
+  yesQuestionButton(e) {
+    console.log('yes question button');
+  }
+
+  addAnswerButton(e) {
+    console.log('add answer button');
+  }
+
+  yesAnswerButton(e) {
+    console.log('yes answer button');
+  }
+
+  reportAnswerButton(e) {
+    console.log('report answer button');
+  }
+
+  addQuestionButton(e) {
+    console.log('add question button');
+  }
+
+  moreQuestions(e) {
+    console.log('more answered button');
+  }
+
+  moreAnswers(e) {
+    console.log('more answers button');
+  }
+
   render() {
     return (
       <div>
         <SearchBar />
         <br></br>
         <br></br>
-        <QuestionAnswer questions={this.state.questions} update={this.updateAnswers}/>
+        <QuestionAnswer
+          questions={this.state.questions}
+          update={this.updateAnswers}
+          yesQuestion={this.yesQuestionButton}
+          addAnswer={this.addAnswerButton}
+          yesAnswer={this.yesAnswerButton}
+          reportAnswer={this.reportAnswerButton}
+          moreAnswers={this.moreAnswers}/>
         <br></br>
-        <BottomButtons questions={this.state.questions} />
+        <BottomButtons
+          questions={this.state.questions}
+          addQuestion={this.addQuestionButton}
+          more={this.moreQuestions}/>
       </div>
     );
   }

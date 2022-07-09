@@ -3,7 +3,7 @@ import React from 'react';
 var picture = (props) => {
   if (props.picture.length > 0) {
     return props.picture.map((pic) => (
-      <img src={pic}></img>
+      <img className='qa-thumbnail' src={pic}></img>
     ));
   } else {
     null;

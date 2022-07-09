@@ -13,8 +13,14 @@ var answer = (props) => {
           <div className='qa-bold qa-float'>A:</div>
           <div>{props.answers[props.answersid[0]].body}</div>
         </div>
-        <Picture picture={props.answers[props.answersid[0]].photos}/>
-        <Userhelpful answer={props.answers[props.answersid[0]]} />
+        <div className='qa-thumbnail-list qa-paddingleft'>
+          <Picture picture={props.answers[props.answersid[0]].photos}/>
+        </div>
+        <br></br>
+        <Userhelpful
+          answer={props.answers[props.answersid[0]]}
+          yesAnswer={props.yesAnswer}
+          reportAnswer={props.reportAnswer}/>
       </div>
     );
   } else if (props.answersid.length === 2) {
@@ -25,16 +31,28 @@ var answer = (props) => {
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[0]].body}</div>
           </div>
-          <Picture picture={props.answers[props.answersid[0]].photos}/>
-          <Userhelpful answer={props.answers[props.answersid[0]]} />
+          <div className='qa-thumbnail-list qa-paddingleft'>
+            <Picture picture={props.answers[props.answersid[0]].photos}/>
+          </div>
+          <br></br>
+          <Userhelpful
+            answer={props.answers[props.answersid[0]]}
+            yesAnswer={props.yesAnswer}
+            reportAnswer={props.reportAnswer}/>
         </div>
         <div>
           <div className='qa-paddingleft qa-paddingbottom qa-paddingtop'>
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[1]].body}</div>
           </div>
-          <Picture picture={props.answers[props.answersid[0]].photos}/>
-          <Userhelpful answer={props.answers[props.answersid[1]]} />
+          <div className='qa-thumbnail-list qa-paddingleft'>
+            <Picture picture={props.answers[props.answersid[1]].photos}/>
+          </div>
+          <br></br>
+          <Userhelpful
+            answer={props.answers[props.answersid[1]]}
+            yesAnswer={props.yesAnswer}
+            reportAnswer={props.reportAnswer}/>
         </div>
       </div>
     );
@@ -46,19 +64,31 @@ var answer = (props) => {
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[0]].body}</div>
           </div>
-          <Picture picture={props.answers[props.answersid[0]].photos}/>
-          <Userhelpful answer={props.answers[props.answersid[0]]} />
+          <div className='qa-thumbnail-list qa-paddingleft'>
+            <Picture picture={props.answers[props.answersid[0]].photos}/>
+          </div>
+          <br></br>
+          <Userhelpful
+            answer={props.answers[props.answersid[0]]}
+            yesAnswer={props.yesAnswer}
+            reportAnswer={props.reportAnswer}/>
         </div>
         <div>
           <div className='qa-paddingleft qa-paddingbottom qa-paddingtop'>
             <div className='qa-bold qa-float'>A:</div>
             <div>{props.answers[props.answersid[1]].body}</div>
           </div>
-          <Picture picture={props.answers[props.answersid[0]].photos}/>
-          <Userhelpful answer={props.answers[props.answersid[1]]} />
+          <div className='qa-thumbnail-list qa-paddingleft'>
+            <Picture picture={props.answers[props.answersid[1]].photos}/>
+          </div>
+          <br></br>
+          <Userhelpful
+            answer={props.answers[props.answersid[1]]}
+            yesAnswer={props.yesAnswer}
+            reportAnswer={props.reportAnswer}/>
         </div>
         <div className='qa-paddingleft'>
-          <button >SEE MORE ANSWERS</button>
+          <button onClick={(e) => { props.moreAnswers(e); }}>SEE MORE ANSWERS</button>
         </div>
       </div>
     );

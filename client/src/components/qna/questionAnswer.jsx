@@ -24,23 +24,34 @@ var questionAnswer = (props) => {
   return (
     <div className='questions'>
       <div className='question0'>
-        <Question questions={props.questions[0]}/>
+        <Question
+          questions={props.questions[0]}
+          yesQuestion={props.yesQuestion}
+          addAnswer={props.addAnswer}/>
         <Answer
           answer={props.questions[0].answers[id1[0]]}
           answers={props.questions[0].answers}
           answersid={id1}
           id={props.questions[0].question_id}
-          update={props.update}/>
+          update={props.update}
+          yesAnswer={props.yesAnswer}
+          reportAnswer={props.reportAnswer}
+          moreAnswers={props.moreAnswers}/>
       </div>
       <br></br>
       <div className='question1'>
-        <Question questions={props.questions[1]}/>
+        <Question
+          questions={props.questions[1]}
+          yesQuestion={props.yesQuestion}
+          addAnswer={props.addAnswer}/>
         <Answer
           answer={props.questions[1].answers[id2[0]]}
           answers={props.questions[1].answers}
           answersid={id2}
           id={props.questions[1].question_id}
-          update={props.update}/>
+          update={props.update}
+          yesAnswer={props.yesAnswer}
+          reportAnswer={props.reportAnswer}/>
       </div>
     </div>
   );

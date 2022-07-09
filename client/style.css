@@ -197,6 +197,18 @@ body {
   padding-right: 10px;
 }
 
+.qa-thumbnail {
+  height: 70px;
+  width: 70px;
+  margin-top: 6px;
+}
+
+.qa-thumbnail-list {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr;
+}
+
 /*
 //////// RELATED ITEMS SECTION //////////////////////////////////////////////
 */

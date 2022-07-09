@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import sampleData from './data/sampleData.js';
 import Overview from './components/Overview/Overview.jsx';
 import Qna from './components/qna/qna.jsx';
@@ -17,12 +18,17 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let outfit = JSON.parse(localStorage.getItem('myOutfit'));
-    if (outfit !== null) {
-      this.setState({
-        yourOutfit: outfit
-      });
-    }
+    let outfit = JSON.parse(localStorage.getItem('myOutfit')) || [];
+
+    axios.get('reviews/meta', {params: { 'product_id': this.state.productId }})
+      .then(response => {
+        console.dir(response.data);
+        this.setState({
+          reviewsMeta: resposne.data,
+          yourOutfit: outfit
+        });
+      })
+      .catch( err => console.log(err) );
   }
 
   handleAddToYourOutfit (productId) {

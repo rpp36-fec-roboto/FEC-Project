@@ -5,11 +5,9 @@ import sampleData from '../../data/sampleData.js';
 import RelatedProductsList from './RelatedProductsList.jsx';
 import YourOutfitList from './YourOutfitList.jsx';
 
-var RelatedItems = function (props) {
+var RelatedItems = (props) => {
   const productId = props.productId;
-  const yourOutfit = [71698, 71699, 71704, 71703];
-  // const yourOutfit = props.yourOutfit;
-  // const isYourOutfit = props.isYourOutfit;
+  const yourOutfit = props.yourOutfit;
 
   // Anticipate passing product Information and Style for comparison to other products
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
@@ -26,10 +24,10 @@ var RelatedItems = function (props) {
   // update second parameter so it renders any time any dependency value changes
   useEffect(() => {
     var productInfoRequest = axios.get(`/products/${productId}`);
-    var styleRequest = axios.get(`/products/${productId}/styles`);
+    var productStyleRequest = axios.get(`/products/${productId}/styles`);
     var relatedProductRequest = axios.get(`/products/${productId}/related`);
 
-    axios.all([productInfoRequest, styleRequest, relatedProductRequest])
+    axios.all([productInfoRequest, productStyleRequest, relatedProductRequest])
       .then(axios.spread((...responses) => {
         setProductInfo(responses[0].data);
         setProductStyle(responses[1].data);
@@ -46,8 +44,13 @@ var RelatedItems = function (props) {
         productInfo={productInfo}
         productStyle={productStyle}
         relatedProduct={relatedProduct}
+        onStarClick={props.onStarClick}
       />
-      <YourOutfitList productId={productId} yourOutfit={yourOutfit}/>
+      <YourOutfitList
+        productId={productId}
+        yourOutfit={yourOutfit}
+        onXClick={props.onXClick}
+      />
     </div>
   );
 };

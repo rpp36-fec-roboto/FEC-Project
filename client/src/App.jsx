@@ -13,6 +13,17 @@ class App extends React.Component {
       yourOutfit: [],
       isYourOutfit: false
     };
+    this.handleYourOutfitStarClick = this.handleYourOutfitStarClick.bind(this);
+    this.handleYourOutfitXClick = this.handleYourOutfitXClick.bind(this);
+  }
+
+  componentDidMount() {
+    let outfit = JSON.parse(localStorage.getItem('myOutfit'));
+    if (outfit !== null) {
+      this.setState({
+        yourOutfit: outfit
+      });
+    }
   }
 
   handleYourOutfitStarClick (productId) {
@@ -28,10 +39,24 @@ class App extends React.Component {
       });
     } else {
       this.state.yourOutfit.splice(indexOfProduct, 1);
+      // updatedYourOutfit.splice(indexOfProduct, 1);
       this.setState({
         yourOutfit: updatedYourOutfit,
         isYourOutfit: !this.state.isYourOutfit
       });
+    }
+    localStorage.setItem('myOutfit', JSON.stringify(updatedYourOutfit));
+  }
+
+  handleYourOutfitXClick (productId) {
+    const updatedYourOutfit = this.state.yourOutfit.slice();
+    const indexOfProduct = this.state.yourOutfit.indexOf(productId);
+    if (indexOfProduct !== -1) {
+      updatedYourOutfit.splice(indexOfProduct, 1);
+      this.setState({
+        yourOutfit: updatedYourOutfit
+      });
+      localStorage.setItem('myOutfit', JSON.stringify(updatedYourOutfit));
     }
   }
 
@@ -44,7 +69,12 @@ class App extends React.Component {
           isYourOutfit={this.state.isYourOutfit}
           handleYourOutfitStarClick={ () => { this.handleYourOutfitStarClick(this.state.productId); } }
         />
-        <RelatedItems productId={this.state.productId}/>
+        <RelatedItems
+          productId={this.state.productId}
+          yourOutfit={this.state.yourOutfit}
+          onStarClick={this.handleYourOutfitStarClick}
+          onXClick={this.handleYourOutfitXClick}
+        />
         <Qna productId={this.state.productId}/>
       </div>
     );

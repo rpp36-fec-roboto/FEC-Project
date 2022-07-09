@@ -26,13 +26,16 @@ class App extends React.Component {
   }
 
   handleAddToYourOutfit (productId) {
-    // make a copy of yourOutfit
-    var updatedYourOutfit = this.state.yourOutfit.slice();
-    updatedYourOutfit.unshift(productId);
-    this.setState({
-      yourOutfit: updatedYourOutfit,
-    });
-    localStorage.setItem('myOutfit', JSON.stringify(updatedYourOutfit));
+    let updatedYourOutfit = this.state.yourOutfit.slice();
+    let indexOfProduct = this.state.yourOutfit.indexOf(productId);
+    // add only if not added yet
+    if (indexOfProduct === -1) {
+      updatedYourOutfit.unshift(productId);
+      this.setState({
+        yourOutfit: updatedYourOutfit,
+      });
+      localStorage.setItem('myOutfit', JSON.stringify(updatedYourOutfit));
+    }
   }
 
   handleYourOutfitXClick (productId) {

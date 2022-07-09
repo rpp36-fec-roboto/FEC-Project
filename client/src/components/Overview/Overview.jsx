@@ -13,10 +13,11 @@ var Overview = (props) => {
   // data props
   const productId = props.productId; // props from App level state
   const reviewsMeta = props.reviewsMeta; // props from the App level state
-  const isYourOutfit = props.isYourOutfit;
+  const yourOutfit = props.yourOutfit;
 
   // event handler props
-  const handleYourOutfitStarClick = props.handleYourOutfitStarClick;
+  const handleAddToYourOutfit = props.handleAddToYourOutfit;
+  const handleRemoveYourOutfit = props.handleRemoveYourOutfit;
 
   // Shared managed state
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
@@ -154,12 +155,13 @@ var Overview = (props) => {
 
             <Cart
               currentStyle={currentStyle}
-              isYourOutfit={isYourOutfit}
+              isYourOutfit={helper.isInYourOutfit(productId, yourOutfit)}
               selectedSize={selectedSize}
               selectedQuant={selectedQuant}
               handleSelect={handleSelect}
               submitCartRequest={submitCartRequest}
-              handleYourOutfitStarClick={handleYourOutfitStarClick}
+              handleAddToYourOutfit={handleAddToYourOutfit}
+              handleRemoveYourOutfit={handleRemoveYourOutfit}
             />
           </div>}
 

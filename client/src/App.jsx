@@ -11,9 +11,8 @@ class App extends React.Component {
       productId: 71697, // default id to render when open the webpage
       reviewsMeta: sampleData.reviewsMeta,
       yourOutfit: [],
-      isYourOutfit: false
     };
-    this.handleYourOutfitStarClick = this.handleYourOutfitStarClick.bind(this);
+    this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
     this.handleYourOutfitXClick = this.handleYourOutfitXClick.bind(this);
   }
 
@@ -26,26 +25,17 @@ class App extends React.Component {
     }
   }
 
-  handleYourOutfitStarClick (productId) {
-    // make a copy of yourOutfit
-    var updatedYourOutfit = this.state.yourOutfit.slice();
-    var indexOfProduct = this.state.yourOutfit.indexOf(productId);
-
+  handleAddToYourOutfit (productId) {
+    let updatedYourOutfit = this.state.yourOutfit.slice();
+    let indexOfProduct = this.state.yourOutfit.indexOf(productId);
+    // add only if not added yet
     if (indexOfProduct === -1) {
       updatedYourOutfit.unshift(productId);
       this.setState({
         yourOutfit: updatedYourOutfit,
-        isYourOutfit: !this.state.isYourOutfit
       });
-    } else {
-      this.state.yourOutfit.splice(indexOfProduct, 1);
-      // updatedYourOutfit.splice(indexOfProduct, 1);
-      this.setState({
-        yourOutfit: updatedYourOutfit,
-        isYourOutfit: !this.state.isYourOutfit
-      });
+      localStorage.setItem('myOutfit', JSON.stringify(updatedYourOutfit));
     }
-    localStorage.setItem('myOutfit', JSON.stringify(updatedYourOutfit));
   }
 
   handleYourOutfitXClick (productId) {
@@ -66,13 +56,14 @@ class App extends React.Component {
         <Overview
           productId={this.state.productId}
           reviewsMeta={this.state.reviewsMeta}
-          isYourOutfit={this.state.isYourOutfit}
-          handleYourOutfitStarClick={ () => { this.handleYourOutfitStarClick(this.state.productId); } }
+          yourOutfit={this.state.yourOutfit}
+          handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
+          handleRemoveYourOutfit={ () => { this.handleYourOutfitXClick(this.state.productId); }}
         />
         <RelatedItems
           productId={this.state.productId}
           yourOutfit={this.state.yourOutfit}
-          onStarClick={this.handleYourOutfitStarClick}
+          onStarClick={this.handleAddToYourOutfit}
           onXClick={this.handleYourOutfitXClick}
         />
         <Qna productId={this.state.productId}/>

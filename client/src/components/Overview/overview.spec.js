@@ -15,7 +15,11 @@ import helper from '../../../../lib/clientHelpers.js';
 
 import App from '../../App.jsx';
 import Overview from './Overview.jsx';
+import ImageGallery from './ImageGallery.jsx';
+import ProductInfo from './ProductInfo.jsx';
+import Style from './Style.jsx';
 import Cart from './Cart.jsx';
+import OtherInfo from './OtherInfo.jsx';
 
 describe('helper function unit tests', () => {
   it('should find the default style', () => {
@@ -32,24 +36,18 @@ describe('helper function unit tests', () => {
   });
 });
 
-describe('App rendering', () => {
-  let container = document.createElement('div');
-  it('render App without crashing', () => {
-    act(() => {
-      ReactDOMClient.createRoot(container).render(<App />);
-    });
-    expect(container).not.toBeNull();
-  });
-});
-
-describe('Components rendering', () => {
+describe('Overview widget static rendering', () => {
   let container;
   let state = {
+    productInfo: sampleData.productInfo,
+    productStyle: sampleData.productStyle,
     currentStyle: sampleData.productStyle.results[0],
     reviewsMeta: sampleData.reviewsMeta,
-    isYourOutfit: false,
+    yourOutfit: [71697],
+    mainImgIndex: 0,
+    thumbnailStartIndex: 0,
     selectedSize: 'Select Size',
-    selectedQuant: 0,
+    selectedQuant: 0
   };
 
   beforeEach(() => {
@@ -70,14 +68,30 @@ describe('Components rendering', () => {
     expect(element).not.toBeNull();
   });
 
-  it('render Overview component without crash', () => {
-    act(() => {
-      render(<Overview reviewsMeta={state.reviewsMeta}/>, container);
-    });
+  it('render ProductInfo component without crash', () => {
+    render(<ProductInfo productInfo={state.productInfo} rating={helper.calculateRating(state.reviewsMeta)}/>, container);
     expect(container).not.toBeNull();
+    expect(screen.getByText('Jackets', {exact: false})).toBeInTheDocument();
+    expect(screen.getByText('rating', {exact: false})).toBeInTheDocument();
+    expect(screen.getByText('Camo Onesie', {exact: false})).toBeInTheDocument();
   });
 
-  it('render Cart component without crassh', () => {
+  it('render ImageGallery component without crash', () => {
+    render(<ImageGallery
+      currentStyle={state.currentStyle}
+      mainImgIndex={state.mainImgIndex}
+      maxThumbnails={state.maxThumbnails}
+      thumbnailStartIndex={state.thumbnailStartIndex}
+    />, container);
+    expect(container).not.toBeNull();
+    expect(screen.getByRole('list')).toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Left arrow'})).toBeNull();
+    expect(screen.getByRole('button', {name: 'Right arrow'})).toBeInTheDocument();
+    console.log(container);
+    expect(screen.getAllByRole('img').length).toBe(5);
+  });
+
+  it('render Cart component without crash', () => {
     act(() => {
       render(<Cart
         currentStyle={state.currentStyle}
@@ -95,9 +109,6 @@ describe('Components rendering', () => {
       isYourOutfit={state.isYourOutfit}
       selectedSize={state.selectedSize}
       selectedQuant={state.selectedQuant}
-      // handleSelect={handleSelect}
-      // handleAddToCart={handleAddToCart}
-      // handleYourOutfitStarClick={handleYourOutfitStarClick}
     />);
     expect(screen.getAllByRole('option').length).toBe(2);
     expect(screen.getByRole('option', {name: 'OUT OF STOCK'})).toBeInTheDocument();
@@ -106,9 +117,29 @@ describe('Components rendering', () => {
 
 });
 
-describe('User interaction', () => {
+describe('User activities', () => {
   it('should switch between solid and empty star when click to add/remove from my outfit', () => {
     // render(<Cart currentStyle={sampleData.productStyle.results[0]} />);
     // expect(screen.getByRole('div', { name: 'AiOutlineStar'})).toBeInTheDocument();
   });
 });
+
+// INTEGRATION
+describe('App connection to server', () => {
+  // it('render Overview component', () => {
+  //   render(<Overview reviewsMeta={state.reviewsMeta}/>, container);
+  //   // expect(screen.)
+  //   expect(container).not.toBeNull();
+  // });
+});
+
+// END-TO-END
+// describe('App rendering', () => {
+//   let container = document.createElement('div');
+//   it('render App without crashing', () => {
+//     act(() => {
+//       ReactDOMClient.createRoot(container).render(<App />);
+//     });
+//     expect(container).not.toBeNull();
+//   });
+// });

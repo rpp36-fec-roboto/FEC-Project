@@ -2,11 +2,15 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import RelatedProductsList from './RelatedProductsList.jsx';
-import YourOutfitList from './YourOutfitList.jsx';
+// import YourOutfitList from './YourOutfitList.jsx';
 
 var RelatedItems = (props) => {
-  const productId = props.productId;
-  const yourOutfit = props.yourOutfit;
+  const {
+    productId,
+    yourOutfit,
+    onStarClick,
+    onXClick
+  } = props;
 
   const [productInfo, setProductInfo] = useState({});
   const [productStyle, setProductStyle] = useState({});
@@ -108,22 +112,24 @@ var RelatedItems = (props) => {
   return (
     <div className="ri-grid">
       <RelatedProductsList
+        listType={'relatedProduct'}
         productId={productId}
         productInfo={productInfo}
         productStyle={productStyle}
         relatedProduct={relatedProduct}
         relatedProductInfo={relatedProductInfo}
         relatedProductStyles={relatedProductStyles}
-        onStarClick={props.onStarClick}
+        onStarClick={onStarClick}
       />
-      <YourOutfitList
+      <RelatedProductsList
+        listType={'yourOutfit'}
         productId={productId}
         productInfo={productInfo}
         productStyle={productStyle}
         yourOutfit={yourOutfit}
         yourOutfitInfo={yourOutfitInfo}
         yourOutfitStyles={yourOutfitStyles}
-        onXClick={props.onXClick}
+        onXClick={onXClick}
       />
     </div>
   );

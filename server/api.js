@@ -32,7 +32,23 @@ let postData = (url, data) => {
   });
 };
 
+let putData = (url, callback) => {
+  return axios({
+    method: 'put',
+    baseURL,
+    url,
+    headers
+  })
+    .then(() => {
+      callback(null, 'ok');
+    })
+    .catch(() => {
+      callback('err');
+    });
+};
+
 module.exports = {
   getData,
-  postData
+  postData,
+  putData
 };

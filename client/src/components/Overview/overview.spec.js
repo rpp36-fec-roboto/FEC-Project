@@ -155,7 +155,6 @@ describe('Overview widget rendering', () => {
     beforeEach(() => {
       render(<Cart
         currentStyle={sampleData.outOfStockStyle}
-        isYourOutfit={state.isYourOutfit}
         selectedSize={state.selectedSize}
         selectedQuant={state.selectedQuant}
       />);
@@ -172,14 +171,26 @@ describe('Overview widget rendering', () => {
 });
 
 describe('User activities', () => {
-  it('should update style name after click another style', async () => {
-    await render(<App />);
+  let state = {
+    productInfo: sampleData.productInfo,
+    reviewsMeta: sampleData.reviewsMeta,
+    yourOutfit: [71697]
+  };
+
+  it('should update style name after click change style', async () => {
+    await render(<Overview
+      productId={state.productId}
+      reviewsMeta={state.reviewsMeta}
+      yourOutfit={state.yourOutfit}
+    />);
     expect(screen.getByText('Forest Green & Black')).toBeInTheDocument();
+
     const clickedStyle = screen.getByRole('img', {name: 'Ocean Blue & Grey'});
     expect(clickedStyle).toBeInTheDocument();
+    // user click event
     await userEvent.click(clickedStyle);
-    const styleName = screen.queryByRole('span', {name:'Forest Green & Black'});
-    expect(styleName).toBeNull();
+    // the name should disappear from the DOM
+    expect(screen.queryByText('Forest Green & Black')).toBeNull();
   });
 
   it.todo('should show scroll up after scrolling down of the thumbnail');

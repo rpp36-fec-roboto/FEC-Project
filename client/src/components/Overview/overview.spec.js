@@ -7,6 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { render, screen, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
 import '@testing-library/jest-dom'; // provides method for DOM matcher
+import userEvent from '@testing-library/user-event';
 // import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
@@ -104,10 +105,6 @@ describe('Overview widget rendering', () => {
     it('should show scroll down icon initially', () => {
       expect(screen.getByTestId('scroll-down')).toBeInTheDocument();
     });
-
-    it.todo('should show scroll up after scrolling down of the thumbnail');
-    it.todo('should not show scroll down after scrolling');
-
     it('should not show left arrow when initially load', () => {
       expect(screen.queryByRole('button', {name: 'Left arrow'})).toBeNull();
     });
@@ -130,9 +127,6 @@ describe('Overview widget rendering', () => {
     it('should show text of style', () => {
       expect(screen.getByText('STYLE', {exact: false})).toBeInTheDocument();
     });
-
-    it.todo('should update style name after click another style');
-    it.todo('should show correct price with current style');
   });
 
   describe('Cart component', () => {
@@ -155,10 +149,6 @@ describe('Overview widget rendering', () => {
     it('should have a add to cart button', () => {
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
-
-    it.todo('should expand size selector menu when clicked');
-    it.todo('after select size, enable quantity selector');
-    it.todo('clicking on add to cart without selecting a size should show warning message');
   });
 
   describe('Cart with OUT OF STOCK style', () => {
@@ -182,18 +172,23 @@ describe('Overview widget rendering', () => {
 });
 
 describe('User activities', () => {
-  it('should switch between solid and empty star when click to add/remove from my outfit', () => {
-    // render(<Cart currentStyle={sampleData.productStyle.results[0]} />);
-    // expect(screen.getByRole('div', { name: 'AiOutlineStar'})).toBeInTheDocument();
+  it('should update style name after click another style', async () => {
+    await render(<App />);
+    expect(screen.getByText('Forest Green & Black')).toBeInTheDocument();
+    const clickedStyle = screen.getByRole('img', {name: 'Ocean Blue & Grey'});
+    expect(clickedStyle).toBeInTheDocument();
+    await userEvent.click(clickedStyle);
+    const styleName = screen.queryByRole('span', {name:'Forest Green & Black'});
+    expect(styleName).toBeNull();
   });
-});
 
-// INTEGRATION
-describe('App connection to server', () =>{
-  // it('render Overview component', async () => {
-  //   render(<Overview reviewsMeta={state.reviewsMeta}/>);
-  //   expect(screen.findByText('Style', { exact: false})).toBeInTheDocument();
-  // });
+  it.todo('should show scroll up after scrolling down of the thumbnail');
+  it.todo('should not show scroll down after scrolling');
+  it.todo('should show correct price with current style');
+  it.todo('should expand size selector menu when clicked');
+  it.todo('after select size, enable quantity selector');
+  it.todo('clicking on add to cart without selecting a size should show warning message');
+  it.todo('should switch between solid and empty star when click to add/remove from my outfit');
 });
 
 // END-TO-END

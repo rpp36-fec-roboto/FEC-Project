@@ -4,15 +4,14 @@
 
 // import TestRenderer from 'react-test-renderer'; // used for snapshot test
 import React from 'react';
-import ReactDOMClient from 'react-dom/client';
-import { render, fireEvent, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { unmountComponentAtNode } from 'react-dom';
+import ReactDOM from 'react-dom/client';
+import { render, screen, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
+import '@testing-library/jest-dom'; // provides method for DOM matcher
+// import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import sampleData from '../../data/sampleData.js';
 import helper from '../../../../lib/clientHelpers.js';
-
 import App from '../../App.jsx';
 import Overview from './Overview.jsx';
 import ImageGallery from './ImageGallery.jsx';
@@ -36,8 +35,9 @@ describe('helper function unit tests', () => {
   });
 });
 
-describe('Overview widget static rendering', () => {
-  let container;
+describe('Overview widget rendering', () => {
+  // react testing library injected global afterEach cleanup to Jest framework
+  // no need to explicitly clean up
   let state = {
     productInfo: sampleData.productInfo,
     productStyle: sampleData.productStyle,
@@ -50,71 +50,135 @@ describe('Overview widget static rendering', () => {
     selectedQuant: 0
   };
 
-  beforeEach(() => {
-    // setup a DOM element as a render target
-    container = document.createElement('div');
-    document.body.appendChild(container);
-  });
 
-  afterEach(() => {
-    // cleanup on exiting
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
-  });
+  // let container;
+  // beforeEach(() => {
+  //   // setup a DOM element as a render target
+  //   container = document.createElement('div');
+  //   document.body.appendChild(container);
+  // });
 
-  it('use jsdom in this test file', () => {
+  // afterEach(() => {
+  //   // cleanup on exiting
+  //   unmountComponentAtNode(container);
+  //   container.remove();
+  //   container = null;
+  // });
+
+  describe('use jsdom in this test file', () => {
     const element = document.createElement('div');
     expect(element).not.toBeNull();
   });
 
-  it('render ProductInfo component without crash', () => {
-    render(<ProductInfo productInfo={state.productInfo} rating={helper.calculateRating(state.reviewsMeta)}/>, container);
-    expect(container).not.toBeNull();
-    expect(screen.getByText('Jackets', {exact: false})).toBeInTheDocument();
-    expect(screen.getByText('rating', {exact: false})).toBeInTheDocument();
-    expect(screen.getByText('Camo Onesie', {exact: false})).toBeInTheDocument();
+  describe('render ProductInfo component correctly', () => {
+    beforeEach(() => {
+      render(<ProductInfo productInfo={state.productInfo} rating={helper.calculateRating(state.reviewsMeta)}/>);
+    });
+    it('should show category', () => {
+      expect(screen.getByText('Jackets', {exact: false})).toBeInTheDocument();
+    });
+    it('should show rating', () => {
+      expect(screen.getByText('rating', {exact: false})).toBeInTheDocument();
+    });
+    it('should show product name', () =>{
+      expect(screen.getByText('Camo Onesie', {exact: false})).toBeInTheDocument();
+    });
   });
 
-  it('render ImageGallery component without crash', () => {
-    render(<ImageGallery
-      currentStyle={state.currentStyle}
-      mainImgIndex={state.mainImgIndex}
-      maxThumbnails={state.maxThumbnails}
-      thumbnailStartIndex={state.thumbnailStartIndex}
-    />, container);
-    expect(container).not.toBeNull();
-    expect(screen.getByRole('list')).toBeInTheDocument();
-    expect(screen.queryByRole('button', {name: 'Left arrow'})).toBeNull();
-    expect(screen.getByRole('button', {name: 'Right arrow'})).toBeInTheDocument();
-    console.log(container);
-    expect(screen.getAllByRole('img').length).toBe(5);
+  describe('ImageGallery component', () => {
+    beforeEach(() => {
+      render(<ImageGallery
+        currentStyle={state.currentStyle}
+        mainImgIndex={state.mainImgIndex}
+        maxThumbnails={state.maxThumbnails}
+        thumbnailStartIndex={state.thumbnailStartIndex}
+      />);
+    });
+
+    it('should have a list of thumbnmails', () => {
+      expect(screen.getByRole('list')).toBeInTheDocument();
+    });
+    it('should not show scroll up icon initially', () => {
+      expect(screen.queryByTestId('scroll-up')).toBeNull();
+    });
+    it('should show scroll down icon initially', () => {
+      expect(screen.getByTestId('scroll-down')).toBeInTheDocument();
+    });
+
+    it.todo('should show scroll up after scrolling down of the thumbnail');
+    it.todo('should not show scroll down after scrolling');
+
+    it('should not show left arrow when initially load', () => {
+      expect(screen.queryByRole('button', {name: 'Left arrow'})).toBeNull();
+    });
+    it('should show right arrow initially', () => {
+      expect(screen.getByRole('button', {name: 'Right arrow'})).toBeInTheDocument();
+    });
   });
 
-  it('render Cart component without crash', () => {
-    act(() => {
+  describe('Style component', () => {
+    beforeEach(() => {
+      render(<Style
+        productStyle={state.productStyle}
+        currentStyle={state.currentStyle}
+      />);
+    });
+
+    it('should show all styles available as thumbnails', () => {
+      expect(screen.getAllByRole('img').length).toBeGreaterThan(0);
+    });
+    it('should show text of style', () => {
+      expect(screen.getByText('STYLE', {exact: false})).toBeInTheDocument();
+    });
+
+    it.todo('should update style name after click another style');
+    it.todo('should show correct price with current style');
+  });
+
+  describe('Cart component', () => {
+    beforeEach(() => {
       render(<Cart
         currentStyle={state.currentStyle}
-        // isYourOutfit={state.isYourOutfit}
         selectedSize={state.selectedSize}
         selectedQuant={state.selectedQuant}
-      />, container);
+      />);
     });
-    expect(container).not.toBeNull();
+    it('should have 2 dropdown selector', () => {
+      expect(screen.getAllByRole('combobox').length).toBe(2);
+    });
+    it('should have default size selector at Select Size', () => {
+      expect(screen.getByRole('option', {name: 'Select Size'})).toBeInTheDocument();
+    });
+    it('should have quantity selector disabled when no size is selected', () => {
+      expect(screen.getByRole('option', {name: '-'})).toBeDisabled();
+    });
+    it('should have a add to cart button', () => {
+      expect(screen.getByRole('button')).toBeInTheDocument();
+    });
+
+    it.todo('should expand size selector menu when clicked');
+    it.todo('after select size, enable quantity selector');
+    it.todo('clicking on add to cart without selecting a size should show warning message');
   });
 
-  it('render Cart when style is out of stock', () => {
-    render(<Cart
-      currentStyle={sampleData.outOfStockStyle}
-      isYourOutfit={state.isYourOutfit}
-      selectedSize={state.selectedSize}
-      selectedQuant={state.selectedQuant}
-    />);
-    expect(screen.getAllByRole('option').length).toBe(2);
-    expect(screen.getByRole('option', {name: 'OUT OF STOCK'})).toBeInTheDocument();
-    expect(screen.getByRole('option', {name: '-'})).toBeInTheDocument();
+  describe('Cart with OUT OF STOCK style', () => {
+    beforeEach(() => {
+      render(<Cart
+        currentStyle={sampleData.outOfStockStyle}
+        isYourOutfit={state.isYourOutfit}
+        selectedSize={state.selectedSize}
+        selectedQuant={state.selectedQuant}
+      />);
+    });
+    it('should show out of stock in size selector and disable selector', () => {
+      let sizeSelector = screen.getByRole('option', {name: 'OUT OF STOCK'});
+      expect(sizeSelector).toBeInTheDocument();
+      expect(sizeSelector).toBeDisabled();
+    });
+    it('should have quantity selector disabled when no size is selected', () => {
+      expect(screen.getByRole('option', {name: '-'})).toBeDisabled();
+    });
   });
-
 });
 
 describe('User activities', () => {
@@ -125,11 +189,10 @@ describe('User activities', () => {
 });
 
 // INTEGRATION
-describe('App connection to server', () => {
-  // it('render Overview component', () => {
-  //   render(<Overview reviewsMeta={state.reviewsMeta}/>, container);
-  //   // expect(screen.)
-  //   expect(container).not.toBeNull();
+describe('App connection to server', () =>{
+  // it('render Overview component', async () => {
+  //   render(<Overview reviewsMeta={state.reviewsMeta}/>);
+  //   expect(screen.findByText('Style', { exact: false})).toBeInTheDocument();
   // });
 });
 
@@ -138,7 +201,7 @@ describe('App connection to server', () => {
 //   let container = document.createElement('div');
 //   it('render App without crashing', () => {
 //     act(() => {
-//       ReactDOMClient.createRoot(container).render(<App />);
+//       ReactDOM.createRoot(container).render(<App />);
 //     });
 //     expect(container).not.toBeNull();
 //   });

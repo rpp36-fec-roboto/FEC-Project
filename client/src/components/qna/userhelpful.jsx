@@ -14,10 +14,10 @@ var userhelpful = (props) => {
       <div className='qa-float' >{date}</div>
       <div className='qa-float' >|</div>
       <div className='qa-float' >Helpful?</div>
-      <div className='qa-underline qa-float' onClick={(e) => { props.yesAnswer(e); }}>Yes</div>
+      <div className='qa-underline qa-float' onClick={(e) => { props.yesAnswer(props.answer.id); }}>Yes</div>
       <div className='qa-float' >({props.answer.helpfulness})</div>
       <div className='qa-float' >|</div>
-      <div className='qa-underline qa-float' onClick={(e) => { props.reportAnswer(e); }}>Report</div>
+      <div className='qa-underline qa-float' onClick={(e) => { props.reportAnswer(props.answer.id); }}>Report</div>
     </div>
   );
 };

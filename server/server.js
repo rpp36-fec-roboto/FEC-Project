@@ -8,6 +8,11 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+// set up route to send back html file that points to static assets of bundle.js
+app.get('/:product_id', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, './index.html'));
+});
+
 app.get('/qa/questions', (req, res) => {
   // var param = req._parsedOriginalUrl.search; //will give you the product_id param  ?product_id=71697
   var param = req.query;
@@ -95,11 +100,6 @@ app.post('/cart', (req, res) => {
     .catch( err => {
       res.status(500).send( err );
     });
-});
-
-app.get('/:product_id', (req, res) => {
-  console.log('page render');
-  res.status(200).sendFile(path.join(__dirname, './index.html'));
 });
 
 app.listen(PORT, () => {

@@ -21,6 +21,63 @@ app.get('/qa/questions', (req, res) => {
   });
 });
 
+
+// app.get('/qa/questions/:question_id/answers', (req, res) => {
+//   var param = req._parsedOriginalUrl.search;
+//   api.getData(req._parsedOriginalUrl.pathname, param, (err, data) => {
+//     if (err) {
+//       res.status(404).send('Error getting data from the API');
+//     } else {
+//       res.send(data);
+//     }
+//   });
+// });
+
+app.put('/qa/questions/:question_id/helpful', (req, res) => {
+  let qid = `/qa/questions/${req.params.question_id}/helpful`;
+  api.putData(qid, (err, data) => {
+    if (err) {
+      res.status(500).send('Error updating question helpful');
+    } else {
+      res.status(204).send('Updated helpfulness on question');
+    }
+  });
+});
+
+app.put('/qa/answer/:answer_id/helpful', (req, res) => {
+  let id = `/qa/answers/${req.params.answer_id}/helpful`;
+  api.putData(id, (err, data) => {
+    if (err) {
+      res.status(500).send('Error updating answer helpful');
+    } else {
+      res.status(204).send('Updated helpfulness on answer');
+    }
+  });
+});
+
+app.put('/qa/answer/:answer_id/report', (req, res) => {
+  let id = `/qa/answers/${req.params.answer_id}/report`;
+  api.putData(id, (err, data) => {
+    if (err) {
+      res.status(500).send('Error reporting answer');
+    } else {
+      res.status(204).send('Updated report on answer');
+    }
+  });
+});
+
+app.get('/reviews/meta', (req, res) => {
+  var param = req.query;
+  var url = 'reviews/meta';
+  api.getData(url, param, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.get('/products/:product_id', (req, res) => {
   var pathVariable = req.params.product_id;
   var url = `products/${pathVariable}`;

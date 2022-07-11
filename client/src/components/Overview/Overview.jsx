@@ -13,10 +13,11 @@ var Overview = (props) => {
   // data props
   const productId = props.productId; // props from App level state
   const reviewsMeta = props.reviewsMeta; // props from the App level state
-  const isYourOutfit = props.isYourOutfit;
+  const yourOutfit = props.yourOutfit;
 
   // event handler props
-  const handleYourOutfitStarClick = props.handleYourOutfitStarClick;
+  const handleAddToYourOutfit = props.handleAddToYourOutfit;
+  const handleRemoveYourOutfit = props.handleRemoveYourOutfit;
 
   // Shared managed state
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
@@ -25,8 +26,8 @@ var Overview = (props) => {
 
   // ComponentDidMount
   useEffect(() => {
-    var productInfoRequest = axios.get(`/products/${productId}`);
-    var styleRequest = axios.get(`/products/${productId}/styles`);
+    var productInfoRequest = axios.get(`products/${productId}`);
+    var styleRequest = axios.get(`products/${productId}/styles`);
 
     axios.all([productInfoRequest, styleRequest])
       .then(axios.spread((...responses) => {
@@ -62,7 +63,6 @@ var Overview = (props) => {
       if (newMainImgIndex < thumbnailStartIndex) {
         setThumbnailStartIndex(newMainImgIndex);
       }
-
       setMainImgIndex(newMainImgIndex);
     } else {
       newMainImgIndex = mainImgIndex + 1;
@@ -74,19 +74,27 @@ var Overview = (props) => {
 
   };
 
-  const handleThumbnailScroll = (event) => {
+  const handleThumbnailScrollUp = (event) => {
     // scroll by 3
+    console.log('thumbnail scroll');
+    console.log(event.target);
     let startIndex = thumbnailStartIndex;
-    if (event.target.name === 'down-click') {
-      startIndex += 3;
-    } else {
-      startIndex -= 3;
-    }
-
+    startIndex -= 3;
     if (startIndex < 0) {
       startIndex = 0;
     }
+    console.log(startIndex);
+    setThumbnailStartIndex(startIndex);
+  };
 
+  const handleThumbnailScrollDown = (event) => {
+    // scroll by 3
+    console.log('thumbnail scroll');
+    console.log(event.target.name);
+    let startIndex = thumbnailStartIndex;
+    startIndex += 3;
+
+    console.log(startIndex);
     setThumbnailStartIndex(startIndex);
   };
 
@@ -133,7 +141,8 @@ var Overview = (props) => {
             thumbnailStartIndex={thumbnailStartIndex}
             handleImgBtnClick={handleImgBtnClick}
             handleImgThumbnailClick={handleImgThumbnailClick}
-            handleThumbnailScroll={handleThumbnailScroll}
+            handleThumbnailScrollUp={handleThumbnailScrollUp}
+            handleThumbnailScrollDown={handleThumbnailScrollDown}
             handleImgClick={handleImgClick}
           />
         </div>
@@ -154,12 +163,13 @@ var Overview = (props) => {
 
             <Cart
               currentStyle={currentStyle}
-              isYourOutfit={isYourOutfit}
+              isYourOutfit={helper.isInYourOutfit(productId, yourOutfit)}
               selectedSize={selectedSize}
               selectedQuant={selectedQuant}
               handleSelect={handleSelect}
               submitCartRequest={submitCartRequest}
-              handleYourOutfitStarClick={handleYourOutfitStarClick}
+              handleAddToYourOutfit={handleAddToYourOutfit}
+              handleRemoveYourOutfit={handleRemoveYourOutfit}
             />
           </div>}
 

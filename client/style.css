@@ -44,6 +44,8 @@ body {
 .ov-thumbnails-list-container {
   z-index: 5;
   position: absolute;
+  padding: 5px;
+  background-color: rgba(108, 109, 110, 0.26);
 }
 
 /* .ov-img-thumbnail {
@@ -57,13 +59,14 @@ body {
 .ov-thumbnails-list ul {
   display: inline-block;
   list-style: none;
-  padding: 0px;
+  padding: 0;
+  margin: 0;
 }
 
 .ov-thumbnail-container {
   height: 70px;
   width: 70px;
-  margin-top: 6px;
+  margin-top: 12px;
 }
 
 .ov-left-btn, .ov-right-btn {
@@ -94,7 +97,7 @@ body {
 
 /* Images styling */
 .style-thumbnail, .ov-img-thumbnail {
-  border: 1.5px solid rgb(65, 64, 64);
+  border: 1px solid rgba(65, 64, 64, 0.825);
   height: 4em;
   width: 4em;
   object-fit: cover;
@@ -133,8 +136,8 @@ body {
 /* Other styling*/
 .ov-btn {
   /* border-style: none; */
-  background-color: rgba(0, 0, 0, 0);
-  height: 2em;
+  background-color: rgba(255, 255, 255, 0);
+  height: 20px;
 }
 
 .ov-border {
@@ -147,7 +150,7 @@ body {
 }
 
 .ov-thumbnail-selected {
-  border-bottom: 2px solid rgb(45, 43, 43);
+  border-bottom: 3px solid rgb(45, 43, 43);
 }
 
 /* .ov-product-feature ul {
@@ -195,6 +198,18 @@ body {
 .qa-float {
   float:left;
   padding-right: 10px;
+}
+
+.qa-thumbnail {
+  height: 70px;
+  width: 70px;
+  margin-top: 6px;
+}
+
+.qa-thumbnail-list {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr;
 }
 
 /*

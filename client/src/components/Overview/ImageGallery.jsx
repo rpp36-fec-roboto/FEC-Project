@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 var ImageGallery = (props) => {
   // data props
-  var currentStyle = props.currentStyle;
-  var mainImgIndex = props.mainImgIndex;
-  var thumbnailStartIndex = props.thumbnailStartIndex;
-  var maxThumbnails = props.maxThumbnails;
+  const currentStyle = props.currentStyle;
+  const mainImgIndex = props.mainImgIndex;
+  const thumbnailStartIndex = props.thumbnailStartIndex;
+  const maxThumbnails = props.maxThumbnails;
 
   // event handlers props
-  var handleImgBtnClick = props.handleImgBtnClick;
-  var handleImgThumbnailClick = props.handleImgThumbnailClick;
-  var handleThumbnailScroll = props.handleThumbnailScroll;
-  var handleImgClick = props.handleImgClick;
+  const handleImgBtnClick = props.handleImgBtnClick;
+  const handleImgThumbnailClick = props.handleImgThumbnailClick;
+  const handleThumbnailScrollUp = props.handleThumbnailScrollUp;
+  const handleThumbnailScrollDown = props.handleThumbnailScrollDown;
+  const handleImgClick = props.handleImgClick;
 
   // generate thumbnail img list
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
@@ -48,12 +50,11 @@ var ImageGallery = (props) => {
         </div>
 
         <div className="ov-thumbnails-list-container">
-          <button
-            name="up-click"
-            disabled={thumbnailStartIndex === 0 ? true : false}
-            className="ov-btn"
-            onClick={handleThumbnailScroll}
-          >up arrow</button>
+          <div
+            className="ov-scroll-btn"
+            onClick={handleThumbnailScrollUp}
+          >{ thumbnailStartIndex !== 0 && <MdOutlineKeyboardArrowUp /> }
+          </div>
 
           <div className="ov-thumbnails-list">
             <ul>
@@ -61,12 +62,12 @@ var ImageGallery = (props) => {
             </ul>
           </div>
 
-          <button
-            name="down-click"
-            disabled={maxThumbnails >= (currentStyle.photos.length - thumbnailStartIndex) ? true : false}
-            className="ov-btn"
-            onClick={handleThumbnailScroll}
-          >down arrow</button>
+          <div
+            className="ov-scroll-btn"
+            onClick={handleThumbnailScrollDown}
+          >{maxThumbnails < (currentStyle.photos.length - thumbnailStartIndex) &&
+            <MdOutlineKeyboardArrowDown />}
+          </div>
         </div>
 
         { // conditionally rendering of left arrow button

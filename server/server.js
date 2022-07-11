@@ -4,7 +4,7 @@ const app = express();
 const PORT = 5555;
 const api = require('./api.js');
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -95,6 +95,10 @@ app.post('/cart', (req, res) => {
     .catch( err => {
       res.status(500).send( err );
     });
+});
+
+app.get('/product-detail/:product_id', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, './index.html'));
 });
 
 app.listen(PORT, () => {

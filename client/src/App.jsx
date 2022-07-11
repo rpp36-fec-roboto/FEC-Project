@@ -10,6 +10,7 @@ class App extends React.Component {
     super();
     this.state = {
       productId: 71699, // default id to render when open the webpage
+      // productId: window.location.href.split('/').splice(-1),
       reviewsMeta: sampleData.reviewsMeta,
       yourOutfit: [],
     };

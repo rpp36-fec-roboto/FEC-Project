@@ -50,11 +50,14 @@ var ImageGallery = (props) => {
         </div>
 
         <div className="ov-thumbnails-list-container">
-          <div
-            className="ov-scroll-btn"
-            onClick={handleThumbnailScrollUp}
-          >{ thumbnailStartIndex !== 0 && <MdOutlineKeyboardArrowUp /> }
-          </div>
+          {thumbnailStartIndex !== 0 &&
+            <div
+              className="ov-scroll-btn"
+              onClick={handleThumbnailScrollUp}
+
+            >
+              <MdOutlineKeyboardArrowUp data-testid="scroll-up"/>
+            </div>}
 
           <div className="ov-thumbnails-list">
             <ul>
@@ -62,12 +65,21 @@ var ImageGallery = (props) => {
             </ul>
           </div>
 
-          <div
-            className="ov-scroll-btn"
-            onClick={handleThumbnailScrollDown}
-          >{maxThumbnails < (currentStyle.photos.length - thumbnailStartIndex) &&
-            <MdOutlineKeyboardArrowDown />}
-          </div>
+          {maxThumbnails < (currentStyle.photos.length - thumbnailStartIndex) &&
+            <div
+              className="ov-scroll-btn"
+              onClick={handleThumbnailScrollDown}
+
+            >
+              <MdOutlineKeyboardArrowDown data-testid="scroll-down"/>
+            </div>}
+            {/* <div
+              className="ov-scroll-btn"
+              onClick={handleThumbnailScrollDown}
+              data-testid="scroll-down"
+            > {maxThumbnails < (currentStyle.photos.length - thumbnailStartIndex) &&  <MdOutlineKeyboardArrowDown />}
+
+            </div> */}
         </div>
 
         { // conditionally rendering of left arrow button

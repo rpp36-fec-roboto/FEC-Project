@@ -76,25 +76,18 @@ var Overview = (props) => {
 
   const handleThumbnailScrollUp = (event) => {
     // scroll by 3
-    console.log('thumbnail scroll');
-    console.log(event.target);
     let startIndex = thumbnailStartIndex;
     startIndex -= 3;
     if (startIndex < 0) {
       startIndex = 0;
     }
-    console.log(startIndex);
     setThumbnailStartIndex(startIndex);
   };
 
   const handleThumbnailScrollDown = (event) => {
     // scroll by 3
-    console.log('thumbnail scroll');
-    console.log(event.target.name);
     let startIndex = thumbnailStartIndex;
     startIndex += 3;
-
-    console.log(startIndex);
     setThumbnailStartIndex(startIndex);
   };
 

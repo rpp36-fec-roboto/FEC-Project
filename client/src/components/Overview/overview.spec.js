@@ -4,18 +4,22 @@
 
 // import TestRenderer from 'react-test-renderer'; // used for snapshot test
 import React from 'react';
-import ReactDOMClient from 'react-dom/client';
-import { render, fireEvent, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { unmountComponentAtNode } from 'react-dom';
+import ReactDOM from 'react-dom/client';
+import { render, screen, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
+import '@testing-library/jest-dom'; // provides method for DOM matcher
+import userEvent from '@testing-library/user-event';
+// import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import sampleData from '../../data/sampleData.js';
 import helper from '../../../../lib/clientHelpers.js';
-
 import App from '../../App.jsx';
 import Overview from './Overview.jsx';
+import ImageGallery from './ImageGallery.jsx';
+import ProductInfo from './ProductInfo.jsx';
+import Style from './Style.jsx';
 import Cart from './Cart.jsx';
+import OtherInfo from './OtherInfo.jsx';
 
 describe('helper function unit tests', () => {
   it('should find the default style', () => {
@@ -32,83 +36,179 @@ describe('helper function unit tests', () => {
   });
 });
 
-describe('App rendering', () => {
-  let container = document.createElement('div');
-  it('render App without crashing', () => {
-    act(() => {
-      ReactDOMClient.createRoot(container).render(<App />);
-    });
-    expect(container).not.toBeNull();
-  });
-});
-
-describe('Components rendering', () => {
-  let container;
+describe('Overview widget rendering', () => {
+  // react testing library injected global afterEach cleanup to Jest framework
+  // no need to explicitly clean up
   let state = {
+    productInfo: sampleData.productInfo,
+    productStyle: sampleData.productStyle,
     currentStyle: sampleData.productStyle.results[0],
     reviewsMeta: sampleData.reviewsMeta,
-    isYourOutfit: false,
+    yourOutfit: [71697],
+    mainImgIndex: 0,
+    thumbnailStartIndex: 0,
     selectedSize: 'Select Size',
-    selectedQuant: 0,
+    selectedQuant: 0
   };
 
-  beforeEach(() => {
-    // setup a DOM element as a render target
-    container = document.createElement('div');
-    document.body.appendChild(container);
-  });
 
-  afterEach(() => {
-    // cleanup on exiting
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
-  });
+  // let container;
+  // beforeEach(() => {
+  //   // setup a DOM element as a render target
+  //   container = document.createElement('div');
+  //   document.body.appendChild(container);
+  // });
 
-  it('use jsdom in this test file', () => {
+  // afterEach(() => {
+  //   // cleanup on exiting
+  //   unmountComponentAtNode(container);
+  //   container.remove();
+  //   container = null;
+  // });
+
+  describe('use jsdom in this test file', () => {
     const element = document.createElement('div');
     expect(element).not.toBeNull();
   });
 
-  it('render Overview component without crash', () => {
-    act(() => {
-      render(<Overview reviewsMeta={state.reviewsMeta}/>, container);
+  describe('render ProductInfo component correctly', () => {
+    beforeEach(() => {
+      render(<ProductInfo productInfo={state.productInfo} rating={helper.calculateRating(state.reviewsMeta)}/>);
     });
-    expect(container).not.toBeNull();
+    it('should show category', () => {
+      expect(screen.getByText('Jackets', {exact: false})).toBeInTheDocument();
+    });
+    it('should show rating', () => {
+      expect(screen.getByText('rating', {exact: false})).toBeInTheDocument();
+    });
+    it('should show product name', () =>{
+      expect(screen.getByText('Camo Onesie', {exact: false})).toBeInTheDocument();
+    });
   });
 
-  it('render Cart component without crassh', () => {
-    act(() => {
+  describe('ImageGallery component', () => {
+    beforeEach(() => {
+      render(<ImageGallery
+        currentStyle={state.currentStyle}
+        mainImgIndex={state.mainImgIndex}
+        maxThumbnails={state.maxThumbnails}
+        thumbnailStartIndex={state.thumbnailStartIndex}
+      />);
+    });
+
+    it('should have a list of thumbnmails', () => {
+      expect(screen.getByRole('list')).toBeInTheDocument();
+    });
+    it('should not show scroll up icon initially', () => {
+      expect(screen.queryByTestId('scroll-up')).toBeNull();
+    });
+    it('should show scroll down icon initially', () => {
+      expect(screen.getByTestId('scroll-down')).toBeInTheDocument();
+    });
+    it('should not show left arrow when initially load', () => {
+      expect(screen.queryByRole('button', {name: 'Left arrow'})).toBeNull();
+    });
+    it('should show right arrow initially', () => {
+      expect(screen.getByRole('button', {name: 'Right arrow'})).toBeInTheDocument();
+    });
+  });
+
+  describe('Style component', () => {
+    beforeEach(() => {
+      render(<Style
+        productStyle={state.productStyle}
+        currentStyle={state.currentStyle}
+      />);
+    });
+
+    it('should show all styles available as thumbnails', () => {
+      expect(screen.getAllByRole('img').length).toBeGreaterThan(0);
+    });
+    it('should show text of style', () => {
+      expect(screen.getByText('STYLE', {exact: false})).toBeInTheDocument();
+    });
+  });
+
+  describe('Cart component', () => {
+    beforeEach(() => {
       render(<Cart
         currentStyle={state.currentStyle}
-        // isYourOutfit={state.isYourOutfit}
         selectedSize={state.selectedSize}
         selectedQuant={state.selectedQuant}
-      />, container);
+      />);
     });
-    expect(container).not.toBeNull();
+    it('should have 2 dropdown selector', () => {
+      expect(screen.getAllByRole('combobox').length).toBe(2);
+    });
+    it('should have default size selector at Select Size', () => {
+      expect(screen.getByRole('option', {name: 'Select Size'})).toBeInTheDocument();
+    });
+    it('should have quantity selector disabled when no size is selected', () => {
+      expect(screen.getByRole('option', {name: '-'})).toBeDisabled();
+    });
+    it('should have a add to cart button', () => {
+      expect(screen.getByRole('button')).toBeInTheDocument();
+    });
   });
 
-  it('render Cart when style is out of stock', () => {
-    render(<Cart
-      currentStyle={sampleData.outOfStockStyle}
-      isYourOutfit={state.isYourOutfit}
-      selectedSize={state.selectedSize}
-      selectedQuant={state.selectedQuant}
-      // handleSelect={handleSelect}
-      // handleAddToCart={handleAddToCart}
-      // handleYourOutfitStarClick={handleYourOutfitStarClick}
+  describe('Cart with OUT OF STOCK style', () => {
+    beforeEach(() => {
+      render(<Cart
+        currentStyle={sampleData.outOfStockStyle}
+        selectedSize={state.selectedSize}
+        selectedQuant={state.selectedQuant}
+      />);
+    });
+    it('should show out of stock in size selector and disable selector', () => {
+      let sizeSelector = screen.getByRole('option', {name: 'OUT OF STOCK'});
+      expect(sizeSelector).toBeInTheDocument();
+      expect(sizeSelector).toBeDisabled();
+    });
+    it('should have quantity selector disabled when no size is selected', () => {
+      expect(screen.getByRole('option', {name: '-'})).toBeDisabled();
+    });
+  });
+});
+
+describe('User activities', () => {
+  let state = {
+    productInfo: sampleData.productInfo,
+    reviewsMeta: sampleData.reviewsMeta,
+    yourOutfit: [71697]
+  };
+
+  it('should update style name after click change style', async () => {
+    await render(<Overview
+      productId={state.productId}
+      reviewsMeta={state.reviewsMeta}
+      yourOutfit={state.yourOutfit}
     />);
-    expect(screen.getAllByRole('option').length).toBe(2);
-    expect(screen.getByRole('option', {name: 'OUT OF STOCK'})).toBeInTheDocument();
-    expect(screen.getByRole('option', {name: '-'})).toBeInTheDocument();
+    expect(screen.getByText('Forest Green & Black')).toBeInTheDocument();
+
+    const clickedStyle = screen.getByRole('img', {name: 'Ocean Blue & Grey'});
+    expect(clickedStyle).toBeInTheDocument();
+    // user click event
+    await userEvent.click(clickedStyle);
+    // the name should disappear from the DOM
+    expect(screen.queryByText('Forest Green & Black')).toBeNull();
   });
 
+  it.todo('should show scroll up after scrolling down of the thumbnail');
+  it.todo('should not show scroll down after scrolling');
+  it.todo('should show correct price with current style');
+  it.todo('should expand size selector menu when clicked');
+  it.todo('after select size, enable quantity selector');
+  it.todo('clicking on add to cart without selecting a size should show warning message');
+  it.todo('should switch between solid and empty star when click to add/remove from my outfit');
 });
 
-describe('User interaction', () => {
-  it('should switch between solid and empty star when click to add/remove from my outfit', () => {
-    // render(<Cart currentStyle={sampleData.productStyle.results[0]} />);
-    // expect(screen.getByRole('div', { name: 'AiOutlineStar'})).toBeInTheDocument();
-  });
-});
+// END-TO-END
+// describe('App rendering', () => {
+//   let container = document.createElement('div');
+//   it('render App without crashing', () => {
+//     act(() => {
+//       ReactDOM.createRoot(container).render(<App />);
+//     });
+//     expect(container).not.toBeNull();
+//   });
+// });

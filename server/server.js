@@ -14,7 +14,7 @@ app.get('/qa/questions', (req, res) => {
   api.getData('/qa/questions', param, (err, data) => {
     if (err) {
       console.log(err);
-      res.status(404).send('Error getting data from the API');
+      res.status(500).send('Error getting data from the API');
     } else {
       res.send(data);
     }
@@ -97,7 +97,8 @@ app.post('/cart', (req, res) => {
     });
 });
 
-app.get('/product-detail/:product_id', (req, res) => {
+app.get('/:product_id', (req, res) => {
+  console.log('page render');
   res.status(200).sendFile(path.join(__dirname, './index.html'));
 });
 

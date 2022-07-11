@@ -6,9 +6,11 @@ import '../style.css';
 const routes = () => {
   let productId = window.location.href.split('/')[4];
   // if productId is valid
+  console.log(productId);
+  return productId;
     // return productId
   // else
-    // return default productId
+    // return give the
 };
 
 const root = ReactDOM.createRoot(document.getElementById('app'));

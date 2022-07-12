@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-import RelatedProductsList from './RelatedProductsList.jsx';
+import RelatedProductLists from './RelatedProductLists.jsx';
 // import YourOutfitList from './YourOutfitList.jsx';
 
 var RelatedItems = (props) => {
@@ -42,6 +42,7 @@ var RelatedItems = (props) => {
     let relProdInfo = [];
     let relProdReviews = [];
     let relProdStyles = [];
+
     products.forEach((id) => {
       let productInfoRequest = axios.get(`/products/${id}`);
       let productReviewRequest = axios.get('reviews/meta', {params: { 'product_id': id }});
@@ -68,6 +69,7 @@ var RelatedItems = (props) => {
     let outfitInfo = [];
     let outfitReviews = [];
     let outfitStyles = [];
+
     products.forEach((id) => {
       let productInfoRequest = axios.get(`/products/${id}`);
       let productReviewRequest = axios.get('reviews/meta', {params: { 'product_id': id }});
@@ -122,7 +124,7 @@ var RelatedItems = (props) => {
 
   return (
     <div className="ri-grid">
-      <RelatedProductsList
+      <RelatedProductLists
         listType={'relatedProduct'}
         productId={productId}
         productInfo={productInfo}
@@ -133,7 +135,7 @@ var RelatedItems = (props) => {
         relatedProductStyles={relatedProductStyles}
         onStarClick={onStarClick}
       />
-      <RelatedProductsList
+      <RelatedProductLists
         listType={'yourOutfit'}
         productId={productId}
         productInfo={productInfo}

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import RelatedProductCard from './RelatedProductCard.jsx';
 
-var RelatedProductsList = function (props) {
+var RelatedProductLists = function (props) {
   const {
     listType,
     productId,
@@ -27,8 +27,12 @@ var RelatedProductsList = function (props) {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = listType === 'relatedProduct'
-    ? useState(relatedProduct.length)
-    : useState(yourOutfit.length);
+    ? Array.isArray(relatedProduct)
+      ? useState(relatedProduct.length)
+      : useState(0)
+    : Array.isArray(yourOutfit)
+      ? useState(yourOutfit.length)
+      : useState(0);
 
   const products = listType === 'relatedProduct'
     ? relatedProduct.map((id) => {
@@ -119,4 +123,4 @@ var RelatedProductsList = function (props) {
   );
 };
 
-export default RelatedProductsList;
+export default RelatedProductLists;

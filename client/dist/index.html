@@ -7,6 +7,14 @@
 
 <body>
   <div id="app"></div>
+  <script>
+    var productId = window.location.href.split('/')[3];
+    // if it's the home route
+    if (productId.length === 0) {
+      // change the url to product page
+      window.history.replaceState('object or string', 'Title', '/71699');
+    }
+  </script>
   <script type="text/javascript" src="bundle.js"></script>
 </body>
 

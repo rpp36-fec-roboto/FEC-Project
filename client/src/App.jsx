@@ -10,7 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       productId: window.location.href.split('/')[3], // get userId from url
-      reviewsMeta: sampleData.reviewsMeta,
+      reviewsMeta: {},
       yourOutfit: [],
     };
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
@@ -24,7 +24,7 @@ class App extends React.Component {
       .then(response => {
         console.dir(response.data);
         this.setState({
-          reviewsMeta: resposne.data,
+          reviewsMeta: response.data,
           yourOutfit: outfit
         });
       })

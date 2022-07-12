@@ -146,7 +146,7 @@ var Overview = (props) => {
           <div className="ov-right-1">
             <ProductInfo
               productInfo={productInfo}
-              rating={helper.calculateRating(reviewsMeta.ratings)}
+              reviewsMeta={reviewsMeta}
             />
 
             <Style

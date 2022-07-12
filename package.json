@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "open http://localhost:5555/",
     "react-dev": "webpack -w",
-    "server-dev": "nodemon server.js"
+    "server-dev": "nodemon server/server.js"
   },
   "author": "",
   "license": "ISC",

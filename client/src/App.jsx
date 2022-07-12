@@ -6,10 +6,10 @@ import Qna from './components/qna/qna.jsx';
 import RelatedItems from './components/relatedItems/RelatedItems.jsx';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      productId: 71699, // default id to render when open the webpage
+      productId: window.location.href.split('/')[3], // get userId from url
       reviewsMeta: sampleData.reviewsMeta,
       yourOutfit: [],
     };

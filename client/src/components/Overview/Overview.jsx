@@ -168,8 +168,9 @@ var Overview = (props) => {
 
       </div>
 
-      <OtherInfo
-        productInfo={productInfo}/>
+      <div className="ov-bottom-row">
+        <OtherInfo productInfo={productInfo}/>
+      </div>
     </div>
   );
 };

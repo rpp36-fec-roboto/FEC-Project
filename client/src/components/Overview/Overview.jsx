@@ -35,6 +35,7 @@ var Overview = (props) => {
         console.dir(responses[1].data);
         setProductInfo(responses[0].data);
         setProductStyle(responses[1].data);
+        setCurrentStyle(helper.findDefaultStyle(responses[1].data));
       }))
       .catch( err => { console.log(err); });
 

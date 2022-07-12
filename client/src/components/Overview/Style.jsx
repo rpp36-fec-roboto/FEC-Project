@@ -16,7 +16,7 @@ var Style = (props) => {
     } else {
       return (
         <p>
-          <span>${salePrice}</span>
+          <span style={{ color: 'red' }}>${salePrice}</span>
           <span>&nbsp;&nbsp;</span>
           <span style={{ textDecoration: 'line-through' }}>${originalPrice}</span>
         </p>

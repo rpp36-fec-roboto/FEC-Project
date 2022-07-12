@@ -1,31 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import sampleData from '../../data/sampleData.js';
 
 import RelatedProductsList from './RelatedProductsList.jsx';
-import YourOutfitList from './YourOutfitList.jsx';
+// import YourOutfitList from './YourOutfitList.jsx';
 
 var RelatedItems = (props) => {
-  const productId = props.productId;
-  const yourOutfit = props.yourOutfit;
+  const {
+    productId,
+    yourOutfit,
+    onStarClick,
+    onXClick
+  } = props;
 
-  // Anticipate passing product Information and Style for comparison to other products
-  const [productInfo, setProductInfo] = useState(sampleData.productInfo);
-  const [productStyle, setProductStyle] = useState(sampleData.productStyle);
+  const [productInfo, setProductInfo] = useState({});
+  const [productStyle, setProductStyle] = useState({});
   const [relatedProduct, setRelatedProduct] = useState([]);
-  // Not passing your outfit yet, use dummmy
-
   const [relatedProductInfo, setRelatedProductInfo] = useState([]);
   const [relatedProductStyles, setRelatedProductStyles] = useState([]);
   const [yourOutfitInfo, setYourOutfitInfo] = useState([]);
   const [yourOutfitStyles, setYourOutfitStyles] = useState([]);
 
-  // Currently runs on the first render -
-  // update second parameter so it renders any time any dependency value changes
-  useEffect(() => {
-    var productInfoRequest = axios.get(`/products/${productId}`);
-    var productStyleRequest = axios.get(`/products/${productId}/styles`);
-    var relatedProductRequest = axios.get(`/products/${productId}/related`);
+  const getProductInfo = ((productId, listType) => {
+    let productInfoRequest = axios.get(`/products/${productId}`);
+    let productStyleRequest = axios.get(`/products/${productId}/styles`);
+    let relatedProductRequest = axios.get(`/products/${productId}/related`);
 
     axios.all([productInfoRequest, productStyleRequest, relatedProductRequest])
       .then(axios.spread((...responses) => {
@@ -34,22 +32,104 @@ var RelatedItems = (props) => {
         setRelatedProduct(responses[2].data);
       }))
       .catch( err => { console.log(err); });
+  });
 
+  const getRelatedProductInfo = ((products, cb) => {
+    let count = 0;
+    let relProdInfo = [];
+    let relProdStyles = [];
+    products.forEach((id) => {
+      let productInfoRequest = axios.get(`/products/${id}`);
+      let productStyleRequest = axios.get(`/products/${id}/styles`);
+
+      axios.all([productInfoRequest, productStyleRequest])
+        .then(axios.spread((...responses) => {
+          relProdInfo.push(responses[0].data);
+          relProdStyles.push(responses[1].data);
+        }))
+        .then(() => {
+          count++;
+          if (count === products.length) {
+            cb(null, relProdInfo, relProdStyles);
+          }
+        })
+        .catch( err => { console.log(err); });
+    });
+  });
+
+  const getYourOutfitInfo = ((products, cb) => {
+    let count = 0;
+    let outfitInfo = [];
+    let outfitStyles = [];
+    products.forEach((id) => {
+      let productInfoRequest = axios.get(`/products/${id}`);
+      let productStyleRequest = axios.get(`/products/${id}/styles`);
+
+      axios.all([productInfoRequest, productStyleRequest])
+        .then(axios.spread((...responses) => {
+          outfitInfo.push(responses[0].data);
+          outfitStyles.push(responses[1].data);
+        }))
+        .then(() => {
+          count++;
+          if (count === products.length) {
+            cb(null, outfitInfo, outfitStyles);
+          }
+        })
+        .catch( err => { console.log(err); });
+    });
+  });
+
+  useEffect(() => {
+    const listType = 'current';
+    getProductInfo(productId, listType);
   }, []);
+
+  useEffect(() => {
+    const listType = 'related';
+    getRelatedProductInfo(relatedProduct, function(err, relProdInfo, relProdStyles) {
+      if (err) {
+        console.log('error: ', err);
+      } else {
+        setRelatedProductInfo(relProdInfo);
+        setRelatedProductStyles(relProdStyles);
+      }
+    });
+  }, [relatedProduct]);
+
+  useEffect(() => {
+    const listType = 'outfit';
+    getYourOutfitInfo(yourOutfit, function(err, outfitInfo, outfitStyles) {
+      if (err) {
+        console.log('error: ', err);
+      } else {
+        setYourOutfitInfo(outfitInfo);
+        setYourOutfitStyles(outfitStyles);
+      }
+    });
+  }, [yourOutfit]);
 
   return (
     <div className="ri-grid">
       <RelatedProductsList
+        listType={'relatedProduct'}
         productId={productId}
         productInfo={productInfo}
         productStyle={productStyle}
         relatedProduct={relatedProduct}
-        onStarClick={props.onStarClick}
+        relatedProductInfo={relatedProductInfo}
+        relatedProductStyles={relatedProductStyles}
+        onStarClick={onStarClick}
       />
-      <YourOutfitList
+      <RelatedProductsList
+        listType={'yourOutfit'}
         productId={productId}
+        productInfo={productInfo}
+        productStyle={productStyle}
         yourOutfit={yourOutfit}
-        onXClick={props.onXClick}
+        yourOutfitInfo={yourOutfitInfo}
+        yourOutfitStyles={yourOutfitStyles}
+        onXClick={onXClick}
       />
     </div>
   );

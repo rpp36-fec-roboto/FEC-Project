@@ -3,29 +3,25 @@ import {IoIosStarOutline, IoIosCloseCircleOutline} from 'react-icons/io';
 
 
 var ActionBtn = function (props) {
-  const addBtn =
-    <button
-      className="rp-card-action-btn"
-      type="button"
-      onClick={() => props.onStarClick(props.productId)}
-    >
-      {IoIosStarOutline()}
-    </button>;
-  const removeBtn =
-    <button
-      className="rp-card-action-btn"
-      type="button"
-      onClick={() => props.onXClick(props.productId)}
-    >
-      {IoIosCloseCircleOutline()}
-    </button>;
-  const actionBtn = props.listType === 'relatedProducts'
-    ? addBtn
-    : removeBtn;
+  const {
+    listType,
+    productId,
+    onClickAction
+  } = props;
+
+  const design = listType === 'relatedProduct'
+    ? IoIosStarOutline
+    : IoIosCloseCircleOutline;
 
   return (
     <div>
-      {actionBtn}
+      <button
+        className="rp-card-action-btn"
+        type="button"
+        onClick={() => onClickAction(productId)}
+      >
+        {design()}
+      </button>
     </div>
   );
 };

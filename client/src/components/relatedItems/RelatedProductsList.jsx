@@ -1,39 +1,80 @@
 import React, {useState, useEffect} from 'react';
 
 import RelatedProductCard from './RelatedProductCard.jsx';
-import sampleData from '../../data/sampleData.js';
+// import sampleData from '../../data/sampleData.js';
 
 var RelatedProductsList = function (props) {
-  const productId = props.productId;
-  const productInfo = props.productInfo;
-  const productStyle = props.productStyle;
-  const relatedProduct = props.relatedProduct;
-  const yourOutfit = props.yourOutfit;
+  const {
+    listType,
+    productId,
+    productInfo,
+    productStyle,
+    relatedProduct,
+    relatedProductInfo,
+    relatedProductStyles,
+    yourOutfit,
+    yourOutfitInfo,
+    yourOutfitStyles,
+    onStarClick,
+    onXClick
+  } = props;
+
   const show = 4;
+  const listHeading = listType === 'relatedProduct'
+    ? 'RELATED PRODUCTS'
+    : 'YOUR OUTFIT';
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [length, setLength] = useState(relatedProduct.length);
+  const [length, setLength] = listType === 'relatedProduct'
+    ? useState(relatedProduct.length)
+    : useState(yourOutfit.length);
 
-  const products = relatedProduct.map((id) => {
-    return (
-      <div key={id.toString()}>
-        <div style={{ padding: 8 }}>
-          <RelatedProductCard
-            listType={'relatedProducts'}
-            productId={id}
-            onStarClick={props.onStarClick}
-          />
+  console.log('RPL length: ', listType, ' - ', length);
+
+  const products = listType === 'relatedProduct'
+    ? relatedProduct.map((id) => {
+      let prodInfo = relatedProductInfo.filter((prod) => prod.id === id);
+      let prodStyle = relatedProductStyles.filter((prod) => Number(prod.product_id) === id);
+
+      return (
+        <div key={id.toString()}>
+          <div style={{ padding: 8 }}>
+            <RelatedProductCard
+              listType={listType}
+              productId={id}
+              productInfo={prodInfo[0]}
+              productStyle={prodStyle[0]}
+              onStarClick={onStarClick}
+            />
+          </div>
         </div>
-      </div>
-    );
-  });
+      );
+    })
+    : yourOutfit.map((id) => {
+      let prodInfo = yourOutfitInfo.filter((prod) => prod.id === id);
+      let prodStyle = yourOutfitStyles.filter((prod) => Number(prod.product_id) === id);
+      return (
+        <div key={id.toString()}>
+          <div style={{ padding: 8 }}>
+            <RelatedProductCard
+              listType={listType}
+              productId={id}
+              productInfo={prodInfo[0]}
+              productStyle={prodStyle[0]}
+              onXClick={onXClick}
+            />
+          </div>
+        </div>
+      );
+    });
 
-  // useEffect(() => {
-  //   setLength(products.length);
-  // }, [products]);
+  // Carousel not working, arrows should not show with only four product cards
+  useEffect(() => {
+    setLength(products.length);
+  }, [products]);
 
   const next = () => {
-    if (currentIndex < (length - 1)) {
+    if (currentIndex < (length - show)) {
       setCurrentIndex(prevState => prevState + 1);
     }
   };
@@ -45,8 +86,8 @@ var RelatedProductsList = function (props) {
   };
 
   return (
-    <div style={{ maxWidth: 1200, maxHeight: 100, marginLeft: 'auto', marginRight: 'auto', marginTop: 0 }}>
-      <h3>RELATED PRODUCTS</h3>
+    <div>
+      <h3>{listHeading}</h3>
       <div className="ri-carousel-container">
         <div className="ri-carousel-wrapper">
           {
@@ -64,7 +105,7 @@ var RelatedProductsList = function (props) {
             </div>
           </div>
           {
-            currentIndex < (length - 1) &&
+            currentIndex < (length - show) &&
             <button onClick={next} className="ri-right-arrow">
               &gt;
             </button>

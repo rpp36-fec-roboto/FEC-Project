@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
-var ImageGallery = (props) => {
-  // data props
-  const currentStyle = props.currentStyle;
-  const mainImgIndex = props.mainImgIndex;
-  const thumbnailStartIndex = props.thumbnailStartIndex;
-  const maxThumbnails = props.maxThumbnails;
-
-  // event handlers props
-  const handleImgBtnClick = props.handleImgBtnClick;
-  const handleImgThumbnailClick = props.handleImgThumbnailClick;
-  const handleThumbnailScrollUp = props.handleThumbnailScrollUp;
-  const handleThumbnailScrollDown = props.handleThumbnailScrollDown;
-  const handleImgClick = props.handleImgClick;
+var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbnails,
+  handleImgBtnClick, handleImgThumbnailClick, handleThumbnailScrollUp, handleThumbnailScrollDown, handleImgClick}) => {
 
   // generate thumbnail img list
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {

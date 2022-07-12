@@ -6,15 +6,15 @@ import Qna from './components/qna/qna.jsx';
 import RelatedItems from './components/relatedItems/RelatedItems.jsx';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      productId: 71698, // default id to render when open the webpage
+      productId: window.location.href.split('/')[3], // get userId from url
       reviewsMeta: sampleData.reviewsMeta,
       yourOutfit: [],
     };
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
-    this.handleYourOutfitXClick = this.handleYourOutfitXClick.bind(this);
+    this.handleRemoveFromYourOutfit = this.handleRemoveFromYourOutfit.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +30,7 @@ class App extends React.Component {
   }
 
   handleAddToYourOutfit (productId) {
+    productId = Number(productId);
     let updatedYourOutfit = this.state.yourOutfit.slice();
     let indexOfProduct = this.state.yourOutfit.indexOf(productId);
     // add only if not added yet
@@ -42,7 +43,7 @@ class App extends React.Component {
     }
   }
 
-  handleYourOutfitXClick (productId) {
+  handleRemoveFromYourOutfit (productId) {
     const updatedYourOutfit = this.state.yourOutfit.slice();
     const indexOfProduct = this.state.yourOutfit.indexOf(productId);
     if (indexOfProduct !== -1) {
@@ -62,14 +63,13 @@ class App extends React.Component {
           reviewsMeta={this.state.reviewsMeta}
           yourOutfit={this.state.yourOutfit}
           handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
-          handleRemoveYourOutfit={ () => { this.handleYourOutfitXClick(this.state.productId); }}
+          handleRemoveYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}
         />
         <RelatedItems
           productId={this.state.productId}
-          reviewsMeta={this.state.reviewsMeta}
           yourOutfit={this.state.yourOutfit}
           onStarClick={this.handleAddToYourOutfit}
-          onXClick={this.handleYourOutfitXClick}
+          onXClick={this.handleRemoveFromYourOutfit}
         />
         <Qna productId={this.state.productId}/>
       </div>

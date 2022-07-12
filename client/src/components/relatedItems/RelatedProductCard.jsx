@@ -9,27 +9,48 @@ import sampleData from '../../data/sampleData.js';
 import findDefaultStyle from '../../../../lib/clientHelpers.js';
 
 var RelatedProductCard = function (props) {
-  let productId = props.productId;
+  const {
+    listType,
+    productId,
+    productInfo,
+    productStyle,
+    onStarClick,
+    onXClick
+  } = props;
 
+  const onClickAction = listType === 'relatedProduct'
+    ? onStarClick
+    : onXClick;
+
+  // let productId = props.productId;
   // Get productInfo productRating and productStyle
-  let productInfo = sampleData.productInfo; // update
+  // productInfo = sampleData.productInfo; // update
+  // console.log('RP sample: ', productInfo);
+  // let productInfo = props.productInfo;
+  // console.log('RPC: ', productInfo);
   var productRatings = sampleData.reviewsMeta.ratings;
-  let productStyle = sampleData.productStyle.results[0]; // update
-  let styleId = productStyle.style_id; // update - not yet being utilized
+  // let productStyle = sampleData.productStyle.results[Math.floor(Math.random() * 6)]; // update
+  // let productStyle = sampleData.productStyle.results[0]; // update
+  // let productStyle = props.productStyle.results[0];
+  // let styleId = productStyle.style_id; // update - not yet being utilized
 
-  let category = (productInfo.category).toUpperCase();
-  let name = `${productInfo.name}, ${productStyle.name}`;
+  // need to bring selected style in through props
+  let category, name, styleName;
+
+  if (productInfo !== undefined) {
+    category = productInfo.category || '';
+    name = productInfo.name || '';
+  }
 
   return (
-    <div className="rp-card">
-      <div className="rp-card-container">
+    <div className="rp-card-container">
+      <div className="rp-card">
         <PrimaryImage productStyle={productStyle} />
         <div className="rp-card-top-right">
           <ActionBtn
+            listType={listType}
             productId={productId}
-            listType={props.listType}
-            onStarClick={props.onStarClick}
-            onXClick={props.onXClick}
+            onClickAction={onClickAction}
           />
         </div>
       </div>

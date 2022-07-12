@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
 import RelatedProductCard from './RelatedProductCard.jsx';
-// import sampleData from '../../data/sampleData.js';
 
 var RelatedProductsList = function (props) {
   const {
@@ -11,9 +10,11 @@ var RelatedProductsList = function (props) {
     productStyle,
     relatedProduct,
     relatedProductInfo,
+    relatedProductReviews,
     relatedProductStyles,
     yourOutfit,
     yourOutfitInfo,
+    yourOutfitReviews,
     yourOutfitStyles,
     onStarClick,
     onXClick
@@ -29,11 +30,10 @@ var RelatedProductsList = function (props) {
     ? useState(relatedProduct.length)
     : useState(yourOutfit.length);
 
-  console.log('RPL length: ', listType, ' - ', length);
-
   const products = listType === 'relatedProduct'
     ? relatedProduct.map((id) => {
       let prodInfo = relatedProductInfo.filter((prod) => prod.id === id);
+      let prodRatings = relatedProductReviews.filter((prod) => Number(prod.product_id) === id);
       let prodStyle = relatedProductStyles.filter((prod) => Number(prod.product_id) === id);
 
       return (
@@ -43,6 +43,7 @@ var RelatedProductsList = function (props) {
               listType={listType}
               productId={id}
               productInfo={prodInfo[0]}
+              productRatings={prodRatings[0]}
               productStyle={prodStyle[0]}
               onStarClick={onStarClick}
             />
@@ -52,6 +53,7 @@ var RelatedProductsList = function (props) {
     })
     : yourOutfit.map((id) => {
       let prodInfo = yourOutfitInfo.filter((prod) => prod.id === id);
+      let prodRatings = yourOutfitReviews.filter((prod) => Number(prod.product_id) === id);
       let prodStyle = yourOutfitStyles.filter((prod) => Number(prod.product_id) === id);
       return (
         <div key={id.toString()}>
@@ -60,6 +62,7 @@ var RelatedProductsList = function (props) {
               listType={listType}
               productId={id}
               productInfo={prodInfo[0]}
+              productRatings={prodRatings[0]}
               productStyle={prodStyle[0]}
               onXClick={onXClick}
             />

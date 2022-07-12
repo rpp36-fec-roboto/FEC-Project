@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      productId: 71697, // default id to render when open the webpage
+      productId: 71698, // default id to render when open the webpage
       reviewsMeta: sampleData.reviewsMeta,
       yourOutfit: [],
     };
@@ -19,12 +19,10 @@ class App extends React.Component {
 
   componentDidMount() {
     let outfit = JSON.parse(localStorage.getItem('myOutfit')) || [];
-
     axios.get('reviews/meta', {params: { 'product_id': this.state.productId }})
       .then(response => {
-        console.dir(response.data);
         this.setState({
-          reviewsMeta: resposne.data,
+          reviewsMeta: response.data,
           yourOutfit: outfit
         });
       })
@@ -68,6 +66,7 @@ class App extends React.Component {
         />
         <RelatedItems
           productId={this.state.productId}
+          reviewsMeta={this.state.reviewsMeta}
           yourOutfit={this.state.yourOutfit}
           onStarClick={this.handleAddToYourOutfit}
           onXClick={this.handleYourOutfitXClick}

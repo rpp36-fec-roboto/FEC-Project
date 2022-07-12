@@ -9,9 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // productId: 71699, // default id to render when open the webpage
-      // productId: this.props.productId,
-      productId: window.location.href.split('/')[3],
+      productId: window.location.href.split('/')[3], // get userId from url
       reviewsMeta: sampleData.reviewsMeta,
       yourOutfit: [],
     };

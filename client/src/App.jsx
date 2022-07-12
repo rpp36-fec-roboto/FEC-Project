@@ -10,7 +10,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       productId: window.location.href.split('/')[3], // get userId from url
-      reviewsMeta: sampleData.reviewsMeta,
       yourOutfit: [],
     };
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
@@ -19,14 +18,9 @@ class App extends React.Component {
 
   componentDidMount() {
     let outfit = JSON.parse(localStorage.getItem('myOutfit')) || [];
-    axios.get('reviews/meta', {params: { 'product_id': this.state.productId }})
-      .then(response => {
-        this.setState({
-          reviewsMeta: response.data,
-          yourOutfit: outfit
-        });
-      })
-      .catch( err => console.log(err) );
+    this.setState({
+      yourOutfit: outfit
+    });
   }
 
   handleAddToYourOutfit (productId) {
@@ -60,7 +54,7 @@ class App extends React.Component {
       <div>
         <Overview
           productId={this.state.productId}
-          reviewsMeta={this.state.reviewsMeta}
+          // reviewsMeta={this.state.reviewsMeta}
           yourOutfit={this.state.yourOutfit}
           handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
           handleRemoveYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}

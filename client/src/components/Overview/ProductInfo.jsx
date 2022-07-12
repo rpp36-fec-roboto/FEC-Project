@@ -1,16 +1,16 @@
 import React from 'react';
 
+import helper from '../../../../lib/clientHelpers.js';
 import Style from './Style.jsx';
 
-var ProductInfo = (props) => {
-  var rating = props.rating;
-  var productInfo = props.productInfo; // initiate by GET /products/:product_id
+var ProductInfo = ({ reviewsMeta, productInfo }) => {
+  var rating = helper.calculateRating(reviewsMeta.ratings);
 
   return (
     <div>
       <div className="rating">
         <span>Star rating: {rating}/5 </span>
-        <a>Read all reviews</a> {/* links to reviews widget */}
+        <a href="#">Read all reviews</a> {/* links to reviews widget */}
       </div>
 
       <div>

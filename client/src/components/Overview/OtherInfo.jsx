@@ -1,7 +1,6 @@
 import React from 'react';
 
-var OtherInfo = (props) => {
-  var productInfo = props.productInfo;
+var OtherInfo = ({ productInfo }) => {
 
   var featuresList = (features) => {
     return features.map((feature, index) => (

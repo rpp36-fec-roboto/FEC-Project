@@ -9,32 +9,27 @@ import Cart from './Cart.jsx';
 import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
 
-var Overview = (props) => {
-  // data props
-  const productId = props.productId; // props from App level state
-  const reviewsMeta = props.reviewsMeta; // props from the App level state
-  const yourOutfit = props.yourOutfit;
-
-  // event handler props
-  const handleAddToYourOutfit = props.handleAddToYourOutfit;
-  const handleRemoveYourOutfit = props.handleRemoveYourOutfit;
-
+var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveYourOutfit }) => {
   // Shared managed state
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
   const [productStyle, setProductStyle] = useState(sampleData.productStyle);
-  const [currentStyle, setCurrentStyle] = useState(helper.findDefaultStyle(productStyle));
+  const [reviewsMeta, setReviewsMeta] = useState({});
+  const [currentStyle, setCurrentStyle] = useState(productStyle.results[0]);
 
   // ComponentDidMount
   useEffect(() => {
     var productInfoRequest = axios.get(`products/${productId}`);
     var styleRequest = axios.get(`products/${productId}/styles`);
+    var reviewsMeta = axios.get('reviews/meta', {params: { 'product_id': productId }});
 
-    axios.all([productInfoRequest, styleRequest])
+    axios.all([productInfoRequest, styleRequest, reviewsMeta])
       .then(axios.spread((...responses) => {
         console.dir(responses[0].data);
         console.dir(responses[1].data);
+        console.dir(responses[2].data);
         setProductInfo(responses[0].data);
         setProductStyle(responses[1].data);
+        setReviewsMeta(responses[2].data);
         setCurrentStyle(helper.findDefaultStyle(responses[1].data));
       }))
       .catch( err => { console.log(err); });

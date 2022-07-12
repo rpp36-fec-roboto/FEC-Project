@@ -3,9 +3,8 @@ import React from 'react';
 import helper from '../../../../lib/clientHelpers.js';
 import Style from './Style.jsx';
 
-var ProductInfo = (props) => {
-  var rating = helper.calculateRating(props.reviewsMeta.ratings);
-  var productInfo = props.productInfo;
+var ProductInfo = ({ reviewsMeta, productInfo }) => {
+  var rating = helper.calculateRating(reviewsMeta.ratings);
 
   return (
     <div>

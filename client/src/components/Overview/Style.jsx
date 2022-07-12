@@ -1,10 +1,7 @@
 import React from 'react';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 
-var Style = (props) => {
-  var currentStyle = props.currentStyle;
-  var productStyle = props.productStyle;
-  var handleStyleChange = props.handleStyleChange;
+var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
 
   // conditionally render price based on on-sale/not-on-sale
   var price = (currentStyle) => {

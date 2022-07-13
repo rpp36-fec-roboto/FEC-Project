@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from './searchbar.jsx';
 import QuestionAnswer from './questionAnswer.jsx';
 import BottomButtons from './bottomButtons.jsx';
+import AddAnswer from './addAnswer.jsx';
 import data from '../../data/sampleData.js';
 import $ from 'jquery';
 
@@ -14,7 +15,8 @@ class Qna extends React.Component {
       answers: {},
       questionhelpful: [],
       answerhelpful: [],
-      reportAnswer: []
+      reportAnswer: [],
+      currentQuestion: ''
     };
     this.updateAnswers = this.updateAnswers.bind(this);
     this.yesQuestionButton = this.yesQuestionButton.bind(this);
@@ -24,6 +26,7 @@ class Qna extends React.Component {
     this.addQuestionButton = this.addQuestionButton.bind(this);
     this.moreQuestions = this.moreQuestions.bind(this);
     this.moreAnswers = this.moreAnswers.bind(this);
+    this.submitAnswer = this.submitAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +71,8 @@ class Qna extends React.Component {
 
   addAnswerButton(qid) {
     console.log('add answer button');
+    $('.answer-modal').css('display', 'block');
+    this.setState({currentQuestion: qid});
   }
 
   yesAnswerButton(id) {
@@ -117,6 +122,28 @@ class Qna extends React.Component {
     console.log('more answers button');
   }
 
+  submitAnswer(e) {
+    e.preventDefault();
+    var name = $('.qa-name').val();
+    var body = $('.qa-body').val();
+    var email = $('.qa-email').val();
+    $.ajax({
+      method: 'post',
+      url: `/qa/questions/${this.state.currentQuestion}/answers`,
+      data: {
+        name,
+        body,
+        email
+      },
+      success: () => {
+        console.log('Answer has been submitted');
+        $('.answer-modal').css('display', 'none');
+      }
+    });
+  }
+
+
+
   render() {
     return (
       <div>
@@ -136,6 +163,7 @@ class Qna extends React.Component {
           questions={this.state.questions}
           addQuestion={this.addQuestionButton}
           more={this.moreQuestions}/>
+        <AddAnswer submitAnswer={this.submitAnswer}/>
       </div>
     );
   }

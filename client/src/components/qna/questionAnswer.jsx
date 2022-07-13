@@ -6,7 +6,6 @@ import Userhelpful from './userhelpful.jsx';
 var questionAnswer = (props) => {
   if (props.questions.length > 0) {
     var id1 = Object.keys(props.questions[0].answers);
-    console.log(props.questions);
     var sort = (id) => {
       for (var i = 0; i < props.questions.length; i++) {
         var id = Object.keys(props.questions[i].answers);

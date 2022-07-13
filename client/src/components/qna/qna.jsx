@@ -137,6 +137,7 @@ class Qna extends React.Component {
       },
       success: () => {
         console.log('Answer has been submitted');
+        $('.modal').css('display', 'none');
       }
     });
   }

@@ -274,15 +274,17 @@ body {
 
 .ri-carousel-content.show-2 > * {
   max-width: 50%;
+  min-width: 50%;
 }
 
 .ri-carousel-content.show-3 > * {
   max-width: calc(100% / 3);
+  min-width: calc(100% / 3);
 }
 
 .ri-carousel-content.show-4 > * {
-  max-width: calc(100% / 4);
-
+  max-width: 25%;
+  min-width: 25%;
 }
 
 .ri-left-arrow, .ri-right-arrow {

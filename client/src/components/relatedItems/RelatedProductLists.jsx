@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 import RelatedProductCard from './RelatedProductCard.jsx';
-// import sampleData from '../../data/sampleData.js';
 
-var RelatedProductsList = function (props) {
+var RelatedProductLists = function (props) {
   const {
     listType,
     productId,
@@ -11,9 +10,11 @@ var RelatedProductsList = function (props) {
     productStyle,
     relatedProduct,
     relatedProductInfo,
+    relatedProductReviews,
     relatedProductStyles,
     yourOutfit,
     yourOutfitInfo,
+    yourOutfitReviews,
     yourOutfitStyles,
     onStarClick,
     onXClick
@@ -26,14 +27,17 @@ var RelatedProductsList = function (props) {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = listType === 'relatedProduct'
-    ? useState(relatedProduct.length)
-    : useState(yourOutfit.length);
-
-  console.log('RPL length: ', listType, ' - ', length);
+    ? Array.isArray(relatedProduct)
+      ? useState(relatedProduct.length)
+      : useState(0)
+    : Array.isArray(yourOutfit)
+      ? useState(yourOutfit.length)
+      : useState(0);
 
   const products = listType === 'relatedProduct'
     ? relatedProduct.map((id) => {
       let prodInfo = relatedProductInfo.filter((prod) => prod.id === id);
+      let prodRatings = relatedProductReviews.filter((prod) => Number(prod.product_id) === id);
       let prodStyle = relatedProductStyles.filter((prod) => Number(prod.product_id) === id);
 
       return (
@@ -43,6 +47,7 @@ var RelatedProductsList = function (props) {
               listType={listType}
               productId={id}
               productInfo={prodInfo[0]}
+              productRatings={prodRatings[0]}
               productStyle={prodStyle[0]}
               onStarClick={onStarClick}
             />
@@ -52,6 +57,7 @@ var RelatedProductsList = function (props) {
     })
     : yourOutfit.map((id) => {
       let prodInfo = yourOutfitInfo.filter((prod) => prod.id === id);
+      let prodRatings = yourOutfitReviews.filter((prod) => Number(prod.product_id) === id);
       let prodStyle = yourOutfitStyles.filter((prod) => Number(prod.product_id) === id);
       return (
         <div key={id.toString()}>
@@ -60,6 +66,7 @@ var RelatedProductsList = function (props) {
               listType={listType}
               productId={id}
               productInfo={prodInfo[0]}
+              productRatings={prodRatings[0]}
               productStyle={prodStyle[0]}
               onXClick={onXClick}
             />
@@ -116,4 +123,4 @@ var RelatedProductsList = function (props) {
   );
 };
 
-export default RelatedProductsList;
+export default RelatedProductLists;

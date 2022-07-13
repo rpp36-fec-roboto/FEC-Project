@@ -51,7 +51,8 @@ var questionAnswer = (props) => {
               id={props.questions[1].question_id}
               update={props.update}
               yesAnswer={props.yesAnswer}
-              reportAnswer={props.reportAnswer}/>
+              reportAnswer={props.reportAnswer}
+              moreAnswers={props.moreAnswers}/>
           </div>
         </div>
       );

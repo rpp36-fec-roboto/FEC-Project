@@ -9,7 +9,7 @@ import Cart from './Cart.jsx';
 import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
 
-var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveYourOutfit }) => {
+var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
   // Shared managed state
   const [productInfo, setProductInfo] = useState(sampleData.productInfo);
   const [productStyle, setProductStyle] = useState(sampleData.productStyle);
@@ -158,7 +158,7 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveYour
               handleSelect={handleSelect}
               submitCartRequest={submitCartRequest}
               handleAddToYourOutfit={handleAddToYourOutfit}
-              handleRemoveYourOutfit={handleRemoveYourOutfit}
+              handleRemoveFromYourOutfit={handleRemoveFromYourOutfit}
             />
           </div>}
 

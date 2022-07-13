@@ -38,7 +38,6 @@ class App extends React.Component {
   }
 
   handleRemoveFromYourOutfit (productId) {
-    console.log('clicked');
     const updatedYourOutfit = this.state.yourOutfit.slice();
     const indexOfProduct = this.state.yourOutfit.indexOf(Number(productId));
     if (indexOfProduct !== -1) {

@@ -2,6 +2,7 @@ import React from 'react';
 
 import helper from '../../../../lib/clientHelpers.js';
 import Style from './Style.jsx';
+import StarRating from '../Sharables/StarRating.jsx';
 
 var ProductInfo = ({ reviewsMeta, productInfo }) => {
   var rating = helper.calculateRating(reviewsMeta.ratings);
@@ -9,7 +10,7 @@ var ProductInfo = ({ reviewsMeta, productInfo }) => {
   return (
     <div>
       <div className="rating">
-        <span>Star rating: {rating}/5 </span>
+        <StarRating rating={rating} />
         <a href="#">Read all reviews</a> {/* links to reviews widget */}
       </div>
 

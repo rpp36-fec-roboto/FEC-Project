@@ -340,3 +340,20 @@ body {
   z-index: 1;
   background-color: white;
 }
+
+/*
+//////// STAR RATING //////////////////////////////////////////////
+*/
+
+.star-outer {
+  position: relative;
+  max-width: fit-content;
+}
+
+.star-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}

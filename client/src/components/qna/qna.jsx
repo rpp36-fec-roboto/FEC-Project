@@ -71,7 +71,7 @@ class Qna extends React.Component {
 
   addAnswerButton(qid) {
     console.log('add answer button');
-    $('.modal').css('display', 'block');
+    $('.answer-modal').css('display', 'block');
     this.setState({currentQuestion: qid});
   }
 
@@ -137,7 +137,7 @@ class Qna extends React.Component {
       },
       success: () => {
         console.log('Answer has been submitted');
-        $('.modal').css('display', 'none');
+        $('.answer-modal').css('display', 'none');
       }
     });
   }

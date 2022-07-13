@@ -1,14 +1,18 @@
 import React from 'react';
 import {calculateRating} from '../../../../lib/clientHelpers.js';
 
-var Rating = function (props) {
-  let ratings = props.ratings;
-  let rating = calculateRating(ratings);
+var Rating = function ( {ratings} ) {
+  if (ratings !== null && Object.keys(ratings).length > 0) {
+    let rating = calculateRating(ratings);
 
+    return (
+      <div>
+        <span>Star rating: {rating}/5 </span>
+      </div>
+    );
+  }
   return (
-    <div>
-      <span>Star rating: {rating}/5 </span>
-    </div>
+    <div></div>
   );
 };
 

@@ -31,7 +31,7 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
   var param = req._parsedOriginalUrl.search;
   api.getData(req._parsedOriginalUrl.pathname, param, (err, data) => {
     if (err) {
-      res.status(404).send('Error getting data from the API');
+      res.status(500).send('Error getting data from the API');
     } else {
       res.send(data);
     }
@@ -135,16 +135,16 @@ app.get('/products/:product_id/related', (req, res) => {
 });
 
 app.post('/cart', (req, res) => {
-  console.log(req.body);
   let sku = Number(req.body.sku);
 
-  api.postData('cart', { 'sku_id': sku })
-    .then(response => {
+  api.postData('cart', { 'sku_id': sku }, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
       res.sendStatus(201);
-    })
-    .catch( err => {
-      res.status(500).send( err );
-    });
+
+    }
+  });
 });
 
 app.listen(PORT, () => {

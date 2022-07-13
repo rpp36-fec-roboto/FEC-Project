@@ -23,7 +23,7 @@ let getData = (url, param, callback) => {
 };
 
 let postData = (url, data, callback) => {
-  return axios({
+  axios({
     method: 'post',
     baseURL,
     data,

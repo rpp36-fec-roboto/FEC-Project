@@ -39,7 +39,7 @@ class App extends React.Component {
 
   handleRemoveFromYourOutfit (productId) {
     const updatedYourOutfit = this.state.yourOutfit.slice();
-    const indexOfProduct = this.state.yourOutfit.indexOf(productId);
+    const indexOfProduct = this.state.yourOutfit.indexOf(Number(productId));
     if (indexOfProduct !== -1) {
       updatedYourOutfit.splice(indexOfProduct, 1);
       this.setState({
@@ -54,10 +54,9 @@ class App extends React.Component {
       <div>
         <Overview
           productId={this.state.productId}
-          // reviewsMeta={this.state.reviewsMeta}
           yourOutfit={this.state.yourOutfit}
           handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
-          handleRemoveYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}
+          handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}
         />
         <RelatedItems
           productId={this.state.productId}

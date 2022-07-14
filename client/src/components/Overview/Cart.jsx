@@ -3,7 +3,7 @@ import helper from '../../../../lib/clientHelpers.js';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
-  handleSelect, submitCartRequest, handleAddToYourOutfit, handleRemoveYourOutfit }) => {
+  handleSelect, submitCartRequest, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
 
   const skus = currentStyle.skus;
   const [showMessage, setShowMessage] = useState(false);
@@ -94,12 +94,14 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
         }
       </form>
 
-      <div className="my-outfit-star">{
-        isYourOutfit ?
-          <AiFillStar onClick={handleRemoveYourOutfit}/>
+      <button
+        className="my-outfit-star"
+        onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
+      >{isYourOutfit ?
+          <AiFillStar onClick={handleRemoveFromYourOutfit}/>
           :
           <AiOutlineStar onClick={handleAddToYourOutfit}/>
-      }</div>
+        }</button>
     </div>
   );
 };

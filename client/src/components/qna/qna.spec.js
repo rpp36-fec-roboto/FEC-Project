@@ -6,7 +6,8 @@
 import React from 'react';
 import ReactDOMClient from 'react-dom/client';
 import { render, fireEvent, screen } from '@testing-library/react';
-import { unmountComponentAtNode } from 'react-dom';
+import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 
 import App from '../../App.jsx';
@@ -18,72 +19,141 @@ import Question from './question.jsx';
 import Userhelpful from './userhelpful.jsx';
 import QuestionHelpful from './questionHelpful.jsx';
 import data from '../../data/sampleData.js';
+import AddAnswer from './addAnswer.jsx';
+import Pictures from './pictures.jsx';
+import Searchbar from './searchbar.jsx';
 
 
 
-describe('Questions & Answers Component', () => {
-  let container = null;
+describe('Q&A Component', () => {
+
   beforeEach(() => {
-    // setup a DOM element as a render target
-    container = document.createElement('div');
-    document.body.appendChild(container);
-  });
-
-  afterEach(() => {
-    // cleanup on exiting
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
+    render(<Qna />);
   });
 
   it('renders Q&A component without crashing', () => {
-    act(() => {
-      render(<Qna />, container);
-    });
-    expect(container).not.toBeNull();
+    let title = screen.getByText('QUESTION & ANSWERS');
+    expect(title).toBeInTheDocument();
+  });
+
+});
+
+
+describe('Questions & Answers Component', () => {
+
+  beforeEach(() => {
+    render(<QuestionAnswer questions={data.questions.results} />);
   });
 
   it('renders QuestionAnswer component without crashing', () => {
-    act(() => {
-      render(<QuestionAnswer questions={data.questions.results} />, container);
-    });
-    expect(container).not.toBeNull();
+    let question = screen.getByRole('Question');
+    expect(question).toBeInTheDocument();
+  });
+});
+
+
+describe('Bottom Buttons Component', () => {
+
+  beforeEach(() => {
+    render(<BottomButtons questions={data.questions.results}/>);
   });
 
   it('renders BottomButtons component without crashing', () => {
-    act(() => {
-      render(<BottomButtons questions={data.questions.results}/>, container);
-    });
-    expect(container).not.toBeNull();
+    expect(screen).not.toBeNull();
+  });
+});
+
+
+describe('Answer Component', () => {
+
+  beforeEach(() => {
+    var id1 = Object.keys(data.questions.results[0].answers);
+    render(<Answer answer={data.questions.results[0].answers[id1[0]]}/>);
   });
 
   it('renders Answer component without crashing', () => {
-    var id1 = Object.keys(data.questions.results[0].answers);
-    act(() => {
-      render(<Answer answer={data.questions.results[0].answers[id1[0]]}/>, container);
-    });
-    expect(container).not.toBeNull();
+    expect(screen).not.toBeNull();
+  });
+});
+
+
+
+describe('Question Component', () => {
+
+  beforeEach(() => {
+    render(<Question questions={data.questions.results[0]}/>);
   });
 
   it('renders Question component without crashing', () => {
-    act(() => {
-      render(<Question questions={data.questions.results[0]}/>, container);
-    });
-    expect(container).not.toBeNull();
+    expect(screen).not.toBeNull();
+  });
+});
+
+
+describe('Userhelpful Component', () => {
+
+
+  beforeEach(() => {
+    var id1 = Object.keys(data.questions.results[0].answers);
+    render(<Userhelpful answer={data.questions.results[0].answers[id1[0]]}/>);
   });
 
   it('renders Userhelpful component without crashing', () => {
-    var id1 = Object.keys(data.questions.results[0].answers);
-    act(() => {
-      render(<Userhelpful answer={data.questions.results[0].answers[id1[0]]}/>, container);
-    });
-    expect(container).not.toBeNull();
+    expect(screen).not.toBeNull();
+  });
+});
+
+
+describe('QuestionHelpful Component', () => {
+
+  beforeEach(() => {
+    render(<QuestionHelpful help={data.questions.results[0].question_helpfulness}/>);
   });
 
   it('renders QuestionHelpful component without crashing', () => {
-    act(() => {
-      render(<QuestionHelpful help={data.questions.results[0].question_helpfulness}/>, container);
-    });
-    expect(container).not.toBeNull();
+    expect(screen).not.toBeNull();
   });
 });
+
+
+
+describe('AddAnswer Component', () => {
+
+  beforeEach(() => {
+    render(<AddAnswer />);
+  });
+
+  it('renders AddAnswer component without crashing', () => {
+    expect(screen).not.toBeNull();
+  });
+});
+
+
+
+describe('Pictures Component', () => {
+
+  beforeEach(() => {
+    var id1 = Object.keys(data.questions.results[0].answers);
+    render(<Pictures picture={data.questions.results[0].answers[id1[0]].photos}/>);
+  });
+
+  it('renders Pictures component without crashing', () => {
+    expect(screen).not.toBeNull();
+  });
+});
+
+
+
+describe('Searchbar Component', () => {
+
+  beforeEach(() => {
+    render(<Searchbar />);
+  });
+
+  it('renders Searchbar component without crashing', () => {
+    expect(screen).not.toBeNull();
+  });
+});
+
+
+

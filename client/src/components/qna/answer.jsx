@@ -6,7 +6,7 @@ import Picture from './pictures.jsx';
 var count = 0;
 
 var answer = (props) => {
-  if (props.answersid.length === 1) {
+  if (props.answersid && props.answersid.length === 1) {
     return (
       <div>
         <div className='qa-paddingleft qa-paddingbottom qa-paddingtop'>
@@ -23,7 +23,7 @@ var answer = (props) => {
           reportAnswer={props.reportAnswer}/>
       </div>
     );
-  } else if (props.answersid.length === 2) {
+  } else if (props.answersid && props.answersid.length === 2) {
     return (
       <div>
         <div>
@@ -56,7 +56,7 @@ var answer = (props) => {
         </div>
       </div>
     );
-  } else if (props.answersid.length > 2) {
+  } else if (props.answersid && props.answersid.length > 2) {
     return (
       <div>
         <div>

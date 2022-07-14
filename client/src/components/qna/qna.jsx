@@ -147,6 +147,7 @@ class Qna extends React.Component {
   render() {
     return (
       <div>
+        <div className='qa-paddingleft'>QUESTION & ANSWERS</div><br></br>
         <SearchBar />
         <br></br>
         <br></br>

@@ -38,6 +38,18 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
   });
 });
 
+app.post('/qa/questions/:question_id/answers', (req, res) => {
+  var url = req._parsedUrl.pathname;
+  var param = req.body;
+  api.postData(url, param, (err, data) => {
+    if (err) {
+      res.status(500).send('Error creating new answer');
+    } else {
+      res.status(201).send();
+    }
+  });
+});
+
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
   let qid = `/qa/questions/${req.params.question_id}/helpful`;
   api.putData(qid, (err, data) => {

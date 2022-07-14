@@ -8,12 +8,8 @@ import ReactDOMClient from 'react-dom/client';
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-// import { unmountComponentAtNode } from 'react-dom'; // 'react-dom not for testing?
 import { act } from 'react-dom/test-utils';
 
-import App from '../../App.jsx';
-import RelatedItems from './RelatedItems.jsx';
-import RelatedProductLists from './RelatedProductLists.jsx';
 import RelatedProductCard from './RelatedProductCard.jsx';
 import ActionBtn from './ActionButton.jsx';
 import PrimaryImage from './Images.jsx';
@@ -28,35 +24,12 @@ describe('Related Items & Comparison Widget', () => {
     productInfo: sampleData.productInfo,
     productRatings: sampleData.reviewsMeta,
     productStyle: sampleData.productStyle,
-    relatedProduct: sampleData.relatedProduct,
-    relatedProductInfo: [],
-    relatedProductReviews: [],
-    relatedProductStyles: [],
-    yourOutfit: [71698, 71699, 71700],
-    yourOutfitInfo: [],
-    yourOutfitReviews: [],
-    yourOutfitStyles: []
+    relatedProduct: sampleData.relatedProduct
   };
 
   it('use jsdom in this test file', () => {
     const element = document.createElement('div');
     expect(element).not.toBeNull();
-  });
-
-  describe('render RelatedItem component', () => {
-    beforeEach(() => {
-      render(<RelatedItems productId={state.productId} yourOutfit={state.yourOutfit} />);
-    });
-
-    it('should show headers', () => {
-      expect(screen.getByText('RELATED PRODUCTS', {exact: true})).toBeInTheDocument();
-      expect(screen.getByText('YOUR OUTFIT', {exact: true})).toBeInTheDocument();
-    });
-
-    it('render Related Items component without crashing', () => {
-      expect(screen.getAllByRole('heading')).toHaveTextContent(/RELATED PRODUCTS/);
-      screen.debug();
-    });
   });
 
   describe('render product card for a related item', () => {
@@ -72,6 +45,7 @@ describe('Related Items & Comparison Widget', () => {
 
     it('renders the default image on the card', () => {
       expect(screen.getByRole('img', {name: 'Forest Green & Black'})).toBeInTheDocument();
+      screen.debug();
     });
 
     it('renders an add button on the card', () => {
@@ -97,6 +71,7 @@ describe('Related Items & Comparison Widget', () => {
     it('renders the product rating on the card', () => {
       expect(screen.getByText('Star rating: 3.75/5')).toBeInTheDocument();
     });
+
   });
 
   describe('render product card for an outfit item', () => {
@@ -138,16 +113,5 @@ describe('Related Items & Comparison Widget', () => {
       expect(screen.getByText('Star rating: 3.75/5')).toBeInTheDocument();
     });
   });
-
-
-  // describe('render RelatedProductLists component', () => {
-  //   beforeEach(() => {
-  //     render(<RelatedItems productId={state.productId} yourOutfit={state.yourOutfit} />);
-  //   });
-
-  //   it('render Related Items component without crashing', () => {
-  //     expect(container).not.toBeNull();
-  //   });
-  // });
 
 });

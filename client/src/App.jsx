@@ -1,13 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import sampleData from './data/sampleData.js';
-import Overview from './components/Overview/Overview.jsx';
-import OverviewWithTracker from './components/Overview/Overview.jsx';
 
-import Qna from './components/qna/qna.jsx';
-import RelatedItems from './components/relatedItems/RelatedItems.jsx';
+// import Overview from './components/Overview/Overview.jsx';
+import OverviewWithTracker from './components/Overview/Overview.jsx';
+// import Qna from './components/qna/qna.jsx';
+import QnaWithTracker from './components/qna/qna.jsx';
+// import RelatedItems from './components/relatedItems/RelatedItems.jsx';
+import RelatedItemsWithTracker from './components/relatedItems/RelatedItems.jsx';
+
 import ErrorBoundary from './components/Sharables/ErrorBoundary.jsx';
-// import withTracker from './components/Sharables/withTracker.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -53,36 +55,21 @@ class App extends React.Component {
     }
   }
 
-  trackClick (event) {
-    console.log(event.currentTarget);
-    console.log(event.target);
-    console.log(event.timeStamp);
-  }
-
   render() {
     return (
       <>
-        <ErrorBoundary>
-          {/* <OverviewWithTracker
-            productId={this.state.productId}
-            yourOutfit={this.state.yourOutfit}
-            handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
-            handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/> */}
-          <Overview
-            onClick={this.trackClick}
-            productId={this.state.productId}
-            yourOutfit={this.state.yourOutfit}
-            handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
-            handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}
-          />
-        </ErrorBoundary>
-        <RelatedItems
+        <OverviewWithTracker
+          productId={this.state.productId}
+          yourOutfit={this.state.yourOutfit}
+          handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
+          handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/>
+        <RelatedItemsWithTracker
           productId={this.state.productId}
           yourOutfit={this.state.yourOutfit}
           onStarClick={this.handleAddToYourOutfit}
           onXClick={this.handleRemoveFromYourOutfit}
         />
-        <Qna productId={this.state.productId}/>
+        <QnaWithTracker productId={this.state.productId}/>
       </>
     );
   }

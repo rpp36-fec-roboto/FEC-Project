@@ -1,19 +1,24 @@
 import React from 'react';
 
-const withTracker = (WrappedComponent) => {
+const withTracker = (WrappedComponent, widgetName) => {
   return class extends React.Component {
     constructor(props) {
       super(props);
     }
     // method of click event handler
     trackClick (event) {
-      console.log(event.currentTarget);
+      console.log('clicked');
+      // console.log(event.currentTarget.name);
+      console.log(widgetName);
       console.log(event.target);
       console.log(event.timeStamp);
     }
 
     render() {
-      return <WrappedComponent onClick={this.trackClick} {...this.props} />;
+      return (
+        <div onClick={this.trackClick}>
+          <WrappedComponent {...this.props} />
+        </div>);
     }
   };
 };

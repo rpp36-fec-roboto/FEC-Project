@@ -172,12 +172,6 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   );
 };
 
-// const OverviewWithTracker = withTracker(<Overview
-//   productId={this.state.productId}
-//   yourOutfit={this.state.yourOutfit}
-//   handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
-//   handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}/>);
-
-const OverviewWithTracker = withTracker(Overview);
+const OverviewWithTracker = withTracker(Overview, 'overview');
 
 export default OverviewWithTracker;

@@ -6,6 +6,7 @@ import AddAnswer from './addAnswer.jsx';
 import data from '../../data/sampleData.js';
 import $ from 'jquery';
 
+import withTracker from '../../components/Sharables/withTracker.js';
 
 class Qna extends React.Component {
   constructor(props) {
@@ -169,7 +170,8 @@ class Qna extends React.Component {
   }
 }
 
-export default Qna;
+const QnaWithTracker = withTracker(Qna, 'qna');
+export default QnaWithTracker;
 
 
 

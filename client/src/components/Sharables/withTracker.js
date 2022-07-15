@@ -5,13 +5,13 @@ const withTracker = (WrappedComponent, widgetName) => {
     constructor(props) {
       super(props);
     }
-    // method of click event handler
+
     trackClick (event) {
       console.log('clicked');
       // console.log(event.currentTarget.name);
       console.log(widgetName);
       console.log(event.target);
-      console.log(event.timeStamp);
+      console.log(Date(event.timeStamp));
     }
 
     render() {

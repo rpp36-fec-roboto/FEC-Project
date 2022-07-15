@@ -41,8 +41,8 @@ var RelatedProductLists = function (props) {
       let prodStyle = relatedProductStyles.filter((prod) => Number(prod.product_id) === id);
 
       return (
-        <div key={id.toString()}>
-          <div style={{ padding: 8 }}>
+        <div key={id.toString()} role='list'>
+          <div style={{ padding: 8 }} role='listitem'>
             <RelatedProductCard
               listType={listType}
               productId={id}
@@ -60,8 +60,8 @@ var RelatedProductLists = function (props) {
       let prodRatings = yourOutfitReviews.filter((prod) => Number(prod.product_id) === id);
       let prodStyle = yourOutfitStyles.filter((prod) => Number(prod.product_id) === id);
       return (
-        <div key={id.toString()}>
-          <div style={{ padding: 8 }}>
+        <div key={id.toString()} role='list'>
+          <div style={{ padding: 8 }} role='listitem'>
             <RelatedProductCard
               listType={listType}
               productId={id}
@@ -106,7 +106,7 @@ var RelatedProductLists = function (props) {
           <div className="ri-carousel-content-wrapper">
             <div
               className={`ri-carousel-content show-${show}`}
-              style={{ transform: `translateX-${currentIndex * (100 / show)}%)` }}
+              style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {products}
             </div>

@@ -45,7 +45,6 @@ describe('Related Items & Comparison Widget', () => {
 
     it('renders the default image on the card', () => {
       expect(screen.getByRole('img', {name: 'Forest Green & Black'})).toBeInTheDocument();
-      screen.debug();
     });
 
     it('renders an add button on the card', () => {

@@ -1,9 +1,11 @@
 import React from 'react';
+import ReactDOM from 'react-dom/client';
 import SearchBar from './searchbar.jsx';
 import QuestionAnswer from './questionAnswer.jsx';
 import BottomButtons from './bottomButtons.jsx';
 import AddAnswer from './addAnswer.jsx';
 import data from '../../data/sampleData.js';
+import Answer from './answer.jsx';
 import $ from 'jquery';
 
 
@@ -118,8 +120,93 @@ class Qna extends React.Component {
     console.log('more answered button');
   }
 
-  moreAnswers(e) {
-    console.log('more answers button');
+  moreAnswers(id) {
+    if (!this.state.answers[id]) {
+      $.ajax({
+        method: 'get',
+        url: `/qa/questions/${id}/answers`,
+        data: {count: 100},
+        success: (data) => {
+          var answer = {
+            'question_id': data.question,
+            'results': data.results,
+            'index': 1
+          };
+          if (data.results.length === 3) {
+            answer.index = 2;
+            $(`.${id}`).append('<div id="3"></div>');
+            var root = ReactDOM.createRoot(document.getElementById('3'));
+            root.render(<Answer
+              answers={data.results}
+              answersid={[2]}
+              id={id}
+              update={this.updateAnswers}
+              yesAnswer={this.yesAnswerButton}
+              reportAnswer={this.reportAnswerButton}
+              moreAnswers={this.moreAnswers}/>
+            );
+            $(`.moreanswer.${id}`).hide();
+          } else {
+            answer.index = 3;
+            $(`.${id}`).append('<div id="4"></div>');
+            var root = ReactDOM.createRoot(document.getElementById('4'));
+            root.render(<Answer
+              answers={data.results}
+              answersid={[2, 3]}
+              id={id}
+              update={this.updateAnswers}
+              yesAnswer={this.yesAnswerButton}
+              reportAnswer={this.reportAnswerButton}
+              moreAnswers={this.moreAnswers}/>
+            );
+            if (data.results === 4) {
+              $(`.moreanswer.${id}`).hide();
+            }
+          }
+          var currentState = this.state.answers;
+          currentState[id] = answer;
+          this.setState({answers: currentState});
+        }
+      });
+    } else {
+      var moreAnswers = this.state.answers[id];
+      if (moreAnswers.results.length === moreAnswers.index + 1) {
+        moreAnswers.index++;
+        $(`.${id}`).append(`<div id=${moreAnswers.index}></div>`);
+        var root = ReactDOM.createRoot(document.getElementById(`${moreAnswers.index}`));
+        root.render(<Answer
+          answers={moreAnswers.results}
+          answersid={[moreAnswers.index]}
+          id={id}
+          update={this.updateAnswers}
+          yesAnswer={this.yesAnswerButton}
+          reportAnswer={this.reportAnswerButton}
+          moreAnswers={this.moreAnswers}/>
+        );
+        $(`.moreanswer.${id}`).hide();
+      } else {
+        moreAnswers.index += 2;
+        $(`.${id}`).append(`<div id=${moreAnswers.index}></div>`);
+        var root = ReactDOM.createRoot(document.getElementById(`${moreAnswers.index}`));
+        root.render(<Answer
+          answers={moreAnswers.results}
+          answersid={[moreAnswers.index - 1, moreAnswers.index]}
+          id={id}
+          update={this.updateAnswers}
+          yesAnswer={this.yesAnswerButton}
+          reportAnswer={this.reportAnswerButton}
+          moreAnswers={this.moreAnswers}/>
+        );
+        if (moreAnswers.results.length === moreAnswers.index + 1) {
+          $(`.moreanswer.${id}`).hide();
+        }
+      }
+      var currentState = this.state.answers;
+      currentState[id] = moreAnswers;
+      this.setState({answers: currentState}, () => {
+        console.log(this.state.answers[id]);
+      });
+    }
   }
 
   submitAnswer(e) {
@@ -146,7 +233,7 @@ class Qna extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='qa-container'>
         <div className='qa-paddingleft'>QUESTION & ANSWERS</div><br></br>
         <SearchBar />
         <br></br>

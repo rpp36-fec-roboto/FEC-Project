@@ -8,7 +8,6 @@ import ReactDOM from 'react-dom/client';
 import { render, screen, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
 import '@testing-library/jest-dom'; // provides method for DOM matcher
 import userEvent from '@testing-library/user-event';
-// import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import sampleData from '../../data/sampleData.js';

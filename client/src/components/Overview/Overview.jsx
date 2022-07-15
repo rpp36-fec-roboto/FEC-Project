@@ -8,6 +8,7 @@ import Style from './Style.jsx';
 import Cart from './Cart.jsx';
 import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
+import withTracker from '../../components/Sharables/withTracker.js';
 
 var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
   // Shared managed state
@@ -171,4 +172,12 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   );
 };
 
-export default Overview;
+// const OverviewWithTracker = withTracker(<Overview
+//   productId={this.state.productId}
+//   yourOutfit={this.state.yourOutfit}
+//   handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
+//   handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}/>);
+
+const OverviewWithTracker = withTracker(Overview);
+
+export default OverviewWithTracker;

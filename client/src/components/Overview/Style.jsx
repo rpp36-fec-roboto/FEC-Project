@@ -50,19 +50,17 @@ var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
 
   // rendering Style component
   return (
-    <div>
+    <>
       <div className="ov-price">{price(currentStyle)}</div>
-      <div>
-        <p>
-          <span className="ov-all-cap ov-bold">style </span>
-          <span className=".ov-bold">{'> '}</span>
-          <span>{currentStyle.name}</span>
-        </p>
-      </div>
+      <p>
+        <span className="ov-all-cap ov-bold">style </span>
+        <span className=".ov-bold">{'> '}</span>
+        <span>{currentStyle.name}</span>
+      </p>
       <div className="style-grid ov-padding-verticle">
         {thumbnailList(productStyle, currentStyle)}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -7,19 +7,36 @@ var userhelpful = (props) => {
   var month = d.getMonth();
   var year = d.getFullYear();
   var date = `${months[month]} ${day + 1}, ${year}`;
-  return (
-    <div className='qa-paddingleft qa-userhelpful'>
-      <div className='qa-float' >by</div>
-      <div className='qa-float' >{props.answer.answerer_name},</div>
-      <div className='qa-float' >{date}</div>
-      <div className='qa-float' >|</div>
-      <div className='qa-float' >Helpful?</div>
-      <div className='qa-underline qa-float' onClick={(e) => { props.yesAnswer(props.answer.id); }}>Yes</div>
-      <div className='qa-float' >({props.answer.helpfulness})</div>
-      <div className='qa-float' >|</div>
-      <div className='qa-underline qa-float' onClick={(e) => { props.reportAnswer(props.answer.id); }}>Report</div>
-    </div>
-  );
+
+  if (props.answer.answerer_name === 'Seller') {
+    return (
+      <div className='qa-paddingleft qa-userhelpful'>
+        <div className='qa-float' >by</div>
+        <div className='qa-float qa-bold' >{props.answer.answerer_name},</div>
+        <div className='qa-float' >{date}</div>
+        <div className='qa-float' >|</div>
+        <div className='qa-float' >Helpful?</div>
+        <div className='qa-underline qa-float' onClick={(e) => { props.yesAnswer(props.answer.id); }}>Yes</div>
+        <div className='qa-float' >({props.answer.helpfulness})</div>
+        <div className='qa-float' >|</div>
+        <div className='qa-underline qa-float' onClick={(e) => { props.reportAnswer(props.answer.id); }}>Report</div>
+      </div>
+    );
+  } else {
+    return (
+      <div className='qa-paddingleft qa-userhelpful'>
+        <div className='qa-float' >by</div>
+        <div className='qa-float' >{props.answer.answerer_name},</div>
+        <div className='qa-float' >{date}</div>
+        <div className='qa-float' >|</div>
+        <div className='qa-float' >Helpful?</div>
+        <div className='qa-underline qa-float' onClick={(e) => { props.yesAnswer(props.answer.id); }}>Yes</div>
+        <div className='qa-float' >({props.answer.helpfulness})</div>
+        <div className='qa-float' >|</div>
+        <div className='qa-underline qa-float' onClick={(e) => { props.reportAnswer(props.answer.id); }}>Report</div>
+      </div>
+    );
+  }
 };
 
 export default userhelpful;

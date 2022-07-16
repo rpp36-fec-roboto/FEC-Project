@@ -160,6 +160,10 @@ body {
 /*
 //////// QNA SECTION //////////////////////////////////////////////
 */
+.qa-container {
+  height: 100%;
+}
+
 .qa-bar {
   width: 100%;
   height: 50px;

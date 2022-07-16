@@ -54,14 +54,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <ErrorBoundary>
-          <Overview
-            productId={this.state.productId}
-            yourOutfit={this.state.yourOutfit}
-            handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
-            handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}
-          />
-        </ErrorBoundary>
+        <Overview
+          productId={this.state.productId}
+          yourOutfit={this.state.yourOutfit}
+          handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
+          handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}
+        />
         <RelatedItems
           productId={this.state.productId}
           yourOutfit={this.state.yourOutfit}

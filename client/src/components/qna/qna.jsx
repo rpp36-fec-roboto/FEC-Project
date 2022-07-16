@@ -4,6 +4,7 @@ import SearchBar from './searchbar.jsx';
 import QuestionAnswer from './questionAnswer.jsx';
 import BottomButtons from './bottomButtons.jsx';
 import AddAnswer from './addAnswer.jsx';
+import AddQuestion from './addQuestion.jsx';
 import data from '../../data/sampleData.js';
 import Answer from './answer.jsx';
 import $ from 'jquery';
@@ -29,6 +30,7 @@ class Qna extends React.Component {
     this.moreQuestions = this.moreQuestions.bind(this);
     this.moreAnswers = this.moreAnswers.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
+    this.submitQuestion = this.submitQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -114,6 +116,7 @@ class Qna extends React.Component {
 
   addQuestionButton(e) {
     console.log('add question button');
+    $('.question-modal').css('display', 'block');
   }
 
   moreQuestions(e) {
@@ -211,9 +214,9 @@ class Qna extends React.Component {
 
   submitAnswer(e) {
     e.preventDefault();
-    var name = $('.qa-name').val();
-    var body = $('.qa-body').val();
-    var email = $('.qa-email').val();
+    var name = $('.answer-name').val();
+    var body = $('.answer-body').val();
+    var email = $('.answer-email').val();
     $.ajax({
       method: 'post',
       url: `/qa/questions/${this.state.currentQuestion}/answers`,
@@ -229,6 +232,26 @@ class Qna extends React.Component {
     });
   }
 
+  submitQuestion(e) {
+    e.preventDefault();
+    var name = $('.question-name').val();
+    var body = $('.question-body').val();
+    var email = $('.question-email').val();
+    $.ajax({
+      method: 'post',
+      url: '/qa/questions/',
+      data: {
+        name,
+        body,
+        email,
+        'product_id': this.props.productId
+      },
+      success: () => {
+        console.log('Question has been submitted');
+        $('.question-modal').css('display', 'none');
+      }
+    });
+  }
 
 
   render() {
@@ -252,114 +275,10 @@ class Qna extends React.Component {
           addQuestion={this.addQuestionButton}
           more={this.moreQuestions}/>
         <AddAnswer submitAnswer={this.submitAnswer}/>
+        <AddQuestion submitQuestion={this.submitQuestion}/>
       </div>
     );
   }
 }
 
 export default Qna;
-
-
-
-// "results": [
-//   {
-//       "question_id": 641727,
-//       "question_body": "Would this work well for deer hunting? ",
-//       "question_date": "2022-06-09T00:00:00.000Z",
-//       "asker_name": "Tyler93",
-//       "question_helpfulness": 4,
-//       "reported": false,
-//       "answers": {
-//           "5986024": {
-//               "id": 5986024,
-//               "body": "I hide in the woods all the time in my camo onesie and no one has ever noticed me!",
-//               "date": "2022-06-09T00:00:00.000Z",
-//               "answerer_name": "sneakyPete",
-//               "helpfulness": 2,
-//               "photos": []
-//           },
-//           "5986042": {
-//               "id": 5986042,
-//               "body": "Works perfect!",
-//               "date": "2022-06-11T00:00:00.000Z",
-//               "answerer_name": "jack543!",
-//               "helpfulness": 0,
-//               "photos": []
-//           },
-//           "5986043": {
-//               "id": 5986043,
-//               "body": "So well!",
-//               "date": "2022-06-12T00:00:00.000Z",
-//               "answerer_name": "jack543!",
-//               "helpfulness": 0,
-//               "photos": []
-//           },
-//           "5986044": {
-//               "id": 5986044,
-//               "body": "so awesome!",
-//               "date": "2022-06-12T00:00:00.000Z",
-//               "answerer_name": "jack543!",
-//               "helpfulness": 0,
-//               "photos": []
-//           }
-//       }
-//   },
-//   {
-//       "question_id": 641722,
-//       "question_body": "Why did you like the product or not?",
-//       "question_date": "2022-06-07T00:00:00.000Z",
-//       "asker_name": "Example: jackson11!",
-//       "question_helpfulness": 2,
-//       "reported": false,
-//       "answers": {
-//           "5986022": {
-//               "id": 5986022,
-//               "body": "People can't see me coming in my new camo onesie!!",
-//               "date": "2022-06-09T00:00:00.000Z",
-//               "answerer_name": "seakySam",
-//               "helpfulness": 1,
-//               "photos": []
-//           }
-//       }
-//   }
-// ]
-
-// module.exports.answers = {
-//   "question": "641727",
-//   "page": 1,
-//   "count": 5,
-//   "results": [
-//       {
-//           "answer_id": 5986024,
-//           "body": "I hide in the woods all the time in my camo onesie and no one has ever noticed me!",
-//           "date": "2022-06-09T00:00:00.000Z",
-//           "answerer_name": "sneakyPete",
-//           "helpfulness": 2,
-//           "photos": []
-//       },
-//       {
-//           "answer_id": 5986042,
-//           "body": "Works perfect!",
-//           "date": "2022-06-11T00:00:00.000Z",
-//           "answerer_name": "jack543!",
-//           "helpfulness": 0,
-//           "photos": []
-//       },
-//       {
-//           "answer_id": 5986043,
-//           "body": "So well!",
-//           "date": "2022-06-12T00:00:00.000Z",
-//           "answerer_name": "jack543!",
-//           "helpfulness": 0,
-//           "photos": []
-//       },
-//       {
-//           "answer_id": 5986044,
-//           "body": "so awesome!",
-//           "date": "2022-06-12T00:00:00.000Z",
-//           "answerer_name": "jack543!",
-//           "helpfulness": 0,
-//           "photos": []
-//       }
-//   ]
-// };

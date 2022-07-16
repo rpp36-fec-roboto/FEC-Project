@@ -112,8 +112,7 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
     // post request to server
     axios.post('/cart', data)
       .then(response => {
-        setSize('Select Size');
-        setQuant(0);
+        console.log('added to cart');
       })
       .catch( err => console.log(err) );
   };

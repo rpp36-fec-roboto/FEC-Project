@@ -2,12 +2,10 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import RelatedProductLists from './RelatedProductLists.jsx';
-// import YourOutfitList from './YourOutfitList.jsx';
 
 var RelatedItems = (props) => {
   const {
     productId,
-    reviewsMeta,
     yourOutfit,
     onStarClick,
     onXClick

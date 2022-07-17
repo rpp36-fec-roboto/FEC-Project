@@ -13,6 +13,7 @@ class App extends React.Component {
       yourOutfit: [],
     };
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
+    this.handleChangeProductId = this.handleChangeProductId.bind(this);
     this.handleRemoveFromYourOutfit = this.handleRemoveFromYourOutfit.bind(this);
   }
 
@@ -35,6 +36,14 @@ class App extends React.Component {
       });
       localStorage.setItem('myOutfit', JSON.stringify(updatedYourOutfit));
     }
+  }
+
+  handleChangeProductId (selectedProductId) {
+    this.setState({
+      productId: selectedProductId
+    }, () => {
+      window.history.replaceState('object or string', 'Title', '/'.concat(selectedProductId));
+    });
   }
 
   handleRemoveFromYourOutfit (productId) {
@@ -61,6 +70,7 @@ class App extends React.Component {
         <RelatedItems
           productId={this.state.productId}
           yourOutfit={this.state.yourOutfit}
+          onCardClick={this.handleChangeProductId}
           onStarClick={this.handleAddToYourOutfit}
           onXClick={this.handleRemoveFromYourOutfit}
         />

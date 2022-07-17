@@ -216,7 +216,7 @@ body {
   grid-template-rows: 1fr;
 }
 
-.answer-modal {
+.answer-modal, .question-modal{
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -229,7 +229,7 @@ body {
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.answer-modal-content {
+.answer-modal-content, .question-modal-content{
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
@@ -238,7 +238,7 @@ body {
   top: 30%
 }
 
-.answer-close {
+.answer-close, .question-close{
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -246,24 +246,28 @@ body {
 }
 
 .answer-close:hover,
-.answer-close:focus {
+.answer-close:focus,
+.question-close:hover,
+.question-close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
 
 /* Modal Header */
-.answer-modal-header {
+.answer-modal-header, .question-modal-header{
   padding: 2px 16px;
   background-color: grey;
   color: white;
 }
 
 /* Modal Body */
-.answer-modal-body {padding: 2px 16px;}
+.answer-modal-body, .question-modal-body{
+  padding: 2px 16px;
+}
 
 /* Modal Content */
-.answer-modal-content {
+.answer-modal-content, .question-modal-content{
   position: relative;
   background-color: #fefefe;
   margin: auto;

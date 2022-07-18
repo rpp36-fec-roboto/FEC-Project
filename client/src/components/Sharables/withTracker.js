@@ -7,17 +7,16 @@ const withTracker = (WrappedComponent, widgetName) => {
       this.widgetName = widgetName;
     }
 
-    trackClick (event) {
+    sendClickTracker (event) {
       console.log('clicked');
-      // console.log(event.currentTarget.name);
       console.log(widgetName);
-      console.dir(event.target);
+      console.dir(event.target.tagName.toLowerCase());
       console.log(Date(event.timeStamp));
     }
 
     render() {
       return (
-        <div onClick={this.trackClick}>
+        <div onClick={this.sendClickTracker}>
           <WrappedComponent {...this.props} />
         </div>);
     }

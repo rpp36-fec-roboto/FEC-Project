@@ -1,7 +1,6 @@
 import React from 'react';
 
-var OtherInfo = (props) => {
-  var productInfo = props.productInfo;
+var OtherInfo = ({ productInfo }) => {
 
   var featuresList = (features) => {
     return features.map((feature, index) => (
@@ -10,7 +9,7 @@ var OtherInfo = (props) => {
   };
 
   return (
-    <div className="ov-bottom-row">
+    <>
       <div className="ov-left-2">
         <div className="ov-other-info-container">
           <h4>{productInfo.slogan}</h4>
@@ -22,7 +21,7 @@ var OtherInfo = (props) => {
           {featuresList(productInfo.features)}
         </ul>
       </div>
-    </div>
+    </>
   );
 };
 

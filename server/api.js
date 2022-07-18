@@ -22,14 +22,20 @@ let getData = (url, param, callback) => {
     });
 };
 
-let postData = (url, data) => {
-  return axios({
+let postData = (url, data, callback) => {
+  axios({
     method: 'post',
     baseURL,
     data,
     url,
     headers
-  });
+  })
+    .then(res => {
+      callback(null, res);
+    })
+    .catch(err => {
+      callback(err, null);
+    });
 };
 
 let putData = (url, callback) => {

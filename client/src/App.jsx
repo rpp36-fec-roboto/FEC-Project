@@ -10,28 +10,22 @@ class App extends React.Component {
     super(props);
     this.state = {
       productId: window.location.href.split('/')[3], // get userId from url
-      reviewsMeta: sampleData.reviewsMeta,
       yourOutfit: [],
     };
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
-    this.handleYourOutfitXClick = this.handleYourOutfitXClick.bind(this);
+    this.handleChangeProductId = this.handleChangeProductId.bind(this);
+    this.handleRemoveFromYourOutfit = this.handleRemoveFromYourOutfit.bind(this);
   }
 
   componentDidMount() {
     let outfit = JSON.parse(localStorage.getItem('myOutfit')) || [];
-
-    axios.get('reviews/meta', {params: { 'product_id': this.state.productId }})
-      .then(response => {
-        console.dir(response.data);
-        this.setState({
-          reviewsMeta: resposne.data,
-          yourOutfit: outfit
-        });
-      })
-      .catch( err => console.log(err) );
+    this.setState({
+      yourOutfit: outfit
+    });
   }
 
   handleAddToYourOutfit (productId) {
+    productId = Number(productId);
     let updatedYourOutfit = this.state.yourOutfit.slice();
     let indexOfProduct = this.state.yourOutfit.indexOf(productId);
     // add only if not added yet
@@ -44,9 +38,17 @@ class App extends React.Component {
     }
   }
 
-  handleYourOutfitXClick (productId) {
+  handleChangeProductId (selectedProductId) {
+    this.setState({
+      productId: selectedProductId
+    }, () => {
+      window.history.replaceState('object or string', 'Title', '/'.concat(selectedProductId));
+    });
+  }
+
+  handleRemoveFromYourOutfit (productId) {
     const updatedYourOutfit = this.state.yourOutfit.slice();
-    const indexOfProduct = this.state.yourOutfit.indexOf(productId);
+    const indexOfProduct = this.state.yourOutfit.indexOf(Number(productId));
     if (indexOfProduct !== -1) {
       updatedYourOutfit.splice(indexOfProduct, 1);
       this.setState({
@@ -61,16 +63,16 @@ class App extends React.Component {
       <div>
         <Overview
           productId={this.state.productId}
-          reviewsMeta={this.state.reviewsMeta}
           yourOutfit={this.state.yourOutfit}
           handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
-          handleRemoveYourOutfit={ () => { this.handleYourOutfitXClick(this.state.productId); }}
+          handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); }}
         />
         <RelatedItems
           productId={this.state.productId}
           yourOutfit={this.state.yourOutfit}
+          onCardClick={this.handleChangeProductId}
           onStarClick={this.handleAddToYourOutfit}
-          onXClick={this.handleYourOutfitXClick}
+          onXClick={this.handleRemoveFromYourOutfit}
         />
         <Qna productId={this.state.productId}/>
       </div>

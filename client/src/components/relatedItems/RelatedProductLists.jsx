@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 import RelatedProductCard from './RelatedProductCard.jsx';
-// import sampleData from '../../data/sampleData.js';
 
-var RelatedProductsList = function (props) {
+var RelatedProductLists = function (props) {
   const {
     listType,
     productId,
@@ -11,10 +10,13 @@ var RelatedProductsList = function (props) {
     productStyle,
     relatedProduct,
     relatedProductInfo,
+    relatedProductReviews,
     relatedProductStyles,
     yourOutfit,
     yourOutfitInfo,
+    yourOutfitReviews,
     yourOutfitStyles,
+    onCardClick,
     onStarClick,
     onXClick
   } = props;
@@ -26,24 +28,35 @@ var RelatedProductsList = function (props) {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = listType === 'relatedProduct'
-    ? useState(relatedProduct.length)
-    : useState(yourOutfit.length);
+    ? Array.isArray(relatedProduct)
+      ? useState(relatedProduct.length)
+      : useState(0)
+    : Array.isArray(yourOutfit)
+      ? useState(yourOutfit.length)
+      : useState(0);
 
-  console.log('RPL length: ', listType, ' - ', length);
+  let relatedProductRev = [];
+  if (Array.isArray(relatedProduct)) {
+    let relatedProducts = new Set(relatedProduct);
+    relatedProductRev = Array.from(relatedProducts);
+  }
 
   const products = listType === 'relatedProduct'
-    ? relatedProduct.map((id) => {
+    ? relatedProductRev.map((id) => {
       let prodInfo = relatedProductInfo.filter((prod) => prod.id === id);
+      let prodRatings = relatedProductReviews.filter((prod) => Number(prod.product_id) === id);
       let prodStyle = relatedProductStyles.filter((prod) => Number(prod.product_id) === id);
 
       return (
-        <div key={id.toString()}>
-          <div style={{ padding: 8 }}>
+        <div key={id.toString()} role='list'>
+          <div style={{ padding: 8 }} role='listitem'>
             <RelatedProductCard
               listType={listType}
               productId={id}
               productInfo={prodInfo[0]}
+              productRatings={prodRatings[0]}
               productStyle={prodStyle[0]}
+              onCardClick={onCardClick}
               onStarClick={onStarClick}
             />
           </div>
@@ -52,15 +65,18 @@ var RelatedProductsList = function (props) {
     })
     : yourOutfit.map((id) => {
       let prodInfo = yourOutfitInfo.filter((prod) => prod.id === id);
+      let prodRatings = yourOutfitReviews.filter((prod) => Number(prod.product_id) === id);
       let prodStyle = yourOutfitStyles.filter((prod) => Number(prod.product_id) === id);
       return (
-        <div key={id.toString()}>
-          <div style={{ padding: 8 }}>
+        <div key={id.toString()} role='list'>
+          <div style={{ padding: 8 }} role='listitem'>
             <RelatedProductCard
               listType={listType}
               productId={id}
               productInfo={prodInfo[0]}
+              productRatings={prodRatings[0]}
               productStyle={prodStyle[0]}
+              onCardClick={onCardClick}
               onXClick={onXClick}
             />
           </div>
@@ -99,7 +115,7 @@ var RelatedProductsList = function (props) {
           <div className="ri-carousel-content-wrapper">
             <div
               className={`ri-carousel-content show-${show}`}
-              style={{ transform: `translateX-${currentIndex * (100 / show)}%)` }}
+              style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}
             >
               {products}
             </div>
@@ -116,4 +132,4 @@ var RelatedProductsList = function (props) {
   );
 };
 
-export default RelatedProductsList;
+export default RelatedProductLists;

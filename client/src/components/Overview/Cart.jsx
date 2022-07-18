@@ -2,17 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import helper from '../../../../lib/clientHelpers.js';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
-var Cart = (props) => {
-  const skus = props.currentStyle.skus;
-  const isYourOutfit = props.isYourOutfit;
-  const selectedSize = props.selectedSize;
-  const selectedQuant = props.selectedQuant;
+var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
+  handleSelect, submitCartRequest, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
 
-  const handleSelect = props.handleSelect;
-  const submitCartRequest = props.submitCartRequest;
-  const handleAddToYourOutfit = props.handleAddToYourOutfit;
-  const handleRemoveYourOutfit = props.handleRemoveYourOutfit;
-
+  const skus = currentStyle.skus;
   const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
@@ -101,12 +94,14 @@ var Cart = (props) => {
         }
       </form>
 
-      <div className="my-outfit-star">{
-        isYourOutfit ?
-          <AiFillStar onClick={handleRemoveYourOutfit}/>
+      <button
+        className="my-outfit-star"
+        onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
+      >{isYourOutfit ?
+          <AiFillStar onClick={handleRemoveFromYourOutfit}/>
           :
           <AiOutlineStar onClick={handleAddToYourOutfit}/>
-      }</div>
+        }</button>
     </div>
   );
 };

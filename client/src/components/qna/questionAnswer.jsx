@@ -6,7 +6,6 @@ import Userhelpful from './userhelpful.jsx';
 var questionAnswer = (props) => {
   if (props.questions.length > 0) {
     var id1 = Object.keys(props.questions[0].answers);
-    console.log(props.questions);
     var sort = (id) => {
       for (var i = 0; i < props.questions.length; i++) {
         var id = Object.keys(props.questions[i].answers);
@@ -30,7 +29,6 @@ var questionAnswer = (props) => {
               yesQuestion={props.yesQuestion}
               addAnswer={props.addAnswer}/>
             <Answer
-              answer={props.questions[0].answers[id1[0]]}
               answers={props.questions[0].answers}
               answersid={id1}
               id={props.questions[0].question_id}
@@ -46,13 +44,13 @@ var questionAnswer = (props) => {
               yesQuestion={props.yesQuestion}
               addAnswer={props.addAnswer}/>
             <Answer
-              answer={props.questions[1].answers[id2[0]]}
               answers={props.questions[1].answers}
               answersid={id2}
               id={props.questions[1].question_id}
               update={props.update}
               yesAnswer={props.yesAnswer}
-              reportAnswer={props.reportAnswer}/>
+              reportAnswer={props.reportAnswer}
+              moreAnswers={props.moreAnswers}/>
           </div>
         </div>
       );
@@ -65,7 +63,6 @@ var questionAnswer = (props) => {
               yesQuestion={props.yesQuestion}
               addAnswer={props.addAnswer}/>
             <Answer
-              answer={props.questions[0].answers[id1[0]]}
               answers={props.questions[0].answers}
               answersid={id1}
               id={props.questions[0].question_id}

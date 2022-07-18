@@ -4,8 +4,6 @@ import ActionBtn from './ActionButton.jsx';
 import {Images, PrimaryImage} from './Images.jsx';
 import Price from './Price.jsx';
 import Rating from './Rating.jsx';
-
-import sampleData from '../../data/sampleData.js';
 import findDefaultStyle from '../../../../lib/clientHelpers.js';
 
 var RelatedProductCard = function (props) {
@@ -13,28 +11,22 @@ var RelatedProductCard = function (props) {
     listType,
     productId,
     productInfo,
+    productRatings,
     productStyle,
+    onCardClick,
     onStarClick,
     onXClick
   } = props;
+
+  let prodRatings = productRatings
+    ? productRatings.ratings
+    : null;
 
   const onClickAction = listType === 'relatedProduct'
     ? onStarClick
     : onXClick;
 
-  // let productId = props.productId;
-  // Get productInfo productRating and productStyle
-  // productInfo = sampleData.productInfo; // update
-  // console.log('RP sample: ', productInfo);
-  // let productInfo = props.productInfo;
-  // console.log('RPC: ', productInfo);
-  var productRatings = sampleData.reviewsMeta.ratings;
-  // let productStyle = sampleData.productStyle.results[Math.floor(Math.random() * 6)]; // update
-  // let productStyle = sampleData.productStyle.results[0]; // update
-  // let productStyle = props.productStyle.results[0];
-  // let styleId = productStyle.style_id; // update - not yet being utilized
-
-  // need to bring selected style in through props
+  // need to capture selected style
   let category, name, styleName;
 
   if (productInfo !== undefined) {
@@ -44,7 +36,7 @@ var RelatedProductCard = function (props) {
 
   return (
     <div className="rp-card-container">
-      <div className="rp-card">
+      <div className="rp-card" onClick={() => onCardClick(productId.toString())}>
         <PrimaryImage productStyle={productStyle} />
         <div className="rp-card-top-right">
           <ActionBtn
@@ -69,7 +61,7 @@ var RelatedProductCard = function (props) {
         </div>
 
         <div>
-          <Rating ratings={productRatings}/>
+          <Rating ratings={prodRatings}/>
         </div>
       </div>
     </div>

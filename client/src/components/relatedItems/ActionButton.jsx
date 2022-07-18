@@ -9,15 +9,26 @@ var ActionBtn = function (props) {
     onClickAction
   } = props;
 
-  const design = listType === 'relatedProduct'
-    ? IoIosStarOutline
-    : IoIosCloseCircleOutline;
+  let aria, action, design;
+
+  if (listType === 'relatedProduct') {
+    aria = 'Add item to your outfit';
+    design = IoIosStarOutline;
+    action = 'add';
+  } else {
+    aria = 'Remove item from your outfit';
+    design = IoIosCloseCircleOutline;
+    action = 'remove';
+  }
 
   return (
     <div>
       <button
+        aria-label={aria}
         className="rp-card-action-btn"
+        name="outfit"
         type="button"
+        value={action}
         onClick={() => onClickAction(productId)}
       >
         {design()}

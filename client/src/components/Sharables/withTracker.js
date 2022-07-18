@@ -4,13 +4,14 @@ const withTracker = (WrappedComponent, widgetName) => {
   return class extends React.Component {
     constructor(props) {
       super(props);
+      this.widgetName = widgetName;
     }
 
     trackClick (event) {
       console.log('clicked');
       // console.log(event.currentTarget.name);
       console.log(widgetName);
-      console.log(event.target);
+      console.dir(event.target);
       console.log(Date(event.timeStamp));
     }
 

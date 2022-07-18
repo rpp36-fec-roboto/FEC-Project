@@ -7,84 +7,54 @@ var RelatedProductLists = function (props) {
     listType,
     productId,
     productInfo,
-    productStyle,
+    productReviews,
+    productStyles,
     relatedProduct,
-    relatedProductInfo,
-    relatedProductReviews,
-    relatedProductStyles,
     yourOutfit,
-    yourOutfitInfo,
-    yourOutfitReviews,
-    yourOutfitStyles,
     onCardClick,
     onStarClick,
     onXClick
   } = props;
 
   const show = 4;
-  const listHeading = listType === 'relatedProduct'
-    ? 'RELATED PRODUCTS'
-    : 'YOUR OUTFIT';
+  let list, listHeading, listLength;
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [length, setLength] = listType === 'relatedProduct'
-    ? Array.isArray(relatedProduct)
-      ? useState(relatedProduct.length)
-      : useState(0)
-    : Array.isArray(yourOutfit)
-      ? useState(yourOutfit.length)
-      : useState(0);
-
-  let relatedProductRev = [];
-  if (Array.isArray(relatedProduct)) {
-    let relatedProducts = new Set(relatedProduct);
-    relatedProductRev = Array.from(relatedProducts);
+  if (listType === 'relatedProduct') {
+    list = Array.from(new Set(relatedProduct));
+    listHeading = 'RELATED PRODUCTS';
+    listLength = relatedProduct.length;
+  } else {
+    list = Array.from(new Set(yourOutfit));
+    listHeading = 'YOUR OUTFIT';
+    listLength = yourOutfit.length;
   }
 
-  const products = listType === 'relatedProduct'
-    ? relatedProductRev.map((id) => {
-      let prodInfo = relatedProductInfo.filter((prod) => prod.id === id);
-      let prodRatings = relatedProductReviews.filter((prod) => Number(prod.product_id) === id);
-      let prodStyle = relatedProductStyles.filter((prod) => Number(prod.product_id) === id);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [length, setLength] = useState(listLength);
 
-      return (
-        <div key={id.toString()} role='list'>
-          <div style={{ padding: 8 }} role='listitem'>
-            <RelatedProductCard
-              listType={listType}
-              productId={id}
-              productInfo={prodInfo[0]}
-              productRatings={prodRatings[0]}
-              productStyle={prodStyle[0]}
-              onCardClick={onCardClick}
-              onStarClick={onStarClick}
-            />
-          </div>
-        </div>
-      );
-    })
-    : yourOutfit.map((id) => {
-      let prodInfo = yourOutfitInfo.filter((prod) => prod.id === id);
-      let prodRatings = yourOutfitReviews.filter((prod) => Number(prod.product_id) === id);
-      let prodStyle = yourOutfitStyles.filter((prod) => Number(prod.product_id) === id);
-      return (
-        <div key={id.toString()} role='list'>
-          <div style={{ padding: 8 }} role='listitem'>
-            <RelatedProductCard
-              listType={listType}
-              productId={id}
-              productInfo={prodInfo[0]}
-              productRatings={prodRatings[0]}
-              productStyle={prodStyle[0]}
-              onCardClick={onCardClick}
-              onXClick={onXClick}
-            />
-          </div>
-        </div>
-      );
-    });
+  const products = list.map((id) => {
+    let prodInfo = productInfo.filter((prod) => prod.id === id);
+    let prodRatings = productReviews.filter((prod) => Number(prod.product_id) === id);
+    let prodStyle = productStyles.filter((prod) => Number(prod.product_id) === id);
 
-  // Carousel not working, arrows should not show with only four product cards
+    return (
+      <div key={id.toString()} role='list'>
+        <div style={{ padding: 8 }} role='listitem'>
+          <RelatedProductCard
+            listType={listType}
+            productId={id}
+            productInfo={prodInfo[0]}
+            productRatings={prodRatings[0]}
+            productStyle={prodStyle[0]}
+            onCardClick={onCardClick}
+            onStarClick={onStarClick}
+            onXClick={onXClick}
+          />
+        </div>
+      </div>
+    );
+  });
+
   useEffect(() => {
     setLength(products.length);
   }, [products]);

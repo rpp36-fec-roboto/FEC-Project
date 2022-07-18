@@ -6,41 +6,24 @@ import RelatedProductLists from './RelatedProductLists.jsx';
 var RelatedItems = (props) => {
   const {
     productId,
+    relatedProduct,
     yourOutfit,
     onCardClick,
     onStarClick,
     onXClick
   } = props;
 
-  const [productInfo, setProductInfo] = useState({});
-  const [productStyle, setProductStyle] = useState({});
-  const [relatedProduct, setRelatedProduct] = useState([]);
-  const [relatedProductInfo, setRelatedProductInfo] = useState([]);
-  const [relatedProductReviews, setRelatedProductReviews] = useState([]);
-  const [relatedProductStyles, setRelatedProductStyles] = useState([]);
-  const [yourOutfitInfo, setYourOutfitInfo] = useState([]);
-  const [yourOutfitReviews, setYourOutfitReviews] = useState([]);
-  const [yourOutfitStyles, setYourOutfitStyles] = useState([]);
+  const [productInfo, setProductInfo] = useState([]);
+  const [productReviews, setProductReviews] = useState([]);
+  const [productStyles, setProductStyles] = useState([]);
 
-  const getProductInfo = ((productId, listType) => {
-    let productInfoRequest = axios.get(`/products/${productId}`);
-    let productStyleRequest = axios.get(`/products/${productId}/styles`);
-    let relatedProductRequest = axios.get(`/products/${productId}/related`);
+  let allProduct = Array.from(new Set([productId, ...relatedProduct, ...yourOutfit])).sort();
 
-    axios.all([productInfoRequest, productStyleRequest, relatedProductRequest])
-      .then(axios.spread((...responses) => {
-        setProductInfo(responses[0].data);
-        setProductStyle(responses[1].data);
-        setRelatedProduct(responses[2].data);
-      }))
-      .catch( err => { console.log(err); });
-  });
-
-  const getRelatedProductInfo = ((products, cb) => {
+  const getProductInfo = ((products) => {
     let count = 0;
-    let relProdInfo = [];
-    let relProdReviews = [];
-    let relProdStyles = [];
+    let addProdInfo = [];
+    let addProdReviews = [];
+    let addProdStyles = [];
 
     products.forEach((id) => {
       let productInfoRequest = axios.get(`/products/${id}`);
@@ -49,41 +32,19 @@ var RelatedItems = (props) => {
 
       axios.all([productInfoRequest, productReviewRequest, productStyleRequest])
         .then(axios.spread((...responses) => {
-          relProdInfo.push(responses[0].data);
-          relProdReviews.push(responses[1].data);
-          relProdStyles.push(responses[2].data);
+          addProdInfo.push(responses[0].data);
+          addProdReviews.push(responses[1].data);
+          addProdStyles.push(responses[2].data);
         }))
         .then(() => {
           count++;
-          if (count === products.length) {
-            cb(null, relProdInfo, relProdReviews, relProdStyles);
-          }
-        })
-        .catch( err => { console.log(err); });
-    });
-  });
-
-  const getYourOutfitInfo = ((products, cb) => {
-    let count = 0;
-    let outfitInfo = [];
-    let outfitReviews = [];
-    let outfitStyles = [];
-
-    products.forEach((id) => {
-      let productInfoRequest = axios.get(`/products/${id}`);
-      let productReviewRequest = axios.get('reviews/meta', {params: { 'product_id': id }});
-      let productStyleRequest = axios.get(`/products/${id}/styles`);
-
-      axios.all([productInfoRequest, productReviewRequest, productStyleRequest])
-        .then(axios.spread((...responses) => {
-          outfitInfo.push(responses[0].data);
-          outfitReviews.push(responses[1].data);
-          outfitStyles.push(responses[2].data);
-        }))
-        .then(() => {
-          count++;
-          if (count === products.length) {
-            cb(null, outfitInfo, outfitReviews, outfitStyles);
+          if (count === products.length && count === addProdInfo.length && count === addProdReviews.length && count === addProdStyles.length) {
+            addProdInfo = [...productInfo, ...addProdInfo];
+            addProdReviews = [...productReviews, ...addProdReviews];
+            addProdStyles = [...productStyles, ...addProdStyles];
+            setProductInfo(addProdInfo);
+            setProductReviews(addProdReviews);
+            setProductStyles(addProdStyles);
           }
         })
         .catch( err => { console.log(err); });
@@ -91,35 +52,17 @@ var RelatedItems = (props) => {
   });
 
   useEffect(() => {
-    const listType = 'current';
-    getProductInfo(productId, listType);
-  }, [productId]);
-
-  useEffect(() => {
-    const listType = 'related';
-    getRelatedProductInfo(relatedProduct, function(err, relProdInfo, relProdReviews, relProdStyles) {
-      if (err) {
-        console.log(err);
-      } else {
-        setRelatedProductInfo(relProdInfo);
-        setRelatedProductReviews(relProdReviews);
-        setRelatedProductStyles(relProdStyles);
+    let addItems = [];
+    for (var i = 0; i < allProduct.length; i++) {
+      let addItem = productInfo.filter((prod) => prod.id === allProduct[i]);
+      if (addItem.length === 0) {
+        addItems.push(allProduct[i]);
       }
-    });
-  }, [JSON.stringify(relatedProduct)]);
-
-  useEffect(() => {
-    const listType = 'outfit';
-    getYourOutfitInfo(yourOutfit, function(err, outfitInfo, outfitReviews, outfitStyles) {
-      if (err) {
-        console.log(err);
-      } else {
-        setYourOutfitInfo(outfitInfo);
-        setYourOutfitReviews(outfitReviews);
-        setYourOutfitStyles(outfitStyles);
-      }
-    });
-  }, [JSON.stringify(yourOutfit)]);
+    }
+    if (addItems.length > 0) {
+      getProductInfo(addItems);
+    }
+  }, [JSON.stringify(allProduct)]);
 
   return (
     <div className="ri-grid">
@@ -127,11 +70,9 @@ var RelatedItems = (props) => {
         listType={'relatedProduct'}
         productId={productId}
         productInfo={productInfo}
-        productStyle={productStyle}
+        productReviews={productReviews}
+        productStyles={productStyles}
         relatedProduct={relatedProduct}
-        relatedProductInfo={relatedProductInfo}
-        relatedProductReviews={relatedProductReviews}
-        relatedProductStyles={relatedProductStyles}
         onCardClick={onCardClick}
         onStarClick={onStarClick}
       />
@@ -139,11 +80,9 @@ var RelatedItems = (props) => {
         listType={'yourOutfit'}
         productId={productId}
         productInfo={productInfo}
-        productStyle={productStyle}
+        productReviews={productReviews}
+        productStyles={productStyles}
         yourOutfit={yourOutfit}
-        yourOutfitInfo={yourOutfitInfo}
-        yourOutfitReviews={yourOutfitReviews}
-        yourOutfitStyles={yourOutfitStyles}
         onCardClick={onCardClick}
         onXClick={onXClick}
       />

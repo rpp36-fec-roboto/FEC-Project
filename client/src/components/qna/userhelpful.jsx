@@ -7,10 +7,13 @@ var userhelpful = (props) => {
   var month = d.getMonth();
   var year = d.getFullYear();
   var date = `${months[month]} ${day + 1}, ${year}`;
+
   return (
     <div className='qa-paddingleft qa-userhelpful'>
       <div className='qa-float' >by</div>
-      <div className='qa-float' >{props.answer.answerer_name},</div>
+      {props.answer.answerer_name === 'Seller' ?
+        <div className='qa-float qa-bold' >{props.answer.answerer_name},</div> :
+        <div className='qa-float' >{props.answer.answerer_name},</div>}
       <div className='qa-float' >{date}</div>
       <div className='qa-float' >|</div>
       <div className='qa-float' >Helpful?</div>

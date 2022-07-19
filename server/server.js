@@ -26,10 +26,24 @@ app.get('/qa/questions', (req, res) => {
   });
 });
 
+app.post('/qa/questions', (req, res) => {
+  var url = req._parsedUrl.pathname;
+  var param = req.body;
+  param['product_id'] = Number(param['product_id']);
+  api.postData(url, param, (err, data) => {
+    if (err) {
+      res.status(500).send('Error creating new Question');
+    } else {
+      res.status(201).send();
+    }
+  });
+});
+
 
 app.get('/qa/questions/:question_id/answers', (req, res) => {
-  var param = req._parsedOriginalUrl.search;
-  api.getData(req._parsedOriginalUrl.pathname, param, (err, data) => {
+  var url = req._parsedUrl.pathname;
+  var param = req.query;
+  api.getData(url, param, (err, data) => {
     if (err) {
       res.status(500).send('Error getting data from the API');
     } else {

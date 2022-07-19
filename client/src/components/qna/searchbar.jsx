@@ -2,7 +2,6 @@ import React from 'react';
 
 var searchBar = (props) => (
   <div>
-    <div className='qa-paddingleft'>QUESTION & ANSWERS</div><br></br>
     <div className='qa-paddingleft'>
       <input className='qa-bar qa-bold' type="search" maxLength="150" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."></input>
     </div>

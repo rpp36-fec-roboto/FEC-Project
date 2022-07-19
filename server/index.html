@@ -7,6 +7,14 @@
 
 <body>
   <div id="app"></div>
+  <script>
+      var productId = window.location.href.split('/')[3];
+      if(productId.includes('#')) {
+      productId = productId.split('#')[0];
+      window.history.replaceState('object or string', 'Title', productId);
+    }
+
+  </script>
   <script type="text/javascript" src="http://localhost:5555/bundle.js"></script>
 </body>
 

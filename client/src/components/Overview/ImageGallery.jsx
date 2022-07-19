@@ -26,7 +26,7 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
   };
 
   return (
-    <div>
+    <>
       <div className="ov-img-view-container">
 
         <div className="ov-main-img-container">
@@ -88,7 +88,7 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
           >Right arrow</button>
         }
       </div>
-    </div>
+    </>
   );
 
 };

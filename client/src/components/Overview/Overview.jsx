@@ -8,6 +8,7 @@ import Style from './Style.jsx';
 import Cart from './Cart.jsx';
 import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
+import withTracker from '../../components/Sharables/withTracker.js';
 
 var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
   // Shared managed state
@@ -112,8 +113,7 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
     // post request to server
     axios.post('/cart', data)
       .then(response => {
-        setSize('Select Size');
-        setQuant(0);
+        console.log('added to cart');
       })
       .catch( err => console.log(err) );
   };
@@ -171,4 +171,6 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   );
 };
 
-export default Overview;
+const OverviewWithTracker = withTracker(Overview, 'overview');
+
+export default OverviewWithTracker;

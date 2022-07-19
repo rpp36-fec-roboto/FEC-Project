@@ -55,9 +55,9 @@ var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
       <p>
         <span className="ov-all-cap ov-bold">style </span>
         <span className=".ov-bold">{'> '}</span>
-        <span>{currentStyle.name}</span>
+        <span>{currentStyle.name.toUpperCase()}</span>
       </p>
-      <div className="style-grid ov-padding-verticle">
+      <div className="style-grid ov-padding-bottom">
         {thumbnailList(productStyle, currentStyle)}
       </div>
     </>

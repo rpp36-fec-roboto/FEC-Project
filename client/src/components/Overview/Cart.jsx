@@ -24,7 +24,7 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
       });
 
       // add the default value to size options
-      sizes.unshift(<option key='select-size'>Select Size</option>);
+      sizes.unshift(<option key='select-size'>SELECT SIZE</option>);
       return sizes;
     }
   };
@@ -65,43 +65,43 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
   };
 
   return (
-    <div>
+    <div className="ov-cart-container">
       <form onSubmit={handleAddToCart}>
         {/* show warning when no size selected at submit */}
-        {showMessage && <div>Please select a size</div>}
+        {showMessage && <p>Please select a size</p>}
 
         <select
+          className="ov-size"
           name="ov-size"
           disabled={ !helper.inStock(skus) }
           defaultValue={selectedSize}
           onChange={handleSelect}
-          ref={sizeInput}
-          className="ov-boarder">
+          ref={sizeInput}>
           {sizeSelector(skus)}
         </select>
 
         <select
+          className="ov-quantity"
           name="ov-quantity"
           disabled={ selectedSize === 'Select Size' }
-          onChange={handleSelect}
-          className="ov-boarder">
+          onChange={handleSelect}>
           {quantitySelector(selectedSize)}
         </select>
 
         <br></br> {helper.inStock(skus) &&
-          <input type="submit" value="ADD TO CART                    +" className="ov-boarder"></input>
+          <input type="submit" value="ADD TO CART                    +" className="ov-add-to-cart"></input>
           // <button onClick={handleAddToCart} className="ov-boarder">Add to cart</button>
         }
+        <button
+          className="my-outfit-star"
+          onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
+        >{isYourOutfit ?
+            <AiFillStar onClick={handleRemoveFromYourOutfit}/>
+            :
+            <AiOutlineStar onClick={handleAddToYourOutfit}/>
+          }</button>
       </form>
 
-      <button
-        className="my-outfit-star"
-        onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
-      >{isYourOutfit ?
-          <AiFillStar onClick={handleRemoveFromYourOutfit}/>
-          :
-          <AiOutlineStar onClick={handleAddToYourOutfit}/>
-        }</button>
     </div>
   );
 };

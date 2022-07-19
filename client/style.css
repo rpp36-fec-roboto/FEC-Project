@@ -69,17 +69,26 @@ body {
   margin-top: 12px;
 }
 
+.center-icon {
+  display: block;
+  margin: auto;
+  height: 100%;
+}
+
 .ov-left-btn, .ov-right-btn {
+  background-color: rgba(108, 109, 110, 0.26);
+  height: 70px;
+  width: 30px;
   position: absolute;
   top: 50%;
 }
 
 .ov-left-btn {
-  left: 90px;
+  left: 15%;
 }
 
 .ov-right-btn {
-  right: 0;
+  right: 5%;
 }
 
 /* Style styling*/

@@ -55,7 +55,7 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   const handleImgBtnClick = (event) => {
     let newMainImgIndex;
 
-    if (event.target.name === 'left-click') {
+    if (event.currentTarget.className === 'ov-left-btn') {
       newMainImgIndex = mainImgIndex - 1;
       if (newMainImgIndex < thumbnailStartIndex) {
         setThumbnailStartIndex(newMainImgIndex);

@@ -30,11 +30,11 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
         setProductInfo(responses[0].data);
         setProductStyle(responses[1].data);
         setReviewsMeta(responses[2].data);
-        setCurrentStyle(helper.findDefaultStyle(responses[1].data));
+        setCurrentStyle(responses[1].data.results[0]);
       }))
       .catch( err => { console.log(err); });
 
-  }, []);
+  }, [productId]);
 
   // handle style change
   const handleStyleChange = (style) => {

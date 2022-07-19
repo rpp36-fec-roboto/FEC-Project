@@ -16,6 +16,7 @@ var RelatedProductLists = function (props) {
     yourOutfitInfo,
     yourOutfitReviews,
     yourOutfitStyles,
+    onCardClick,
     onStarClick,
     onXClick
   } = props;
@@ -34,8 +35,14 @@ var RelatedProductLists = function (props) {
       ? useState(yourOutfit.length)
       : useState(0);
 
+  let relatedProductRev = [];
+  if (Array.isArray(relatedProduct)) {
+    let relatedProducts = new Set(relatedProduct);
+    relatedProductRev = Array.from(relatedProducts);
+  }
+
   const products = listType === 'relatedProduct'
-    ? relatedProduct.map((id) => {
+    ? relatedProductRev.map((id) => {
       let prodInfo = relatedProductInfo.filter((prod) => prod.id === id);
       let prodRatings = relatedProductReviews.filter((prod) => Number(prod.product_id) === id);
       let prodStyle = relatedProductStyles.filter((prod) => Number(prod.product_id) === id);
@@ -49,6 +56,7 @@ var RelatedProductLists = function (props) {
               productInfo={prodInfo[0]}
               productRatings={prodRatings[0]}
               productStyle={prodStyle[0]}
+              onCardClick={onCardClick}
               onStarClick={onStarClick}
             />
           </div>
@@ -68,6 +76,7 @@ var RelatedProductLists = function (props) {
               productInfo={prodInfo[0]}
               productRatings={prodRatings[0]}
               productStyle={prodStyle[0]}
+              onCardClick={onCardClick}
               onXClick={onXClick}
             />
           </div>

@@ -13,6 +13,7 @@ var RelatedProductCard = function (props) {
     productInfo,
     productRatings,
     productStyle,
+    onCardClick,
     onStarClick,
     onXClick
   } = props;
@@ -35,7 +36,7 @@ var RelatedProductCard = function (props) {
 
   return (
     <div className="rp-card-container">
-      <div className="rp-card">
+      <div className="rp-card" onClick={() => onCardClick(productId.toString())}>
         <PrimaryImage productStyle={productStyle} />
         <div className="rp-card-top-right">
           <ActionBtn

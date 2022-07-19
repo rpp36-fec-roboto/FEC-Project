@@ -8,7 +8,6 @@ import ReactDOM from 'react-dom/client';
 import { render, screen, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
 import '@testing-library/jest-dom'; // provides method for DOM matcher
 import userEvent from '@testing-library/user-event';
-// import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import sampleData from '../../data/sampleData.js';
@@ -28,7 +27,7 @@ describe('helper function unit tests', () => {
   });
 
   it('should calculate average rating', () => {
-    expect(helper.calculateRating(sampleData.reviewsMeta.ratings)).toBe(3.86);
+    expect(helper.calculateRating(sampleData.reviewsMeta.ratings)).toBe('75%');
   });
 
   it('should return false when quantity of all skus in a style is 0', () => {
@@ -51,21 +50,6 @@ describe('Overview widget rendering', () => {
     selectedQuant: 0
   };
 
-
-  // let container;
-  // beforeEach(() => {
-  //   // setup a DOM element as a render target
-  //   container = document.createElement('div');
-  //   document.body.appendChild(container);
-  // });
-
-  // afterEach(() => {
-  //   // cleanup on exiting
-  //   unmountComponentAtNode(container);
-  //   container.remove();
-  //   container = null;
-  // });
-
   describe('use jsdom in this test file', () => {
     const element = document.createElement('div');
     expect(element).not.toBeNull();
@@ -73,7 +57,7 @@ describe('Overview widget rendering', () => {
 
   describe('render ProductInfo component correctly', () => {
     beforeEach(() => {
-      render(<ProductInfo productInfo={state.productInfo} rating={helper.calculateRating(state.reviewsMeta)}/>);
+      render(<ProductInfo productInfo={state.productInfo} reviewsMeta={state.reviewsMeta}/>);
     });
     it('should show category', () => {
       expect(screen.getByText('Jackets', {exact: false})).toBeInTheDocument();

@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import RelatedProductLists from './RelatedProductLists.jsx';
+import withTracker from '../../components/Sharables/withTracker.js';
 
 var RelatedItems = (props) => {
   const {
     productId,
     yourOutfit,
+    onCardClick,
     onStarClick,
     onXClick
   } = props;
@@ -92,7 +94,7 @@ var RelatedItems = (props) => {
   useEffect(() => {
     const listType = 'current';
     getProductInfo(productId, listType);
-  }, []);
+  }, [productId]);
 
   useEffect(() => {
     const listType = 'related';
@@ -105,7 +107,7 @@ var RelatedItems = (props) => {
         setRelatedProductStyles(relProdStyles);
       }
     });
-  }, [relatedProduct]);
+  }, [JSON.stringify(relatedProduct)]);
 
   useEffect(() => {
     const listType = 'outfit';
@@ -118,7 +120,7 @@ var RelatedItems = (props) => {
         setYourOutfitStyles(outfitStyles);
       }
     });
-  }, [yourOutfit]);
+  }, [JSON.stringify(yourOutfit)]);
 
   return (
     <div className="ri-grid">
@@ -131,6 +133,7 @@ var RelatedItems = (props) => {
         relatedProductInfo={relatedProductInfo}
         relatedProductReviews={relatedProductReviews}
         relatedProductStyles={relatedProductStyles}
+        onCardClick={onCardClick}
         onStarClick={onStarClick}
       />
       <RelatedProductLists
@@ -142,10 +145,13 @@ var RelatedItems = (props) => {
         yourOutfitInfo={yourOutfitInfo}
         yourOutfitReviews={yourOutfitReviews}
         yourOutfitStyles={yourOutfitStyles}
+        onCardClick={onCardClick}
         onXClick={onXClick}
       />
     </div>
   );
 };
 
-export default RelatedItems;
+const RelatedItemsWithTracker = withTracker(RelatedItems, 'related-items');
+
+export default RelatedItemsWithTracker;

@@ -102,7 +102,6 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
 
   const handleSelect = (event) => {
     if (event.target.name === 'ov-size') {
-      console.log(event.target.value);
       setSize(event.target.value);
       setQuant(1);
     } else {
@@ -120,7 +119,7 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   };
 
   return (
-    <div className="overview-grid qa-paddingleft">
+    <div className="overview-grid ov-padding">
       <div className={`ov-top-row-${isDefaultView ? 'default' : 'expended'}`}>
 
         <div className="ov-left-2">

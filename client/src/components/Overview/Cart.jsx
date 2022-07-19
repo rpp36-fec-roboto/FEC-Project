@@ -64,7 +64,7 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
 
   return (
     <div className="ov-cart-container">
-      <form onSubmit={handleAddToCart}>
+      <form>
         {/* show warning when no size selected at submit */}
         {showMessage && <p>Please select a size</p>}
 
@@ -87,17 +87,13 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
         </select>
 
         <br></br> {helper.inStock(skus) &&
-          <input type="submit" value="ADD TO CART                    +" className="ov-add-to-cart"></input>
-          // <button onClick={handleAddToCart} className="ov-boarder">Add to cart</button>
+          // <input type="submit" value="ADD TO CART                    +" className="ov-add-to-cart"></input>
+          <button onClick={handleAddToCart} className="ov-add-to-cart">ADD TO CART&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+</button>
         }
         <button
           className="my-outfit-star"
           onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
-        >{isYourOutfit ?
-            <AiFillStar onClick={handleRemoveFromYourOutfit}/>
-            :
-            <AiOutlineStar onClick={handleAddToYourOutfit}/>
-          }</button>
+        >{isYourOutfit ? <AiFillStar/> : <AiOutlineStar/>}</button>
       </form>
 
     </div>

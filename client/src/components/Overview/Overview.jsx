@@ -112,6 +112,8 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   };
 
   const submitCartRequest = (data) => {
+    console.log(event, data);
+    event.preventDefault();
     // post request to server
     axios.post('/cart', data)
       .then(response => {

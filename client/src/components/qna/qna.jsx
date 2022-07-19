@@ -7,6 +7,7 @@ import AddAnswer from './addAnswer.jsx';
 import AddQuestion from './addQuestion.jsx';
 import data from '../../data/sampleData.js';
 import Answer from './answer.jsx';
+import Question from './question.jsx';
 import $ from 'jquery';
 
 
@@ -19,9 +20,9 @@ class Qna extends React.Component {
       questionhelpful: [],
       answerhelpful: [],
       reportAnswer: [],
-      currentQuestion: ''
+      currentQuestion: '',
+      qIndex: ''
     };
-    this.updateAnswers = this.updateAnswers.bind(this);
     this.yesQuestionButton = this.yesQuestionButton.bind(this);
     this.addAnswerButton = this.addAnswerButton.bind(this);
     this.yesAnswerButton = this.yesAnswerButton.bind(this);
@@ -38,21 +39,21 @@ class Qna extends React.Component {
     $.ajax({
       method: 'get',
       url: '/qa/questions',
-      data: {'product_id': this.props.productId},
+      data: {
+        'product_id': this.props.productId,
+        count: 100
+      },
       success: (data) => {
         data.results.sort(function(a, b) {
           return b.question_helpfulness - a.question_helpfulness;
         });
-        this.setState({questions: data.results});
+        var qIndex = 1;
+        if (data.results.length === 1) {
+          qIndex = 0;
+        }
+        this.setState({questions: data.results, qIndex});
       }
     });
-  }
-
-  updateAnswers(data, id) {
-    var answers = this.state.answers;
-    answers.id = data;
-    console.log('answer', answers);
-    this.setState({answers: answers});
   }
 
   yesQuestionButton(qid) {
@@ -120,7 +121,100 @@ class Qna extends React.Component {
   }
 
   moreQuestions(e) {
-    console.log('more answered button');
+    console.log('more questions button');
+    console.log(this.state.questions);
+    var index = this.state.qIndex;
+    if (this.state.questions.length === index + 2) {
+      index++;
+
+      $('.questions').append(`<div id=question${index}></div>`);
+
+      var root = ReactDOM.createRoot(document.getElementById(`question${index}`));
+
+      var id1 = Object.keys(this.state.questions[index].answers);
+
+      if (id1.length > 1) {
+        id1.sort(function(a, b) {
+          return this.state.questions[index].b.helpfulness - this.state.questions[index].a.helpfulness;
+        });
+      }
+
+      root.render(
+        <div className={`question${index}`}>
+          <br></br>
+          <Question
+            questions={this.state.questions[index]}
+            yesQuestion={this.yesQuestionButton}
+            addAnswer={this.addAnswerButton}/>
+          <Answer
+            answers={this.state.questions[index].answers}
+            answersid={id1}
+            id={this.state.questions[index].question_id}
+            yesAnswer={this.yesAnswerButton}
+            reportAnswer={this.reportAnswerButton}
+            moreAnswers={this.moreAnswers}/>
+        </div>
+      );
+      $('.morequestions').hide();
+    } else {
+      index += 2;
+      $('.questions').append(`<div id=question${index}></div>`);
+
+      var root = ReactDOM.createRoot(document.getElementById(`question${index}`));
+
+      var id1 = Object.keys(this.state.questions[index - 1].answers);
+      var id2 = Object.keys(this.state.questions[index].answers);
+      var questions1 = this.state.questions[index - 1];
+      var questions2 = this.state.questions[index];
+
+      if (id1.length > 1) {
+        id1.sort(function(a, b) {
+          return questions1.answers[b].helpfulness - questions1.answers[a].helpfulness;
+        });
+      }
+
+      if (id2.length > 1) {
+        id2.sort(function(a, b) {
+          return questions2.answers[b].helpfulness - questions2.answers[a].helpfulness;
+        });
+      }
+
+      root.render(
+        <div>
+          <br></br>
+          <div className={`question${index - 1}`}>
+            <Question
+              questions={questions1}
+              yesQuestion={this.yesQuestionButton}
+              addAnswer={this.addAnswerButton}/>
+            <Answer
+              answers={questions1.answers}
+              answersid={id1}
+              id={questions1.question_id}
+              yesAnswer={this.yesAnswerButton}
+              reportAnswer={this.reportAnswerButton}
+              moreAnswers={this.moreAnswers}/>
+          </div><br></br>
+          <div className={`question${index}`}>
+            <Question
+              questions={questions2}
+              yesQuestion={this.yesQuestionButton}
+              addAnswer={this.addAnswerButton}/>
+            <Answer
+              answers={questions2.answers}
+              answersid={id2}
+              id={questions2.question_id}
+              yesAnswer={this.yesAnswerButton}
+              reportAnswer={this.reportAnswerButton}
+              moreAnswers={this.moreAnswers}/>
+          </div>
+        </div>
+      );
+      if (this.state.questions.length === index + 1) {
+        $('.morequestions').hide();
+      }
+    }
+    this.setState({qIndex: index});
   }
 
   moreAnswers(id) {
@@ -263,7 +357,6 @@ class Qna extends React.Component {
         <br></br>
         <QuestionAnswer
           questions={this.state.questions}
-          update={this.updateAnswers}
           yesQuestion={this.yesQuestionButton}
           addAnswer={this.addAnswerButton}
           yesAnswer={this.yesAnswerButton}

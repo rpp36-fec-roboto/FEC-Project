@@ -32,7 +32,6 @@ var questionAnswer = (props) => {
               answers={props.questions[0].answers}
               answersid={id1}
               id={props.questions[0].question_id}
-              update={props.update}
               yesAnswer={props.yesAnswer}
               reportAnswer={props.reportAnswer}
               moreAnswers={props.moreAnswers}/>
@@ -47,7 +46,6 @@ var questionAnswer = (props) => {
               answers={props.questions[1].answers}
               answersid={id2}
               id={props.questions[1].question_id}
-              update={props.update}
               yesAnswer={props.yesAnswer}
               reportAnswer={props.reportAnswer}
               moreAnswers={props.moreAnswers}/>
@@ -66,7 +64,6 @@ var questionAnswer = (props) => {
               answers={props.questions[0].answers}
               answersid={id1}
               id={props.questions[0].question_id}
-              update={props.update}
               yesAnswer={props.yesAnswer}
               reportAnswer={props.reportAnswer}
               moreAnswers={props.moreAnswers}/>

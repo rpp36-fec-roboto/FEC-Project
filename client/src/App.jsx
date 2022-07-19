@@ -4,12 +4,14 @@ import sampleData from './data/sampleData.js';
 import Overview from './components/Overview/Overview.jsx';
 import Qna from './components/qna/qna.jsx';
 import RelatedItems from './components/relatedItems/RelatedItems.jsx';
+import Reviews from './components/Reviews/Reviews.jsx';
+import ErrorBoundary from './components/Sharables/ErrorBoundary.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: window.location.href.split('/')[3], // get userId from url
+      productId: window.location.href.split('/')[3], // get productId from url
       yourOutfit: [],
     };
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
@@ -65,6 +67,8 @@ class App extends React.Component {
           onXClick={this.handleRemoveFromYourOutfit}
         />
         <Qna productId={this.state.productId}/>
+
+        <Reviews />
       </div>
     );
   }

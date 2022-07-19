@@ -28,7 +28,7 @@ describe('helper function unit tests', () => {
   });
 
   it('should calculate average rating', () => {
-    expect(helper.calculateRating(sampleData.reviewsMeta.ratings)).toBe(3.86);
+    expect(helper.calculateRating(sampleData.reviewsMeta.ratings)).toBe('75%');
   });
 
   it('should return false when quantity of all skus in a style is 0', () => {

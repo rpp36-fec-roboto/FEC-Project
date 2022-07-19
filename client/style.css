@@ -1,5 +1,7 @@
 body {
   background:white;
+  font-family: 'Helvetica', sans-serif;
+  color: rgb(45, 43, 43);
 }
 
 /*
@@ -143,6 +145,26 @@ body {
 
 .ov-bold {
   font-weight: bold;
+}
+
+.ov-grey-text {
+  color: rgb(79, 78, 78);
+}
+
+.rating {
+  height: 20px;
+  position: relative;
+}
+
+.ov-small-text {
+  display: inline-block;
+  margin: 0;
+  height: 20px;
+  font-size: small;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 /* Other styling*/
@@ -433,6 +455,7 @@ body {
 .star-outer {
   position: relative;
   max-width: fit-content;
+  display: inline-block;
 }
 
 .star-inner {

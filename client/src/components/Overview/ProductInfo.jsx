@@ -12,12 +12,12 @@ var ProductInfo = ({ reviewsMeta, productInfo }) => {
     <>
       <div className="rating">
         <StarRating rating={rating} />
-        <a href="#reviews">Read all {totalReviews} reviews</a> {/* links to reviews widget */}
+        <p className="ov-small-text">&nbsp;&nbsp;<a href="#reviews">Read all {totalReviews} reviews</a></p>{/* links to reviews widget */}
       </div>
 
 
-      <p>{productInfo.category}</p>
-      <h3>{productInfo.name}</h3>
+      <p className="ov-all-cap ov-grey-text">{productInfo.category}</p>
+      <h1 className="ov-bold">{productInfo.name}</h1>
 
     </>
   );

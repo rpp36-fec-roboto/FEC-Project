@@ -117,7 +117,7 @@ body {
   grid-template-rows: 65px 65px;
   grid-template-columns: 65px 65px 65px 65px;
   grid-gap: 1em;
-  height: 200px;
+  height: 170px;
   overflow: scroll;
 }
 

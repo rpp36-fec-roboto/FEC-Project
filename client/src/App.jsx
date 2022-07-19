@@ -16,7 +16,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       productId: window.location.href.split('/')[3], // get productId from url
-      yourOutfit: [],
+      relatedProduct: [],
+      yourOutfit: JSON.parse(localStorage.getItem('myOutfit')) || []
     };
     this.getRelatedProduct = this.getRelatedProduct.bind(this);
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
@@ -83,6 +84,7 @@ class App extends React.Component {
           handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/>
         <RelatedItemsWithTracker
           productId={this.state.productId}
+          relatedProduct={this.state.relatedProduct}
           yourOutfit={this.state.yourOutfit}
           onCardClick={this.handleChangeProductId}
           onStarClick={this.handleAddToYourOutfit}

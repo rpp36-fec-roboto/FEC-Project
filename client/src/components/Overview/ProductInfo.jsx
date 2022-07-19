@@ -9,17 +9,17 @@ var ProductInfo = ({ reviewsMeta, productInfo }) => {
   var totalReviews = helper.calculateTotalReviews(reviewsMeta.ratings);
 
   return (
-    <div>
+    <>
       <div className="rating">
         <StarRating rating={rating} />
         <a href="#reviews">Read all {totalReviews} reviews</a> {/* links to reviews widget */}
       </div>
 
-      <div>
-        <p>{productInfo.category}</p>
-        <h3>{productInfo.name}</h3>
-      </div>
-    </div>
+
+      <p>{productInfo.category}</p>
+      <h3>{productInfo.name}</h3>
+
+    </>
   );
 };
 

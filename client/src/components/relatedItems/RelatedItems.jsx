@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import RelatedProductLists from './RelatedProductLists.jsx';
+import withTracker from '../../components/Sharables/withTracker.js';
 
 var RelatedItems = (props) => {
   const {
@@ -151,4 +152,6 @@ var RelatedItems = (props) => {
   );
 };
 
-export default RelatedItems;
+const RelatedItemsWithTracker = withTracker(RelatedItems, 'related-items');
+
+export default RelatedItemsWithTracker;

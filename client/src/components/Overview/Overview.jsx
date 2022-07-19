@@ -8,6 +8,7 @@ import Style from './Style.jsx';
 import Cart from './Cart.jsx';
 import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
+import withTracker from '../../components/Sharables/withTracker.js';
 
 var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
   // Shared managed state
@@ -170,4 +171,6 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   );
 };
 
-export default Overview;
+const OverviewWithTracker = withTracker(Overview, 'overview');
+
+export default OverviewWithTracker;

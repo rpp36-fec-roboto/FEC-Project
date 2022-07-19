@@ -8,14 +8,14 @@ import OverviewWithTracker from './components/Overview/Overview.jsx';
 import QnaWithTracker from './components/qna/qna.jsx';
 // import RelatedItems from './components/relatedItems/RelatedItems.jsx';
 import RelatedItemsWithTracker from './components/relatedItems/RelatedItems.jsx';
-
+import Reviews from './components/Reviews/Reviews.jsx';
 import ErrorBoundary from './components/Sharables/ErrorBoundary.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: window.location.href.split('/')[3], // get userId from url
+      productId: window.location.href.split('/')[3], // get productId from url
       yourOutfit: [],
     };
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
@@ -67,9 +67,9 @@ class App extends React.Component {
           productId={this.state.productId}
           yourOutfit={this.state.yourOutfit}
           onStarClick={this.handleAddToYourOutfit}
-          onXClick={this.handleRemoveFromYourOutfit}
-        />
+          onXClick={this.handleRemoveFromYourOutfit}/>
         <QnaWithTracker productId={this.state.productId}/>
+        <Reviews />
       </>
     );
   }

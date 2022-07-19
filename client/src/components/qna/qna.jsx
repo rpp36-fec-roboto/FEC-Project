@@ -33,6 +33,7 @@ class Qna extends React.Component {
     this.moreAnswers = this.moreAnswers.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
     this.submitQuestion = this.submitQuestion.bind(this);
+    this.input = this.input.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +56,18 @@ class Qna extends React.Component {
         this.setState({questions: data.results, qIndex});
       }
     });
+  }
+
+  input(e) {
+    var query = e.target.value.toLowerCase();
+    if (query.length >= 3) {
+      //hide questions using classname hide()
+      //unhide rest of questions?
+      //sort all questions based off word, show top 2 questions
+    } else {
+      //unhide top 2 questions
+      //hide searched questions
+    }
   }
 
   yesQuestionButton(qid) {
@@ -353,7 +366,7 @@ class Qna extends React.Component {
     return (
       <div className='qa-container'>
         <div className='qa-paddingleft'>QUESTION & ANSWERS</div><br></br>
-        <SearchBar />
+        <SearchBar query={this.input}/>
         <br></br>
         <br></br>
         <QuestionAnswer

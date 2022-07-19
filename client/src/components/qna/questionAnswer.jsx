@@ -18,7 +18,7 @@ var questionAnswer = (props) => {
     };
 
     sort(id1);
-    if (props.questions.length > 1) {
+    if (props.questions.length >= 1) {
       var id2 = Object.keys(props.questions[1].answers);
       sort(id2);
       return (
@@ -36,38 +36,24 @@ var questionAnswer = (props) => {
               reportAnswer={props.reportAnswer}
               moreAnswers={props.moreAnswers}/>
           </div>
-          <br></br>
-          <div className='question1'>
-            <Question
-              questions={props.questions[1]}
-              yesQuestion={props.yesQuestion}
-              addAnswer={props.addAnswer}/>
-            <Answer
-              answers={props.questions[1].answers}
-              answersid={id2}
-              id={props.questions[1].question_id}
-              yesAnswer={props.yesAnswer}
-              reportAnswer={props.reportAnswer}
-              moreAnswers={props.moreAnswers}/>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className='questions'>
-          <div className='question0'>
-            <Question
-              questions={props.questions[0]}
-              yesQuestion={props.yesQuestion}
-              addAnswer={props.addAnswer}/>
-            <Answer
-              answers={props.questions[0].answers}
-              answersid={id1}
-              id={props.questions[0].question_id}
-              yesAnswer={props.yesAnswer}
-              reportAnswer={props.reportAnswer}
-              moreAnswers={props.moreAnswers}/>
-          </div>
+          {props.questions.length > 1 ?
+            <div>
+              <br></br>
+              <div className='question1'>
+                <Question
+                  questions={props.questions[1]}
+                  yesQuestion={props.yesQuestion}
+                  addAnswer={props.addAnswer}/>
+                <Answer
+                  answers={props.questions[1].answers}
+                  answersid={id2}
+                  id={props.questions[1].question_id}
+                  yesAnswer={props.yesAnswer}
+                  reportAnswer={props.reportAnswer}
+                  moreAnswers={props.moreAnswers}/>
+              </div>
+            </div> :
+            <div></div>}
         </div>
       );
     }

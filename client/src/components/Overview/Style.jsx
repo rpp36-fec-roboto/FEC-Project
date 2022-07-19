@@ -9,7 +9,7 @@ var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
     var salePrice = currentStyle['sale_price'];
 
     if (!salePrice) {
-      return <p><span>${originalPrice}</span></p>;
+      return <p style={{marginTop: '8%', marginBottom: '8%'}}><span>${originalPrice}</span></p>;
     } else {
       return (
         <p>
@@ -57,7 +57,7 @@ var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
         <span className=".ov-bold">{'> '}</span>
         <span className="ov-all-cap">{currentStyle.name}</span>
       </p>
-      <div className="style-grid ov-padding-bottom">
+      <div className="style-grid">
         {thumbnailList(productStyle, currentStyle)}
       </div>
     </>

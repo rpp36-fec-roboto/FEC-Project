@@ -16,7 +16,7 @@ var ProductInfo = ({ reviewsMeta, productInfo }) => {
       </div>
 
 
-      <p className="ov-all-cap ov-grey-text">{productInfo.category}</p>
+      <p className="ov-all-cap ov-grey-text" style={{marginBottom: '0px'}}>{productInfo.category}</p>
       <p className="ov-bold ov-title">{productInfo.name}</p>
 
     </>

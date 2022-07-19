@@ -20,16 +20,11 @@ body {
 .ov-top-row-default, .ov-bottom-row {
   display: grid;
   grid-gap: 2em;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 7fr 4fr;
 }
 
 .ov-top-row-default .ov-right-1 {
   padding-top: 10%;
-}
-
-.ov-cart-container {
-  height: 140px;
-
 }
 
 .ov-bottom-row {
@@ -38,9 +33,15 @@ body {
 }
 
 /* Image Gallery Styling*/
-.ov-top-row-default .ov-left-2 {
-  background-color: rgb(229, 229, 229);
-}
+/* .ov-top-row-default .ov-left-2 {
+  background-color: rgb(229, 229, 229); */
+  /* max-height: ; */
+  /* min-height: fit-content; */
+/* } */
+/* .ov-top-view-expanded .ov-left-2 { */
+  /* min-height: fit-content; */
+  /* background-color: rgb(229, 229, 229);
+} */
 
 .ov-img-view-container {
   background-color: rgb(229, 229, 229);
@@ -154,7 +155,15 @@ body {
 
 /* Cart */
 .ov-cart-container {
-  margin-top: 20px;
+  height: 175px;
+  position: relative;
+}
+
+.ov-cart-container form {
+  position: absolute;
+  width: 90%;
+  bottom: 0;
+  left: 0;
 }
 
 .ov-size, .ov-quantity, .ov-add-to-cart, .my-outfit-star {
@@ -171,11 +180,15 @@ body {
 
 .ov-size {
   text-transform: uppercase;
-  width: 155px;
+  width: 55%;
 }
 
 .ov-quantity {
-  width: 100px
+  width: 25%;
+}
+
+.ov-add-to-cart {
+  width: 68%;
 }
 
 .my-outfit-star {
@@ -214,7 +227,8 @@ body {
 }
 
 .ov-title {
-  font-size: 300%;
+  width: 80%;
+  font-size: 250%;
   margin: 0;
 }
 
@@ -235,11 +249,6 @@ body {
 }
 
 /* Other styling*/
-.ov-padding {
-  padding-left: 5%;
-  padding-right: 5%;
-}
-
 .ov-padding-bottom {
   padding-bottom: 5%;
 }

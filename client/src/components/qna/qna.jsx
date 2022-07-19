@@ -281,3 +281,7 @@ class Qna extends React.Component {
     );
   }
 }
+
+const QnaWithTracker = withTracker(Qna, 'qna');
+
+export default QnaWithTracker;

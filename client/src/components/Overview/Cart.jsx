@@ -10,7 +10,7 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
 
   useEffect(() => {
     setShowMessage(false);
-  }, [selectedSize]);
+  }, [selectedSize, currentStyle]);
 
   const sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
@@ -47,7 +47,6 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
   // add to cart button, underconstruction for all features
   const sizeInput = useRef(null);
   const handleAddToCart = (event) => {
-    // console.log('clicked');
     event.preventDefault();
     var size = selectedSize;
     var quantity = selectedQuant;
@@ -58,7 +57,6 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
 
     // if no size selected
     if (size === 'Select Size') {
-      console.log(sizeInput.current);
       setShowMessage(true);
       sizeInput.current.focus();
     }

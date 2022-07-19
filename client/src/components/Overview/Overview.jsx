@@ -32,6 +32,8 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
         setProductStyle(responses[1].data);
         setReviewsMeta(responses[2].data);
         setCurrentStyle(responses[1].data.results[0]);
+        setSize('Select Size');
+        setQuant(0);
       }))
       .catch( err => { console.log(err); });
 
@@ -113,7 +115,7 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
     // post request to server
     axios.post('/cart', data)
       .then(response => {
-        console.log('added to cart');
+        alert('added to cart');
       })
       .catch( err => console.log(err) );
   };

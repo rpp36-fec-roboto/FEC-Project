@@ -38,6 +38,10 @@ body {
 }
 
 /* Image Gallery Styling*/
+.ov-top-row-default .ov-left-2 {
+  background-color: rgb(229, 229, 229);
+}
+
 .ov-img-view-container {
   background-color: rgb(229, 229, 229);
   text-align: center;
@@ -237,7 +241,7 @@ body {
 }
 
 .ov-padding-bottom {
-  padding-bottom: 10%;
+  padding-bottom: 5%;
 }
 
 .ov-thumbnail-selected {

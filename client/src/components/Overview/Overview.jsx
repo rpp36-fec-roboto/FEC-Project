@@ -119,7 +119,7 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   };
 
   return (
-    <div className="overview-grid">
+    <div className="overview-grid qa-paddingleft">
       <div className={`ov-top-row-${isDefaultView ? 'default' : 'expended'}`}>
 
         <div className="ov-left-2">

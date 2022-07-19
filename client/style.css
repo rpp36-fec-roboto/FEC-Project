@@ -19,13 +19,15 @@ body {
   display: grid;
   grid-gap: 2em;
   grid-template-columns: 2fr 1fr;
-  min-width: 1200px;
+  min-width: fit-content;
 }
 
 /* Image Gallery Styling*/
 .ov-img-view-container {
+  background-color: rgb(229, 229, 229);
   text-align: center;
   height: 620px;
+  min-width: 600px;
   width: auto;
   position: relative;
 }
@@ -42,10 +44,12 @@ body {
 }
 
 .ov-thumbnails-list-container {
+  top: 5px;
+  left: 5px;
   z-index: 5;
   position: absolute;
   padding: 5px;
-  background-color: rgba(108, 109, 110, 0.26);
+  background-color: rgba(250, 250, 250, 0.725);
 }
 
 /* .ov-img-thumbnail {
@@ -76,7 +80,7 @@ body {
 }
 
 .ov-left-btn, .ov-right-btn {
-  background-color: rgba(108, 109, 110, 0.26);
+  background-color: rgba(250, 250, 250, 0.725);
   height: 70px;
   width: 30px;
   position: absolute;
@@ -118,11 +122,10 @@ body {
 }
 
 .ov-main-img {
-  max-height: 100%;
-  max-width: 100%;
-  /* height: 600px;
-  width: auto; */
-  /* max-width: 750px; */
+  top: 2%;
+  left: 2%;
+  max-height: 96%;
+  max-width: 96%;
   object-fit: contain;
 }
 

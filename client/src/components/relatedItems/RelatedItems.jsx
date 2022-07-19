@@ -84,6 +84,7 @@ var RelatedItems = (props) => {
         productStyles={productStyles}
         yourOutfit={yourOutfit}
         onCardClick={onCardClick}
+        onStarClick={onStarClick}
         onXClick={onXClick}
       />
     </div>

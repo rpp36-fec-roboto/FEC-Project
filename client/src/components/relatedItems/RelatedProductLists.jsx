@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
+import AddToOutfitCard from './AddToOutfitCard.jsx';
 import RelatedProductCard from './RelatedProductCard.jsx';
 
 var RelatedProductLists = function (props) {
@@ -25,34 +26,45 @@ var RelatedProductLists = function (props) {
     listLength = relatedProduct.length;
   } else {
     list = Array.from(new Set(yourOutfit));
+    list.unshift('addToOutfit');
     listHeading = 'YOUR OUTFIT';
-    listLength = yourOutfit.length;
+    listLength = list.length;
   }
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(listLength);
 
-  const products = list.map((id) => {
+  let products = list.map((id) => {
     let prodInfo = productInfo.filter((prod) => prod.id === id);
     let prodRatings = productReviews.filter((prod) => Number(prod.product_id) === id);
     let prodStyle = productStyles.filter((prod) => Number(prod.product_id) === id);
 
-    return (
-      <div key={id.toString()} role='list'>
-        <div style={{ padding: 8 }} role='listitem'>
-          <RelatedProductCard
-            listType={listType}
-            productId={id}
-            productInfo={prodInfo[0]}
-            productRatings={prodRatings[0]}
-            productStyle={prodStyle[0]}
-            onCardClick={onCardClick}
-            onStarClick={onStarClick}
-            onXClick={onXClick}
-          />
+    if (id === 'addToOutfit') {
+      return (
+        <div key={id} role='list'>
+          <div style={{ padding: 8 }} role='listitem'>
+            <AddToOutfitCard productId={productId} onAddCardClick={onStarClick} />
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div key={id.toString()} role='list'>
+          <div style={{ padding: 8 }} role='listitem'>
+            <RelatedProductCard
+              listType={listType}
+              productId={id}
+              productInfo={prodInfo[0]}
+              productRatings={prodRatings[0]}
+              productStyle={prodStyle[0]}
+              onCardClick={onCardClick}
+              onStarClick={onStarClick}
+              onXClick={onXClick}
+            />
+          </div>
+        </div>
+      );
+    }
   });
 
   useEffect(() => {

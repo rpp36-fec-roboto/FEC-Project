@@ -98,7 +98,6 @@ class Qna extends React.Component {
   }
 
   addAnswerButton(qid) {
-    console.log('add answer button');
     $('.answer-modal').css('display', 'block');
     this.setState({currentQuestion: qid});
   }
@@ -139,13 +138,10 @@ class Qna extends React.Component {
   }
 
   addQuestionButton(e) {
-    console.log('add question button');
     $('.question-modal').css('display', 'block');
   }
 
   moreQuestions(e) {
-    console.log('more questions button');
-    console.log(this.state.questions);
     var index = this.state.qIndex;
     if (this.state.questions.length === index + 2) {
       index++;
@@ -354,20 +350,43 @@ class Qna extends React.Component {
     var name = $('.question-name').val();
     var body = $('.question-body').val();
     var email = $('.question-email').val();
-    $.ajax({
-      method: 'post',
-      url: '/qa/questions/',
-      data: {
-        name,
-        body,
-        email,
-        'product_id': this.props.productId
-      },
-      success: () => {
-        console.log('Question has been submitted');
-        $('.question-modal').css('display', 'none');
-      }
-    });
+    var message = 'You must enter the following:';
+    var nameBool = true;
+    var bodyBool = true;
+    var emailBool = true;
+    if (!email.includes('@') ||
+      (!email.includes('.com') &&
+      !email.includes('.net') &&
+      !email.includes('.org'))) {
+      emailBool = false;
+      message += '\n Your email';
+    }
+    if (!name) {
+      nameBool = false;
+      message += '\n What is your nickname';
+    }
+    if (!body) {
+      bodyBool = false;
+      message += '\n Your Question';
+    }
+    if (!emailBool || !nameBool || !bodyBool) {
+      alert(message);
+    } else {
+      $.ajax({
+        method: 'post',
+        url: '/qa/questions/',
+        data: {
+          name,
+          body,
+          email,
+          'product_id': this.props.productId
+        },
+        success: () => {
+          console.log('Question has been submitted');
+          $('.question-modal').css('display', 'none');
+        }
+      });
+    }
   }
 
 
@@ -391,7 +410,10 @@ class Qna extends React.Component {
           addQuestion={this.addQuestionButton}
           more={this.moreQuestions}/>
         <AddAnswer submitAnswer={this.submitAnswer}/>
-        <AddQuestion submitQuestion={this.submitQuestion}/>
+        <AddQuestion
+          submitQuestion={this.submitQuestion}
+          // productName={} />
+        />
       </div>
     );
   }

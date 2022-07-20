@@ -32,6 +32,8 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
         setProductStyle(responses[1].data);
         setReviewsMeta(responses[2].data);
         setCurrentStyle(responses[1].data.results[0]);
+        setSize('Select Size');
+        setQuant(0);
       }))
       .catch( err => { console.log(err); });
 
@@ -55,7 +57,7 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   const handleImgBtnClick = (event) => {
     let newMainImgIndex;
 
-    if (event.target.name === 'left-click') {
+    if (event.currentTarget.className === 'ov-left-btn') {
       newMainImgIndex = mainImgIndex - 1;
       if (newMainImgIndex < thumbnailStartIndex) {
         setThumbnailStartIndex(newMainImgIndex);
@@ -110,16 +112,18 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   };
 
   const submitCartRequest = (data) => {
+    console.log(event, data);
+    event.preventDefault();
     // post request to server
     axios.post('/cart', data)
       .then(response => {
-        console.log('added to cart');
+        alert('added to cart');
       })
       .catch( err => console.log(err) );
   };
 
   return (
-    <div className="overview-grid">
+    <div className="overview-grid ov-padding">
       <div className={`ov-top-row-${isDefaultView ? 'default' : 'expended'}`}>
 
         <div className="ov-left-2">
@@ -139,27 +143,29 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
         {// Only in default view, show product info, style selector and cart
           isDefaultView &&
           <div className="ov-right-1">
-            <ProductInfo
-              productInfo={productInfo}
-              reviewsMeta={reviewsMeta}
-            />
+            <div className="ov-product-info-container">
+              <ProductInfo
+                productInfo={productInfo}
+                reviewsMeta={reviewsMeta}
+              />
 
-            <Style
-              productStyle={productStyle}
-              currentStyle={currentStyle}
-              handleStyleChange={handleStyleChange}
-            />
+              <Style
+                productStyle={productStyle}
+                currentStyle={currentStyle}
+                handleStyleChange={handleStyleChange}
+              />
 
-            <Cart
-              currentStyle={currentStyle}
-              isYourOutfit={helper.isInYourOutfit(productId, yourOutfit)}
-              selectedSize={selectedSize}
-              selectedQuant={selectedQuant}
-              handleSelect={handleSelect}
-              submitCartRequest={submitCartRequest}
-              handleAddToYourOutfit={handleAddToYourOutfit}
-              handleRemoveFromYourOutfit={handleRemoveFromYourOutfit}
-            />
+              <Cart
+                currentStyle={currentStyle}
+                isYourOutfit={helper.isInYourOutfit(productId, yourOutfit)}
+                selectedSize={selectedSize}
+                selectedQuant={selectedQuant}
+                handleSelect={handleSelect}
+                submitCartRequest={submitCartRequest}
+                handleAddToYourOutfit={handleAddToYourOutfit}
+                handleRemoveFromYourOutfit={handleRemoveFromYourOutfit}
+              />
+            </div>
           </div>}
 
       </div>

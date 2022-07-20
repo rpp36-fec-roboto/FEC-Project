@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import helper from '../../../../lib/clientHelpers.js';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { IconContext } from 'react-icons';
 
 var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
   handleSelect, submitCartRequest, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
@@ -10,7 +11,7 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
 
   useEffect(() => {
     setShowMessage(false);
-  }, [selectedSize]);
+  }, [selectedSize, currentStyle]);
 
   const sizeSelector = (skus) => {
     if (!helper.inStock(skus)) {
@@ -47,7 +48,6 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
   // add to cart button, underconstruction for all features
   const sizeInput = useRef(null);
   const handleAddToCart = (event) => {
-    // console.log('clicked');
     event.preventDefault();
     var size = selectedSize;
     var quantity = selectedQuant;
@@ -58,50 +58,50 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
 
     // if no size selected
     if (size === 'Select Size') {
-      console.log(sizeInput.current);
       setShowMessage(true);
       sizeInput.current.focus();
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleAddToCart}>
+    <div className="ov-cart-container">
+      <form>
         {/* show warning when no size selected at submit */}
-        {showMessage && <div>Please select a size</div>}
+        {showMessage && <p style={{ color: 'red' }}>Please select a size</p>}
 
         <select
+          className="ov-size"
           name="ov-size"
           disabled={ !helper.inStock(skus) }
           defaultValue={selectedSize}
           onChange={handleSelect}
-          ref={sizeInput}
-          className="ov-boarder">
+          ref={sizeInput}>
           {sizeSelector(skus)}
         </select>
 
         <select
+          className="ov-quantity"
           name="ov-quantity"
           disabled={ selectedSize === 'Select Size' }
-          onChange={handleSelect}
-          className="ov-boarder">
+          onChange={handleSelect}>
           {quantitySelector(selectedSize)}
         </select>
 
         <br></br> {helper.inStock(skus) &&
-          <input type="submit" value="ADD TO CART                    +" className="ov-boarder"></input>
-          // <button onClick={handleAddToCart} className="ov-boarder">Add to cart</button>
+          <button onClick={handleAddToCart} className="ov-add-to-cart">ADD TO CART&emsp;&emsp;&emsp;&emsp;
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          +</button>
         }
+        <div
+          className="my-outfit-star"
+          onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
+        >{isYourOutfit ?
+            <AiFillStar size={20} style={{position: 'inherit'}}/>
+            :
+            <AiOutlineStar size={20} style={{position: 'inherit'}}/>
+          }</div>
       </form>
 
-      <button
-        className="my-outfit-star"
-        onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
-      >{isYourOutfit ?
-          <AiFillStar onClick={handleRemoveFromYourOutfit}/>
-          :
-          <AiOutlineStar onClick={handleAddToYourOutfit}/>
-        }</button>
     </div>
   );
 };

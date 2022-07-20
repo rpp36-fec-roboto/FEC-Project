@@ -36,15 +36,15 @@ var RelatedProductCard = function (props) {
 
   return (
     <div className="rp-card-container">
+      <div className="rp-card-top-right">
+        <ActionBtn
+          listType={listType}
+          productId={productId}
+          onClickAction={onClickAction}
+        />
+      </div>
       <div className="rp-card" onClick={() => onCardClick(productId.toString())}>
         <PrimaryImage productStyle={productStyle} />
-        <div className="rp-card-top-right">
-          <ActionBtn
-            listType={listType}
-            productId={productId}
-            onClickAction={onClickAction}
-          />
-        </div>
       </div>
 
       <div>

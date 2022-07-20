@@ -16,18 +16,27 @@ class App extends React.Component {
     super(props);
     this.state = {
       productId: window.location.href.split('/')[3], // get productId from url
-      yourOutfit: [],
+      relatedProduct: [],
+      yourOutfit: JSON.parse(localStorage.getItem('myOutfit')) || []
     };
+    this.getRelatedProduct = this.getRelatedProduct.bind(this);
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
     this.handleChangeProductId = this.handleChangeProductId.bind(this);
     this.handleRemoveFromYourOutfit = this.handleRemoveFromYourOutfit.bind(this);
   }
 
   componentDidMount() {
-    let outfit = JSON.parse(localStorage.getItem('myOutfit')) || [];
-    this.setState({
-      yourOutfit: outfit
-    });
+    this.getRelatedProduct(this.state.productId);
+  }
+
+  getRelatedProduct (productId) {
+    axios.get(`/products/${productId}/related`)
+      .then((response) => {
+        this.setState({
+          relatedProduct: response.data
+        });
+      })
+      .catch( err => { console.log(err); });
   }
 
   handleAddToYourOutfit (productId) {
@@ -50,6 +59,7 @@ class App extends React.Component {
       productId: selectedProductId
     }, () => {
       window.history.replaceState('object or string', 'Title', '/'.concat(selectedProductId));
+      this.getRelatedProduct(selectedProductId);
     });
   }
 
@@ -76,6 +86,7 @@ class App extends React.Component {
           handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/>
         <RelatedItemsWithTracker
           productId={this.state.productId}
+          relatedProduct={this.state.relatedProduct}
           yourOutfit={this.state.yourOutfit}
           onCardClick={this.handleChangeProductId}
           onStarClick={this.handleAddToYourOutfit}

@@ -4,6 +4,11 @@ body {
   color: rgb(57, 56, 53);
 }
 
+.test {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 /*
 //////// OVERVIEW SECTION //////////////////////////////////////////////
 */

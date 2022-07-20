@@ -195,10 +195,10 @@ body {
 .my-outfit-star {
   text-align: center;
   width: 60px;
+  margin-top: 2px;
 }
 
 /* OtherInfo styling */
-
 .ov-other-info-container p {
   font-size: 90%;
 }

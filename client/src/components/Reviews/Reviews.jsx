@@ -6,7 +6,7 @@ import StarRating from '../Sharables/StarRating.jsx';
 
 const Reviews = (props) =>(
   <div id="reviews">
-    <h3>RATINGS AND REVIEWS</h3>
+    <div className="qa-paddingbottom">RATINGS & REVIEWS</div>
     <div>{sampleData.reviews.results.map(review => (
       <div key={review['review_id']}>
         <StarRating rating={(review.rating / 5) * 100 + '%'}/>

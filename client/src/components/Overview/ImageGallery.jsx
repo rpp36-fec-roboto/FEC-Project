@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown, MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md';
+import { IconContext } from 'react-icons';
 
 var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbnails,
   handleImgBtnClick, handleImgThumbnailClick, handleThumbnailScrollUp, handleThumbnailScrollDown, handleImgClick}) => {
@@ -73,19 +74,19 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
 
         { // conditionally rendering of left arrow button
           mainImgIndex !== 0 &&
-          <button
-            name="left-click"
-            className="ov-btn ov-left-btn"
-            onClick={handleImgBtnClick}
-          >Left arrow</button>
+          <div className="ov-left-btn" name="left-click" onClick={handleImgBtnClick}>
+            <IconContext.Provider value={{className: 'center-icon'}}>
+              <MdOutlineArrowBackIosNew />
+            </IconContext.Provider>
+          </div>
         }
         { // conditionally rendering of left arrow button
           mainImgIndex !== currentStyle.photos.length - 1 &&
-          <button
-            name="right-click"
-            className="ov-btn ov-right-btn"
-            onClick={handleImgBtnClick}
-          >Right arrow</button>
+          <div className="ov-right-btn" name="right-click" onClick={handleImgBtnClick}>
+            <IconContext.Provider value={{className: 'center-icon'}}>
+              <MdOutlineArrowForwardIos />
+            </IconContext.Provider>
+          </div>
         }
       </div>
     </>

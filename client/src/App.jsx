@@ -40,6 +40,7 @@ class App extends React.Component {
   }
 
   handleAddToYourOutfit (productId) {
+    event.preventDefault();
     productId = Number(productId);
     let updatedYourOutfit = this.state.yourOutfit.slice();
     let indexOfProduct = this.state.yourOutfit.indexOf(productId);
@@ -63,6 +64,7 @@ class App extends React.Component {
   }
 
   handleRemoveFromYourOutfit (productId) {
+    event.preventDefault();
     const updatedYourOutfit = this.state.yourOutfit.slice();
     const indexOfProduct = this.state.yourOutfit.indexOf(Number(productId));
     if (indexOfProduct !== -1) {

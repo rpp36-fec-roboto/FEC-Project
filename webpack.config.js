@@ -9,6 +9,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: DIST_DIR,
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -25,7 +26,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        loader: 'file-loader'
+        use: 'file-loader?name=./images/[name].[ext]',
       },
     ],
   }

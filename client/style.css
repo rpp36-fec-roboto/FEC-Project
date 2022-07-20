@@ -169,6 +169,7 @@ body {
 .ov-size, .ov-quantity, .ov-add-to-cart, .my-outfit-star {
   display: inline-block;
   border: 1px solid rgb(66, 63, 63);
+  box-sizing: border-box;
   height: 60px;
   margin-right: 20px;
   margin-bottom: 20px;

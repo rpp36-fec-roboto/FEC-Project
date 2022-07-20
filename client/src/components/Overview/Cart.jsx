@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import helper from '../../../../lib/clientHelpers.js';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { IconContext } from 'react-icons';
 
 var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
   handleSelect, submitCartRequest, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
@@ -66,7 +67,7 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
     <div className="ov-cart-container">
       <form>
         {/* show warning when no size selected at submit */}
-        {showMessage && <p>Please select a size</p>}
+        {showMessage && <p style={{ color: 'red' }}>Please select a size</p>}
 
         <select
           className="ov-size"
@@ -91,10 +92,11 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;
           +</button>
         }
-        <button
+        <div
           className="my-outfit-star"
           onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
-        >{isYourOutfit ? <AiFillStar/> : <AiOutlineStar/>}</button>
+        >{isYourOutfit ? <AiFillStar size={20}/> : <AiOutlineStar size={20}/>
+          }</div>
       </form>
 
     </div>

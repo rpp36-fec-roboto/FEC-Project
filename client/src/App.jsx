@@ -2,11 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import sampleData from './data/sampleData.js';
 
-// import Overview from './components/Overview/Overview.jsx';
 import OverviewWithTracker from './components/Overview/Overview.jsx';
-// import Qna from './components/qna/qna.jsx';
 import QnaWithTracker from './components/qna/qna.jsx';
-// import RelatedItems from './components/relatedItems/RelatedItems.jsx';
 import RelatedItemsWithTracker from './components/relatedItems/RelatedItems.jsx';
 import Reviews from './components/Reviews/Reviews.jsx';
 import ErrorBoundary from './components/Sharables/ErrorBoundary.jsx';

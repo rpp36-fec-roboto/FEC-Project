@@ -9,7 +9,7 @@ var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
     var salePrice = currentStyle['sale_price'];
 
     if (!salePrice) {
-      return <p style={{marginTop: '8%', marginBottom: '8%'}}><span>${originalPrice}</span></p>;
+      return <p style={{marginTop: '5%', marginBottom: '5%'}}><span>${originalPrice}</span></p>;
     } else {
       return (
         <p>

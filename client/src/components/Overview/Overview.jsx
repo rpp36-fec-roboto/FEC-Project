@@ -143,27 +143,29 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
         {// Only in default view, show product info, style selector and cart
           isDefaultView &&
           <div className="ov-right-1">
-            <ProductInfo
-              productInfo={productInfo}
-              reviewsMeta={reviewsMeta}
-            />
+            <div className="ov-product-info-container">
+              <ProductInfo
+                productInfo={productInfo}
+                reviewsMeta={reviewsMeta}
+              />
 
-            <Style
-              productStyle={productStyle}
-              currentStyle={currentStyle}
-              handleStyleChange={handleStyleChange}
-            />
+              <Style
+                productStyle={productStyle}
+                currentStyle={currentStyle}
+                handleStyleChange={handleStyleChange}
+              />
 
-            <Cart
-              currentStyle={currentStyle}
-              isYourOutfit={helper.isInYourOutfit(productId, yourOutfit)}
-              selectedSize={selectedSize}
-              selectedQuant={selectedQuant}
-              handleSelect={handleSelect}
-              submitCartRequest={submitCartRequest}
-              handleAddToYourOutfit={handleAddToYourOutfit}
-              handleRemoveFromYourOutfit={handleRemoveFromYourOutfit}
-            />
+              <Cart
+                currentStyle={currentStyle}
+                isYourOutfit={helper.isInYourOutfit(productId, yourOutfit)}
+                selectedSize={selectedSize}
+                selectedQuant={selectedQuant}
+                handleSelect={handleSelect}
+                submitCartRequest={submitCartRequest}
+                handleAddToYourOutfit={handleAddToYourOutfit}
+                handleRemoveFromYourOutfit={handleRemoveFromYourOutfit}
+              />
+            </div>
           </div>}
 
       </div>

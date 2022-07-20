@@ -88,7 +88,7 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
 
         <br></br> {helper.inStock(skus) &&
           <button onClick={handleAddToCart} className="ov-add-to-cart">ADD TO CART&emsp;&emsp;&emsp;&emsp;
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;
           +</button>
         }
         <button

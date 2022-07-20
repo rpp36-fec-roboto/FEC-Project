@@ -17,6 +17,7 @@ class Qna extends React.Component {
     super(props);
     this.state = {
       questions: data.questions.results,
+      unfilteredQ: [],
       answers: {},
       questionhelpful: [],
       answerhelpful: [],
@@ -53,7 +54,10 @@ class Qna extends React.Component {
         if (data.results.length === 1) {
           qIndex = 0;
         }
-        this.setState({questions: data.results, qIndex});
+        this.setState({
+          questions: data.results,
+          unfilteredQ: data.results,
+          qIndex});
       }
     });
   }

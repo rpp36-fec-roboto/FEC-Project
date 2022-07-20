@@ -209,7 +209,7 @@ body {
 }
 
 .ov-bottom-row li {
-  list-style-image: url('check-mark.png');
+  list-style-image: url('./assets/check-mark.png');
   font-size: 90%;
   padding: 0px;
   margin: 5px;

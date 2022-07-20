@@ -6,4 +6,4 @@ config.js
 coverage
 
 #client
-client/dist/bundle.js
+client/dist

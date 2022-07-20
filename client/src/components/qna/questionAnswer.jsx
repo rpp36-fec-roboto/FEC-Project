@@ -27,7 +27,7 @@ var questionAnswer = (props) => {
     };
     sort(id1, 0);
     id1 = sellerCheck(id1, 0);
-    if (props.questions.length >= 1) {
+    if (props.questions.length > 1) {
       var id2 = Object.keys(props.questions[1].answers);
       sort(id2, 1);
       id2 = sellerCheck(id2, 1);

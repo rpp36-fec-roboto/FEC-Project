@@ -65,12 +65,17 @@ class Qna extends React.Component {
   input(e) {
     var query = e.target.value.toLowerCase();
     if (query.length >= 3) {
-      //hide questions using classname hide()
-      //unhide rest of questions?
-      //sort all questions based off word, show top 2 questions
+      var questions = this.state.questions;
+      var filtered = [];
+      for (var i = 0; i < questions.length; i++) {
+        if (questions[i].question_body.includes(query)) {
+          filtered.push(questions[i]);
+        }
+      }
+      this.setState({questions: filtered});
     } else {
-      //unhide top 2 questions
-      //hide searched questions
+      var data = this.state.unfilteredQ;
+      this.setState({questions: data});
     }
   }
 

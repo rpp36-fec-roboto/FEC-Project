@@ -8,14 +8,11 @@ var AddToOutfitCard = function (props) {
   } = props;
 
   return (
-    <div className="rp-card-container">
+    <div className="rp-card-container add-outfit">
       <div className="rp-card add-outfit" onClick={() => onAddCardClick(productId)}>
-        {FaPlus()}
+        <p className="add-outfit">{FaPlus()}<br></br></p>
       </div>
-
-      <>
-        <b>Add to Outfit</b>
-      </>
+      <span className="add-outfit"><b>Add to Outfit</b></span>
     </div>
   );
 };

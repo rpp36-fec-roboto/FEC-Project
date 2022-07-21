@@ -2,11 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import sampleData from './data/sampleData.js';
 
-// import Overview from './components/Overview/Overview.jsx';
 import OverviewWithTracker from './components/Overview/Overview.jsx';
-// import Qna from './components/qna/qna.jsx';
 import QnaWithTracker from './components/qna/qna.jsx';
-// import RelatedItems from './components/relatedItems/RelatedItems.jsx';
 import RelatedItemsWithTracker from './components/relatedItems/RelatedItems.jsx';
 import Reviews from './components/Reviews/Reviews.jsx';
 import ErrorBoundary from './components/Sharables/ErrorBoundary.jsx';
@@ -17,6 +14,7 @@ class App extends React.Component {
     this.state = {
       productId: window.location.href.split('/')[3], // get productId from url
       relatedProduct: [],
+      productInfo: {},
       yourOutfit: JSON.parse(localStorage.getItem('myOutfit')) || []
     };
     this.getRelatedProduct = this.getRelatedProduct.bind(this);
@@ -27,6 +25,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getRelatedProduct(this.state.productId);
+    this.getProductInfo(this.state.productId);
   }
 
   getRelatedProduct (productId) {
@@ -34,6 +33,16 @@ class App extends React.Component {
       .then((response) => {
         this.setState({
           relatedProduct: response.data
+        });
+      })
+      .catch( err => { console.log(err); });
+  }
+
+  getProductInfo (productId) {
+    axios.get(`products/${productId}`)
+      .then(response => {
+        console.dir(response.data);
+        this.setState({ productInfo: response.data
         });
       })
       .catch( err => { console.log(err); });
@@ -60,6 +69,7 @@ class App extends React.Component {
     }, () => {
       window.history.replaceState('object or string', 'Title', '/'.concat(selectedProductId));
       this.getRelatedProduct(selectedProductId);
+      this.getProductInfo(selectedProductId);
     });
   }
 
@@ -81,6 +91,7 @@ class App extends React.Component {
       <>
         <OverviewWithTracker
           productId={this.state.productId}
+          productInfo={this.state.productInfo}
           yourOutfit={this.state.yourOutfit}
           handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
           handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/>

@@ -4,6 +4,9 @@
 # misc
 config.js
 coverage
+.DS_Store
 
 #client
 client/dist/bundle.js
+client/dist/images
+

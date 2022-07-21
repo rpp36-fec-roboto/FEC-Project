@@ -10,7 +10,7 @@ var ProductInfo = ({ reviewsMeta, productInfo }) => {
 
   return (
     <>
-      <div className="rating">
+      <div className="rating" data-testid="star-rating">
         <StarRating rating={rating} />
         <p className="ov-small-text">&nbsp;&nbsp;<a href="#reviews">Read all {totalReviews} reviews</a></p>{/* links to reviews widget */}
       </div>

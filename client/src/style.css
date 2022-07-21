@@ -209,10 +209,19 @@ body {
 }
 
 .ov-bottom-row li {
-  list-style-image: url('check-mark.png');
+  position: relative;
+  list-style: none;
   font-size: 90%;
   padding: 0px;
   margin: 5px;
+}
+
+.ov-feature-li {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .ov-bottom-row .ov-right-1 {

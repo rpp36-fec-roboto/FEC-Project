@@ -7,3 +7,4 @@ coverage
 
 #client
 client/dist/bundle.js
+client/dist/images

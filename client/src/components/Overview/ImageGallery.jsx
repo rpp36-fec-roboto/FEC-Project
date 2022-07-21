@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import noImg from '../../assets/no-image.jpeg';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown, MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 
@@ -16,7 +17,7 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
           >
             <img
               className="ov-img-thumbnail"
-              src={photo.thumbnail_url}
+              src={photo.thumbnail_url || noImg}
               alt={`image #${index + 1} of ${currentStyle.name}`}
               onClick={ (e) => { handleImgThumbnailClick(index); } }
             />
@@ -34,7 +35,7 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
           <img
             className="ov-main-img"
             onClick={handleImgClick}
-            src={currentStyle.photos[mainImgIndex].url}
+            src={currentStyle.photos[mainImgIndex].url || noImg}
             alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
           />
         </div>

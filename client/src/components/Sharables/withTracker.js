@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 const withTracker = (WrappedComponent, widgetName) => {
   return class extends React.Component {
@@ -8,10 +9,14 @@ const withTracker = (WrappedComponent, widgetName) => {
     }
 
     sendClickTracker (event) {
-      console.log('clicked');
-      console.log(widgetName);
-      console.dir(event.target.tagName.toLowerCase());
-      console.log(Date(event.timeStamp));
+      let body = {
+        element: event.target.tagName.toLowerCase(),
+        widget: widgetName,
+        time: Date(event.timeStamp)
+      };
+      axios.post('/interactions', body)
+        .then(() => { console.log('action recorded'); })
+        .catch( err => { console.log(err); });
     }
 
     render() {

@@ -10,28 +10,28 @@ import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import withTracker from '../../components/Sharables/withTracker.js';
 
-var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
+var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
   // Shared managed state
-  const [productInfo, setProductInfo] = useState(sampleData.productInfo);
+  // const [productInfo, setProductInfo] = useState(sampleData.productInfo);
   const [productStyle, setProductStyle] = useState(sampleData.productStyle);
   const [reviewsMeta, setReviewsMeta] = useState({});
   const [currentStyle, setCurrentStyle] = useState(productStyle.results[0]);
 
   // ComponentDidMount
   useEffect(() => {
-    var productInfoRequest = axios.get(`products/${productId}`);
+    // var productInfoRequest = axios.get(`products/${productId}`);
     var styleRequest = axios.get(`products/${productId}/styles`);
     var reviewsMeta = axios.get('reviews/meta', {params: { 'product_id': productId }});
 
-    axios.all([productInfoRequest, styleRequest, reviewsMeta])
+    axios.all([styleRequest, reviewsMeta])
       .then(axios.spread((...responses) => {
         console.dir(responses[0].data);
         console.dir(responses[1].data);
-        console.dir(responses[2].data);
-        setProductInfo(responses[0].data);
-        setProductStyle(responses[1].data);
-        setReviewsMeta(responses[2].data);
-        setCurrentStyle(responses[1].data.results[0]);
+        // console.dir(responses[2].data);
+        // setProductInfo(responses[0].data);
+        setProductStyle(responses[0].data);
+        setReviewsMeta(responses[1].data);
+        setCurrentStyle(responses[0].data.results[0]);
         setSize('Select Size');
         setQuant(0);
       }))

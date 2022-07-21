@@ -17,7 +17,7 @@ class App extends React.Component {
     this.state = {
       productId: window.location.href.split('/')[3], // get productId from url
       relatedProduct: [],
-      productInfo: sampleData.productInfo,
+      productInfo: {},
       yourOutfit: JSON.parse(localStorage.getItem('myOutfit')) || []
     };
     this.getRelatedProduct = this.getRelatedProduct.bind(this);
@@ -71,6 +71,7 @@ class App extends React.Component {
     }, () => {
       window.history.replaceState('object or string', 'Title', '/'.concat(selectedProductId));
       this.getRelatedProduct(selectedProductId);
+      this.getProductInfo(selectedProductId);
     });
   }
 

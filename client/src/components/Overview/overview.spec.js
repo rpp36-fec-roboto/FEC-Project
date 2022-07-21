@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom/client';
 
 // import test environment and methds
 import '@testing-library/jest-dom'; // provides method for DOM matcher
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
+import { render, screen, waitFor, within, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
 import userEvent from '@testing-library/user-event'; // provide method to trigger user activity
 // import { act } from 'react-dom/test-utils';
 
@@ -92,7 +92,7 @@ describe('helper function unit tests', () => {
   });
 
   it('should return false when quantity of all skus in a style is 0', () => {
-    expect(helper.inStock(sampleData.invalidDataset.skus)).toBe(false);
+    expect(helper.inStock(sampleData.invalidDataset.results[0].skus)).toBe(false);
   });
 });
 
@@ -110,17 +110,11 @@ describe('Overview widget rendering', () => {
   })
 
   describe('ImageGallery component', () => {
-    // beforeEach(() => {
-    //   render(<ImageGallery
-    //     currentStyle={state.currentStyle}
-    //     mainImgIndex={state.mainImgIndex}
-    //     maxThumbnails={state.maxThumbnails}
-    //     thumbnailStartIndex={state.thumbnailStartIndex}
-    //   />);
-    // });
-
-    it('should have a list of thumbnmails', () => {
-      expect(screen.getByRole('list')).toBeInTheDocument();
+    it('should have 4 thumbnmails displayed', () => {
+      const list = screen.getByTestId('thumbnails');
+      // const list = screen.getByRole('list');
+      const thumbnails = within(list).getAllByRole('listitem')
+      expect(thumbnails.length).toBe(4);
     });
     it('should not show scroll up icon initially', () => {
       expect(screen.queryByTestId('scroll-up')).toBeNull();
@@ -129,10 +123,10 @@ describe('Overview widget rendering', () => {
       expect(screen.getByTestId('scroll-down')).toBeInTheDocument();
     });
     it('should not show left arrow when initially load', () => {
-      expect(screen.queryByRole('button', {name: 'Left arrow'})).toBeNull();
+      expect(screen.queryByTestId(/left-click/i)).toBeNull();
     });
     it('should show right arrow initially', () => {
-      expect(screen.getByRole('button', {name: 'Right arrow'})).toBeInTheDocument();
+      expect(screen.getByTestId(/right-click/i)).toBeInTheDocument();
     });
   });
 

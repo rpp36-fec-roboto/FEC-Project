@@ -45,13 +45,13 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
             <div
               className="ov-scroll-btn"
               onClick={handleThumbnailScrollUp}
-
+              data-testid="scroll-up"
             >
-              <MdOutlineKeyboardArrowUp data-testid="scroll-up"/>
+              <MdOutlineKeyboardArrowUp/>
             </div>}
 
           <div className="ov-thumbnails-list">
-            <ul>
+            <ul data-testid="thumbnails">
               {imgThumbnails(currentStyle, thumbnailStartIndex)}
             </ul>
           </div>
@@ -60,9 +60,9 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
             <div
               className="ov-scroll-btn"
               onClick={handleThumbnailScrollDown}
-
+              data-testid="scroll-down"
             >
-              <MdOutlineKeyboardArrowDown data-testid="scroll-down"/>
+              <MdOutlineKeyboardArrowDown/>
             </div>}
             {/* <div
               className="ov-scroll-btn"
@@ -75,15 +75,23 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
 
         { // conditionally rendering of left arrow button
           mainImgIndex !== 0 &&
-          <div className="ov-left-btn" name="left-click" onClick={handleImgBtnClick}>
+          <div
+            data-testid="left-click"
+            className="ov-left-btn"
+            name="left-click"
+            onClick={handleImgBtnClick}>
             <IconContext.Provider value={{className: 'center-icon'}}>
               <MdOutlineArrowBackIosNew />
             </IconContext.Provider>
           </div>
         }
-        { // conditionally rendering of left arrow button
+        { // conditionally rendering of right arrow button
           mainImgIndex !== currentStyle.photos.length - 1 &&
-          <div className="ov-right-btn" name="right-click" onClick={handleImgBtnClick}>
+          <div
+          data-testid="right-click"
+            className="ov-right-btn"
+            name="right-click"
+            onClick={handleImgBtnClick}>
             <IconContext.Provider value={{className: 'center-icon'}}>
               <MdOutlineArrowForwardIos />
             </IconContext.Provider>

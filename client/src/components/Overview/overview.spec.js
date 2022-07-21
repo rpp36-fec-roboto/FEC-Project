@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom/client';
 import '@testing-library/jest-dom'; // provides method for DOM matcher
 import { render, screen, waitFor, within, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
 import userEvent from '@testing-library/user-event'; // provide method to trigger user activity
+import { act } from "react-dom/test-utils";
 
 // import API mocking utilities from Mock Service Worker
 import {rest} from 'msw';
@@ -25,6 +26,9 @@ import ProductInfo from './ProductInfo.jsx';
 import Style from './Style.jsx';
 import Cart from './Cart.jsx';
 import OtherInfo from './OtherInfo.jsx';
+
+// setting up a promise resolve for async function to resolve
+const promise = Promise.resolve();
 
 // sample data for testing
 var state = {
@@ -45,12 +49,6 @@ const removeFromYourOutfit = (productId) => {
 
 // declare which API requests to mock
 const server = setupServer(
-
-  // rest.get('/products/:product_id', (req, res, ctx) => {
-  //   // response using a mocked JSON body
-  //   return res(ctx.json(state.productInfo));
-  // }),
-
   // capture "GET /greeting" requests
   rest.get('/products/:product_id/styles', (req, res, ctx) => {
     if (req.params['product_id'] === 71697) {
@@ -101,12 +99,20 @@ describe('Overview widget rendering', () => {
   // no need to explicitly clean up
 
   beforeEach(() => {
-    render(<Overview
+    act(() => {render(<Overview
       productId={71697}
       productInfo={state.productInfo}
       yourOutfit={yourOutfit}
       addHandler={addToYourOutfit}
-      removeHandler={removeFromYourOutfit}/>)
+      removeHandler={removeFromYourOutfit}
+      />)})
+  });
+
+  // adding promise resolve so the warning of async action (API call) will not show warning from React
+  afterEach(async () => {
+    await act(async () => {
+      await promise;
+    })
   })
 
   describe('ImageGallery component', () => {
@@ -129,7 +135,7 @@ describe('Overview widget rendering', () => {
     });
   });
 
-  describe('render ProductInfo component correctly', () => {
+  describe('ProductInfo component', () => {
     it('should show category', () => {
       expect(screen.getByText('Jackets', {exact: false})).toBeInTheDocument();
     });
@@ -142,9 +148,6 @@ describe('Overview widget rendering', () => {
   });
 
   describe('Style component', () => {
-    it('render sales price correctly', () => {
-
-    });
     it('should show all styles available as thumbnails', () => {
       expect(screen.getAllByRole('img').length).toBeGreaterThan(0);
     });
@@ -172,49 +175,63 @@ describe('Overview widget rendering', () => {
 
 // test invalid dataset, product out of stock, img url is null
 describe('Cart with OUT OF STOCK style', () => {
-  beforeAll(() => {
-    render(<Overview
-      productId={71698}
-      productInfo={state.productInfo}
-      yourOutfit={yourOutfit}
-      addHandler={addToYourOutfit}
-      removeHandler={removeFromYourOutfit}/>);
-  });
+  beforeEach(() => {
+    render(<Cart
+      currentStyle={state.invalidDataset.results[0]}
+      selectedSize={'Select Size'}
+      selectedQuant={0}
+      isYourOutfit={true}
+      handleSelect={() => {}}
+      submitCartRequest={() => {}}
+      handleAddToYourOutfit={addToYourOutfit}
+      handleRemoveFromYourOutfit={removeFromYourOutfit}
+      />)
+  })
 
   it('should show out of stock in size selector and disable selector', () => {
     const sizeSelector = screen.getByRole('option', {name: 'OUT OF STOCK'});
     expect(sizeSelector).toBeInTheDocument();
     expect(sizeSelector).toBeDisabled();
   });
-  it('should have quantity selector disabled when no size is selected', () => {
+  it('should have quantity selector disabled', () => {
     expect(screen.getByRole('option', {name: '-'})).toBeDisabled();
+  });
+  it('should not have a add to cart button', () => {
+    expect(screen.queryByRole('button', {name: /ADD TO CART/i})).not.toBeInTheDocument();
   });
 });
 
-describe('User activities', () => {
-  let state = {
-    productInfo: sampleData.productInfo,
-    reviewsMeta: sampleData.reviewsMeta,
-    yourOutfit: [71697]
-  };
+describe.only('User activities', () => {
+  beforeEach(() => {
+    render(<Overview
+      productId={71697}
+      productInfo={state.productInfo}
+      yourOutfit={yourOutfit}
+      addHandler={addToYourOutfit}
+      removeHandler={removeFromYourOutfit}/>);
+  })
 
   it('should update style name after click change style', async () => {
-    await render(<Overview
-      productId={state.productId}
-      reviewsMeta={state.reviewsMeta}
-      yourOutfit={state.yourOutfit}
-    />);
-    expect(screen.getByText('Forest Green & Black')).toBeInTheDocument();
+    // await render(<Overview
+    //   productId={71697}
+    //   productInfo={state.productInfo}
+    //   yourOutfit={yourOutfit}
+    //   addHandler={addToYourOutfit}
+    //   removeHandler={removeFromYourOutfit}/>);
 
-    const clickedStyle = screen.getByRole('img', {name: 'Ocean Blue & Grey'});
+    expect( screen.getByText('Ocean Blue & Grey')).toBeInTheDocument();
+
+    const clickedStyle = screen.getByRole('img', {name: 'Forest Green & Black'});
     expect(clickedStyle).toBeInTheDocument();
     // user click event
     await userEvent.click(clickedStyle);
     // the name should disappear from the DOM
-    expect(screen.queryByText('Forest Green & Black')).toBeNull();
+    expect(screen.queryByText('Ocean Blue & Grey')).toBeNull();
   });
 
-  it.todo('should show scroll up after scrolling down of the thumbnail');
+  // it('should show scroll up after scrolling down of the thumbnail', async () => {
+
+  // });
   it.todo('should not show scroll down after scrolling');
   it.todo('should show correct price with current style');
   it.todo('should expand size selector menu when clicked');
@@ -224,12 +241,3 @@ describe('User activities', () => {
 });
 
 // END-TO-END
-// describe('App rendering', () => {
-//   let container = document.createElement('div');
-//   it('render App without crashing', () => {
-//     act(() => {
-//       ReactDOM.createRoot(container).render(<App />);
-//     });
-//     expect(container).not.toBeNull();
-//   });
-// });

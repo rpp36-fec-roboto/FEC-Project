@@ -1,4 +1,5 @@
 import React from 'react';
+import noImg from '../../assets/no-image.jpeg';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 
 var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
@@ -24,7 +25,7 @@ var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
   // render list of thumnails
   var thumbnailList = (productStyle, currentStyle) => {
     return productStyle.results.map((style, index) => {
-      var imageURL = style.photos[0].thumbnail_url;
+      var imageURL = style.photos[0].thumbnail_url || noImg;
       var styleName = style.name;
 
       return (

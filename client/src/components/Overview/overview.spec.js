@@ -60,7 +60,6 @@ const server = setupServer(
       // invalid dataset
       return res(ctx.json(state.invalidDataset));
     }
-
   }),
 
   rest.get('/reviews/meta', (req, res, ctx) => {
@@ -131,28 +130,20 @@ describe('Overview widget rendering', () => {
   });
 
   describe('render ProductInfo component correctly', () => {
-    // beforeEach(() => {
-    //   render(<ProductInfo productInfo={state.productInfo} reviewsMeta={state.reviewsMeta}/>);
-    // });
     it('should show category', () => {
       expect(screen.getByText('Jackets', {exact: false})).toBeInTheDocument();
     });
-    // it('should show rating', () => {
-    //   expect(screen.getByText('rating', {exact: false})).toBeInTheDocument();
-    // });
+    it('check rating stars', () => {
+      const stars = screen.getByTestId('star-rating');
+      expect(within(stars).getAllByRole('img').length).toBe(5);
+    });
     it('should show product name', () =>{
       expect(screen.getByText('Camo Onesie', {exact: false})).toBeInTheDocument();
     });
   });
 
   describe('Style component', () => {
-    // beforeEach(() => {
-    //   render(<Style
-    //     productStyle={state.productStyle}
-    //     currentStyle={state.currentStyle}
-    //   />);
-    // });
-
+    it.todo('render sales price correctly');
     it('should show all styles available as thumbnails', () => {
       expect(screen.getAllByRole('img').length).toBeGreaterThan(0);
     });
@@ -162,14 +153,6 @@ describe('Overview widget rendering', () => {
   });
 
   describe('Cart component', () => {
-    // beforeEach(() => {
-    //   render(<Cart
-    //     currentStyle={state.currentStyle}
-    //     selectedSize={state.selectedSize}
-    //     selectedQuant={state.selectedQuant}
-    //   />);
-    // });
-
     it('should have 2 dropdown selector', () => {
       expect(screen.getAllByRole('combobox').length).toBe(2);
     });
@@ -180,7 +163,7 @@ describe('Overview widget rendering', () => {
       expect(screen.getByRole('option', {name: '-'})).toBeDisabled();
     });
     it('should have a add to cart button', () => {
-      expect(screen.getByRole('button')).toBeInTheDocument();
+      expect(screen.getByRole('button', {name: /ADD TO CART/i})).toBeInTheDocument();
     });
   });
 
@@ -188,15 +171,16 @@ describe('Overview widget rendering', () => {
 
 // test invalid dataset, product out of stock, img url is null
 describe('Cart with OUT OF STOCK style', () => {
-  beforeEach(() => {
-    render(<Cart
-      currentStyle={sampleData.outOfStockStyle}
-      selectedSize={state.selectedSize}
-      selectedQuant={state.selectedQuant}
-    />);
+  beforeAll(() => {
+    render(<Overview
+      productId={71698}
+      yourOutfit={yourOutfit}
+      addHandler={addToYourOutfit}
+      removeHandler={removeFromYourOutfit}/>);
   });
+
   it('should show out of stock in size selector and disable selector', () => {
-    let sizeSelector = screen.getByRole('option', {name: 'OUT OF STOCK'});
+    const sizeSelector = screen.getByRole('option', {name: 'OUT OF STOCK'});
     expect(sizeSelector).toBeInTheDocument();
     expect(sizeSelector).toBeDisabled();
   });

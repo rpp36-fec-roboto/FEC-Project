@@ -156,7 +156,17 @@ app.post('/cart', (req, res) => {
       res.status(500).send(err);
     } else {
       res.sendStatus(201);
+    }
+  });
+});
 
+app.post('/interactions', (req, res) => {
+  let body = req.body;
+  api.postData('interactions', body, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.sendStatus(201);
     }
   });
 });

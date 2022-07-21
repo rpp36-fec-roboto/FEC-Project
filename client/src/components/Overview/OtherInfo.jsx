@@ -1,10 +1,13 @@
 import React from 'react';
+import { FiCheck } from 'react-icons/fi';
 
 var OtherInfo = ({ productInfo }) => {
 
   var featuresList = (features) => {
     return features.map((feature, index) => (
-      <li key={index.toString()}>{feature.value}</li>
+      <li key={index.toString()}>
+        <FiCheck size={20}/><div className="ov-feature-li">&nbsp;&nbsp;&nbsp;{feature.value}</div>
+      </li>
     ));
   };
 

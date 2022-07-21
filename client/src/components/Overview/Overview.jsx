@@ -112,12 +112,13 @@ var Overview = ({ productId, yourOutfit, handleAddToYourOutfit, handleRemoveFrom
   };
 
   const submitCartRequest = (data) => {
-    console.log(event, data);
     event.preventDefault();
     // post request to server
     axios.post('/cart', data)
       .then(response => {
         alert('added to cart');
+        setSize('Select Size');
+        setQuant(0);
       })
       .catch( err => console.log(err) );
   };

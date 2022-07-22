@@ -101,7 +101,9 @@ class App extends React.Component {
           onCardClick={this.handleChangeProductId}
           onStarClick={this.handleAddToYourOutfit}
           onXClick={this.handleRemoveFromYourOutfit}/>
-        <QnaWithTracker productId={this.state.productId}/>
+        <QnaWithTracker
+          productId={this.state.productId}
+          productInfo={this.state.productInfo}/>
         <Reviews />
       </>
     );

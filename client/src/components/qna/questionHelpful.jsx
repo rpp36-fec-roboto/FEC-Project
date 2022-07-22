@@ -6,7 +6,7 @@ var questionHelpful = (props) => (
     <div className='qa-underline qa-float' onClick={(e) => { props.yesQuestion(props.qid); }} >Yes</div>
     <div className='qa-float'>({props.help})</div>
     <div className='qa-float'> | </div>
-    <div className='qa-underline qa-float' onClick={(e) => { props.addAnswer(props.qid); }} > Add Answer</div>
+    <div className='qa-underline qa-float' onClick={(e) => { props.addAnswer(props.qid, props.body); }} > Add Answer</div>
   </div>
 );
 

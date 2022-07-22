@@ -13,8 +13,10 @@ import userEvent from '@testing-library/user-event'; // provide method to trigge
 import { act } from "react-dom/test-utils";
 
 // import API mocking utilities from Mock Service Worker
-import {rest} from 'msw';
-import {setupServer} from 'msw/node';
+// import {rest} from 'msw';
+// import {setupServer} from 'msw/node';
+
+import server from '../../mockFiles/mockServer.js';
 
 // add components to test
 import sampleData from '../../data/sampleData.js';
@@ -47,32 +49,48 @@ const removeFromYourOutfit = (productId) => {
   yourOutfit.splice(yourOutfit.indexOf(productId), 1);
 }
 
-// declare which API requests to mock
-const server = setupServer(
-  // capture "GET /greeting" requests
-  rest.get('/products/:product_id/styles', (req, res, ctx) => {
-    if (req.params['product_id'] === '71697') {
-      // valid dataset
-      return res(ctx.json(state.productStyle));
-    } else {
-      // invalid dataset
-      return res(ctx.json(state.invalidDataset));
-    }
-  }),
+// // declare which API requests to mock
+// const server = setupServer(
+//   rest.get('/products/:product_id', (res, req, ctx) => {
+//     // response using a mocked JSON body
+//     ctx.json(sampleData.productInfo);
+//   }),
 
-  rest.get('/reviews/meta', (req, res, ctx) => {
-    return res(ctx.json(state.reviewsMeta));
-  }),
+//   rest.get('/products/:product_id/styles', (req, res, ctx) => {
+//     if (req.params['product_id'] === '71697') {
+//       // valid dataset
+//       return res(ctx.json(state.productStyle));
+//     } else {
+//       // invalid dataset
+//       return res(ctx.json(state.invalidDataset));
+//     }
+//   }),
 
-  rest.post('/interactions', (req, res, ctx) => {
-    const { element, widget, time } = req.body;
-    if(element && widget && time) {
-      return res(ctx.status(201));
-    } else {
-      return res(ctx.status(500));
-    }
-  })
-);
+//   rest.get('/reviews/meta', (req, res, ctx) => {
+//     return res(ctx.json(state.reviewsMeta));
+//   }),
+
+//   rest.get('/products/:product_id/related', (req, res, ctx) => {
+//     return res(ctx.json([71697]));
+//   }),
+
+//   rest.get('/qa/questions/:question_id/answers', (req, res, ctx) => {
+//     return res(ctx.json(sampleData.answers));
+//   }),
+
+//   rest.get('/qa/questions', (req, res, ctx) => {
+//     return res(ctx.json(sampleData.questions));
+//   }),
+
+//   rest.post('/interactions', (req, res, ctx) => {
+//     const { element, widget, time } = req.body;
+//     if(element && widget && time) {
+//       return res(ctx.status(201));
+//     } else {
+//       return res(ctx.status(500));
+//     }
+//   })
+// );
 
 // establish API mocking before all tests
 beforeAll(() => server.listen());
@@ -280,7 +298,7 @@ describe('User activities', () => {
 
 describe('App level activity', () => {
   beforeEach(() => {
-    cleanup();
+    // cleanup();
     render(<App url="http://localhost:5555/71697"/>);
   })
 

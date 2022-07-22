@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import sampleData from '../../data/sampleData.js';
 import helper from '../../../../lib/clientHelpers.js';
 
 import ProductInfo from './ProductInfo.jsx';
@@ -12,10 +11,9 @@ import withTracker from '../../components/Sharables/withTracker.js';
 
 var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
   // Shared managed state
-  // const [productInfo, setProductInfo] = useState(sampleData.productInfo);
-  const [productStyle, setProductStyle] = useState(sampleData.productStyle);
+  const [productStyle, setProductStyle] = useState({results: []});
   const [reviewsMeta, setReviewsMeta] = useState({});
-  const [currentStyle, setCurrentStyle] = useState(productStyle.results[0]);
+  const [currentStyle, setCurrentStyle] = useState({photos: [{url: null}]});
 
   // ComponentDidMount
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import sampleData from './data/sampleData.js';
+// import sampleData from './data/sampleData.js';
 
 import OverviewWithTracker from './components/Overview/Overview.jsx';
 import QnaWithTracker from './components/qna/qna.jsx';

@@ -5,7 +5,7 @@ import QuestionAnswer from './questionAnswer.jsx';
 import BottomButtons from './bottomButtons.jsx';
 import AddAnswer from './addAnswer.jsx';
 import AddQuestion from './addQuestion.jsx';
-import data from '../../data/sampleData.js';
+import data from '../../mockFiles/sampleData.js';
 import Answer from './answer.jsx';
 import Question from './question.jsx';
 import $ from 'jquery';

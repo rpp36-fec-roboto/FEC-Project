@@ -51,7 +51,7 @@ const removeFromYourOutfit = (productId) => {
 const server = setupServer(
   // capture "GET /greeting" requests
   rest.get('/products/:product_id/styles', (req, res, ctx) => {
-    if (req.params['product_id'] === 71697) {
+    if (req.params['product_id'] === '71697') {
       // valid dataset
       return res(ctx.json(state.productStyle));
     } else {
@@ -211,29 +211,33 @@ describe.only('User activities', () => {
       removeHandler={removeFromYourOutfit}/>);
   })
 
-  it('should update style name after click change style', async () => {
-    // await render(<Overview
-    //   productId={71697}
-    //   productInfo={state.productInfo}
-    //   yourOutfit={yourOutfit}
-    //   addHandler={addToYourOutfit}
-    //   removeHandler={removeFromYourOutfit}/>);
-
-    expect( screen.getByText('Ocean Blue & Grey')).toBeInTheDocument();
-
-    const clickedStyle = screen.getByRole('img', {name: 'Forest Green & Black'});
-    expect(clickedStyle).toBeInTheDocument();
-    // user click event
-    await userEvent.click(clickedStyle);
-    // the name should disappear from the DOM
-    expect(screen.queryByText('Ocean Blue & Grey')).toBeNull();
+  it('should show scroll up after scrolling down of the thumbnail', async () => {
+    expect(screen.queryByTestId(/scroll-up/i)).not.toBeInTheDocument();
+    await userEvent.click(screen.getByTestId(/scroll-down/i));
+    expect(screen.getByTestId(/scroll-up/i)).toBeInTheDocument();
   });
 
-  // it('should show scroll up after scrolling down of the thumbnail', async () => {
+  it('should not show scroll down when no more thumbnails to scroll', async () => {
+    await userEvent.click(screen.getByTestId(/scroll-down/i));
+    expect(screen.queryByTestId(/scroll-down/i)).not.toBeInTheDocument();
+  });
 
+  it('should update style name and price after click change style', async () => {
+    expect(screen.getByText('Ocean Blue & Grey')).toBeInTheDocument();
+    // expect(screen.getByText((content, element) => { content.startsWith('$')})).toBeInTheDocument();
+    expect(screen.getByText(/100/i)).toBeInTheDocument();
+    expect(screen.getByText(/140/i)).toBeInTheDocument();
+    // user click event
+    await userEvent.click(screen.getByRole('img', {name: 'Forest Green & Black'}));
+    // the name should disappear from the DOM
+    expect(screen.queryByText('Ocean Blue & Grey')).toBeNull();
+    expect(screen.queryByText(/100/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/140/i)).toBeInTheDocument();
+  });
+
+  // it.todo('should change price when switch style', async () => {
+  //   await userEvent.click(screen.)
   // });
-  it.todo('should not show scroll down after scrolling');
-  it.todo('should show correct price with current style');
   it.todo('should expand size selector menu when clicked');
   it.todo('after select size, enable quantity selector');
   it.todo('clicking on add to cart without selecting a size should show warning message');

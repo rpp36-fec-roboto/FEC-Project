@@ -19,7 +19,6 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
 
   // ComponentDidMount
   useEffect(() => {
-    // var productInfoRequest = axios.get(`products/${productId}`);
     var styleRequest = axios.get(`products/${productId}/styles`);
     var reviewsMeta = axios.get('reviews/meta', {params: { 'product_id': productId }});
 
@@ -27,8 +26,6 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
       .then(axios.spread((...responses) => {
         console.dir(responses[0].data);
         console.dir(responses[1].data);
-        // console.dir(responses[2].data);
-        // setProductInfo(responses[0].data);
         setProductStyle(responses[0].data);
         setReviewsMeta(responses[1].data);
         setCurrentStyle(responses[0].data.results[0]);

@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom/client';
 
 // import test environment and methds
 import '@testing-library/jest-dom'; // provides method for DOM matcher
-import { render, screen, waitFor, within, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
+import { render, screen, waitFor, within, cleanup } from '@testing-library/react'; // provides methods to test element rendering and user event
 import userEvent from '@testing-library/user-event'; // provide method to trigger user activity
 import { act } from "react-dom/test-utils";
 
@@ -161,9 +161,10 @@ describe('Overview widget rendering', () => {
       expect(screen.getAllByRole('combobox').length).toBe(2);
     });
     it('should have default size selector at Select Size', () => {
-      expect(screen.getByRole('option', {name: 'Select Size'})).toBeInTheDocument();
+      expect(screen.getByRole('option', {name: 'Select Size'}).selected).toBe(true);
     });
     it('should have quantity selector disabled when no size is selected', () => {
+      expect(screen.getByRole('option', {name: '-'}).selected).toBe(true);
       expect(screen.getByRole('option', {name: '-'})).toBeDisabled();
     });
     it('should have a add to cart button', () => {
@@ -201,7 +202,7 @@ describe('Cart with OUT OF STOCK style', () => {
   });
 });
 
-describe.only('User activities', () => {
+describe('User activities', () => {
   beforeEach(() => {
     render(<Overview
       productId={71697}
@@ -211,37 +212,84 @@ describe.only('User activities', () => {
       removeHandler={removeFromYourOutfit}/>);
   })
 
-  it('should show scroll up after scrolling down of the thumbnail', async () => {
+  it('should not show scroll-up when at 1st thumbnails and show scroll-up after scrolling down of the thumbnail', async () => {
     expect(screen.queryByTestId(/scroll-up/i)).not.toBeInTheDocument();
     await userEvent.click(screen.getByTestId(/scroll-down/i));
     expect(screen.getByTestId(/scroll-up/i)).toBeInTheDocument();
+    await userEvent.click(screen.getByTestId(/scroll-up/i));
+    expect(screen.queryByTestId(/scroll-up/i)).not.toBeInTheDocument();
   });
 
-  it('should not show scroll down when no more thumbnails to scroll', async () => {
+  it('should not show scroll-down when no more thumbnails to scroll', async () => {
     await userEvent.click(screen.getByTestId(/scroll-down/i));
     expect(screen.queryByTestId(/scroll-down/i)).not.toBeInTheDocument();
   });
 
+  it('should show left arrow after clicked right arrow', async () => {
+    expect(screen.queryByTestId(/left/i)).not.toBeInTheDocument();
+    await userEvent.click(screen.getByTestId(/right/i));
+    expect(screen.getByTestId(/left/i)).toBeInTheDocument();
+  });
+
+  it('should not show right arrow when at the last image, and should show 2 thumbnails', async () => {
+    // click right arrow 5 times to get to the last image
+    for(var i = 0; i < 5; i++) {
+      await userEvent.click(screen.getByTestId(/right/i));
+    }
+    expect(screen.queryByTestId(/right/i)).not.toBeInTheDocument();
+    const list = screen.getByTestId('thumbnails');
+    const thumbnails = within(list).getAllByRole('listitem')
+    expect(thumbnails.length).toBe(2);
+  });
+
   it('should update style name and price after click change style', async () => {
     expect(screen.getByText('Ocean Blue & Grey')).toBeInTheDocument();
-    // expect(screen.getByText((content, element) => { content.startsWith('$')})).toBeInTheDocument();
     expect(screen.getByText(/100/i)).toBeInTheDocument();
     expect(screen.getByText(/140/i)).toBeInTheDocument();
-    // user click event
+
+    // user click a different style
     await userEvent.click(screen.getByRole('img', {name: 'Forest Green & Black'}));
-    // the name should disappear from the DOM
+
+    // style name and price should change
     expect(screen.queryByText('Ocean Blue & Grey')).toBeNull();
     expect(screen.queryByText(/100/i)).not.toBeInTheDocument();
     expect(screen.getByText(/140/i)).toBeInTheDocument();
   });
 
-  // it.todo('should change price when switch style', async () => {
-  //   await userEvent.click(screen.)
-  // });
-  it.todo('should expand size selector menu when clicked');
-  it.todo('after select size, enable quantity selector');
-  it.todo('clicking on add to cart without selecting a size should show warning message');
-  it.todo('should switch between solid and empty star when click to add/remove from my outfit');
+  it('should enable quantity selector after size is selected', async () => {
+    expect(screen.getByRole('option', {name: 'Select Size'}).selected).toBe(true);
+
+    // select size 'S'
+    await userEvent.selectOptions(screen.getAllByRole('combobox')[0], screen.getByRole('option', {name: 'S'}))
+
+    expect(screen.getByRole('option', {name: 'S'}).selected).toBe(true)
+    expect(screen.getByRole('option', {name: '1'})).not.toBeDisabled();
+    expect(screen.getByRole('option', {name: '1'}).selected).toBe(true);
+  });
+
+  it('clicking on add to cart without selecting a size should show warning message', async () => {
+    expect(screen.queryByText(/please select a size/i)).not.toBeInTheDocument();
+    expect(screen.getByRole('button', {name: /ADD TO CART/i})).toBeInTheDocument();
+    act(() => {userEvent.click(screen.getByRole('button', {name: /ADD TO CART/i}))});
+    await waitFor(() => {
+      screen.debug(undefined, 100000);
+      expect(screen.getByText(/please select a size/i)).toBeInTheDocument()
+    })
+  });
+});
+
+describe('App level activity', () => {
+  beforeEach(() => {
+    cleanup();
+    render(<App url="http://localhost:5555/71697"/>);
+  })
+
+  it('should switch between solid and empty star when click to add/remove from my outfit', async () => {
+    const emptyStar = screen.getByTestId(/empty/i);
+    expect(emptyStar).toBeInTheDocument();
+    await userEvent.click(emptyStar);
+    expect(screen.getByTestId(/filled/i)).toBeInTheDocument();
+  });
 });
 
 // END-TO-END

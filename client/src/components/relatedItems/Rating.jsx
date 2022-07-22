@@ -11,7 +11,6 @@ var Rating = function ( {ratings} ) {
     return (
       <div className="rating">
         <StarRating rating={rating} />
-        <span>Star rating: {stars}/5 </span>
       </div>
     );
   }

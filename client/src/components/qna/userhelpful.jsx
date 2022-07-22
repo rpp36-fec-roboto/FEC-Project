@@ -25,8 +25,8 @@ var userhelpful = (props) => {
       <div className='qa-float' >({props.answer.helpfulness})</div>
       <div className='qa-float' >|</div>
       {props.answer.id !== undefined ?
-        <div className='qa-underline qa-float' onClick={(e) => { props.reportAnswer(props.answer.id); }}>Report</div> :
-        <div className='qa-underline qa-float' onClick={(e) => { props.reportAnswer(props.answer['answer_id']); }}>Report</div>}
+        <div className={`qa-underline qa-float ${props.answer.id}`} onClick={(e) => { props.reportAnswer(props.answer.id); }}>Report</div> :
+        <div className={`qa-underline qa-float ${props.answer['answer_id']}`} onClick={(e) => { props.reportAnswer(props.answer['answer_id']); }}>Report</div>}
     </div>
   );
 };

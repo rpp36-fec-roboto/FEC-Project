@@ -42,7 +42,7 @@ var RelatedProductLists = function (props) {
     if (id === 'addToOutfit') {
       return (
         <div key={id} role='list'>
-          <div style={{ padding: 8 }} role='listitem'>
+          <div style={{ padding: 4 }} role='listitem'>
             <AddToOutfitCard productId={productId} onAddCardClick={onStarClick} />
           </div>
         </div>
@@ -50,7 +50,7 @@ var RelatedProductLists = function (props) {
     } else {
       return (
         <div key={id.toString()} role='list'>
-          <div style={{ padding: 8 }} role='listitem'>
+          <div style={{ padding: 4 }} role='listitem'>
             <RelatedProductCard
               listType={listType}
               productId={id}

@@ -14,13 +14,14 @@ var RelatedItems = (props) => {
     onXClick
   } = props;
 
+  const [isLoading, setIsLoading] = useState(true);
   const [productInfo, setProductInfo] = useState([]);
   const [productReviews, setProductReviews] = useState([]);
   const [productStyles, setProductStyles] = useState([]);
 
-  let allProduct = Array.from(new Set([productId, ...relatedProduct, ...yourOutfit])).sort();
+  let allProduct = Array.from(new Set([Number(productId), ...relatedProduct, ...yourOutfit])).sort();
 
-  const getProductInfo = ((products) => {
+  const getProductInfo = ((products, cb) => {
     let count = 0;
     let addProdInfo = [];
     let addProdReviews = [];
@@ -43,16 +44,21 @@ var RelatedItems = (props) => {
             addProdInfo = [...productInfo, ...addProdInfo];
             addProdReviews = [...productReviews, ...addProdReviews];
             addProdStyles = [...productStyles, ...addProdStyles];
-            setProductInfo(addProdInfo);
-            setProductReviews(addProdReviews);
-            setProductStyles(addProdStyles);
+            cb(null, addProdInfo, addProdReviews, addProdStyles);
           }
         })
-        .catch( err => { console.log(err); });
+        .catch( err => { cb(err); });
     });
   });
 
   useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
     let addItems = [];
     for (var i = 0; i < allProduct.length; i++) {
       let addItem = productInfo.filter((prod) => prod.id === allProduct[i]);
@@ -61,7 +67,15 @@ var RelatedItems = (props) => {
       }
     }
     if (addItems.length > 0) {
-      getProductInfo(addItems);
+      getProductInfo(addItems, function(err, addProdInfo, addProdReviews, addProdStyles) {
+        if (err) {
+          console.log(err);
+        } else {
+          setProductInfo(addProdInfo);
+          setProductReviews(addProdReviews);
+          setProductStyles(addProdStyles);
+        }
+      });
     }
   }, [JSON.stringify(allProduct)]);
 

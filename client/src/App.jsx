@@ -41,6 +41,7 @@ class App extends React.Component {
   getProductInfo (productId) {
     axios.get(`products/${productId}`)
       .then(response => {
+        console.dir(response.data);
         this.setState({ productInfo: response.data
         });
       })

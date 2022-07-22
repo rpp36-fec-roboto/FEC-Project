@@ -9,6 +9,7 @@ var question = (props) => (
       help={props.questions.question_helpfulness}
       yesQuestion={props.yesQuestion}
       addAnswer={props.addAnswer}
+      body={props.questions.question_body}
       qid={props.questions.question_id}/>
   </div>
 );

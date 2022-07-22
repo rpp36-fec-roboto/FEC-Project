@@ -14,9 +14,9 @@ const withTracker = (WrappedComponent, widgetName) => {
         widget: widgetName,
         time: Date(event.timeStamp)
       };
-      // axios.post('/interactions', body)
-      //   .then(() => { console.log('action recorded'); })
-      //   .catch( err => { console.log(err); });
+      axios.post('/interactions', body)
+        .then(() => { console.log('action recorded'); })
+        .catch( err => { console.log(err); });
     }
 
     render() {

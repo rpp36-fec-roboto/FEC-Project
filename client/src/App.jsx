@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import sampleData from './data/sampleData.js';
+// import sampleData from './data/sampleData.js';
 
 import OverviewWithTracker from './components/Overview/Overview.jsx';
 import QnaWithTracker from './components/qna/qna.jsx';
@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: window.location.href.split('/')[3], // get productId from url
+      productId: window.location.href.split('/')[3] || this.props.productId, // get productId from url
       relatedProduct: [],
       productInfo: {},
       yourOutfit: JSON.parse(localStorage.getItem('myOutfit')) || []
@@ -41,7 +41,7 @@ class App extends React.Component {
   getProductInfo (productId) {
     axios.get(`products/${productId}`)
       .then(response => {
-        console.dir(response.data);
+        // console.dir(response.data);
         this.setState({ productInfo: response.data
         });
       })

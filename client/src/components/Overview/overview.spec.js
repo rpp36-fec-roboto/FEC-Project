@@ -23,6 +23,11 @@ import App from '../../App.jsx';
 import Overview from './Overview.jsx';
 import Cart from './Cart.jsx';
 
+
+///////////////////////////////////
+//---------- TEST SETUP ---------//
+///////////////////////////////////
+
 // mock add/remove yourOutfit handler at local level
 var yourOutfit = [];
 const addToYourOutfit = (productId) => {
@@ -41,6 +46,10 @@ afterEach(() => mockServer.resetHandlers());
 afterAll(() => mockServer.close());
 
 
+///////////////////////////////////
+//---------- UNIT TEST ----------//
+///////////////////////////////////
+
 describe('helper function unit tests', () => {
   it('should calculate average rating', () => {
     expect(helper.calculateRating(sampleData.reviewsMeta.ratings)).toBe('72%');
@@ -51,9 +60,57 @@ describe('helper function unit tests', () => {
   });
 });
 
+describe('Component render with invalid dataset', () => {
+  beforeEach(() => {
+    render(<Cart
+      currentStyle={sampleData.invalidDataset.results[0]}
+      selectedSize={'Select Size'}
+      selectedQuant={0}
+      isYourOutfit={true}
+      handleSelect={() => {}}
+      submitCartRequest={() => {}}
+      handleAddToYourOutfit={addToYourOutfit}
+      handleRemoveFromYourOutfit={removeFromYourOutfit}
+      />)
+  })
+
+  it('should show out of stock in size selector and disable selector', () => {
+    const sizeSelector = screen.getByRole('option', {name: 'OUT OF STOCK'});
+    expect(sizeSelector).toBeInTheDocument();
+    expect(sizeSelector).toBeDisabled();
+  });
+  it('should have quantity selector disabled', () => {
+    expect(screen.getByRole('option', {name: '-'})).toBeDisabled();
+  });
+  it('should not have a add to cart button', () => {
+    expect(screen.queryByRole('button', {name: /ADD TO CART/i})).not.toBeInTheDocument();
+  });
+});
+
+///////////////////////////////////
+//------ INTEGRATION TEST -------//
+///////////////////////////////////
+
+/**
+ * Rendering the whole component to conduct static rendering tests may not be ideal.
+ * Chose to do so to avoid mocking data and function that passed to each component.
+ * Disadvantage: slow test running; not modularized
+ */
+
 describe('Overview widget rendering', () => {
-  // react testing library injected global afterEach cleanup to Jest framework
-  // no need to explicitly clean up
+  /**
+   * React testing library inject global afterEach cleanup to Jest framework.
+   * Therefore, no need to explicitly clean up
+  */
+
+  /**
+   * Continue to receive WARINING from React: An update to Overview inside a test was not wrapped in act(...).
+   * In attemption to resolve the warning, following a tutorial to set up
+   * Promise.resolve()
+   * act(() => {...})
+   * afterEach()
+   * to resolve all unresolved promises during test running. However, current solution is NOT WORKING at this moment.
+   */
 
   // NOT WORKING. Setting up a promise resolve for async function to resolve
   const promise = Promise.resolve();
@@ -174,34 +231,6 @@ describe('Overview widget rendering', () => {
 
 });
 
-// test invalid dataset, product out of stock, img url is null
-describe('Cart with OUT OF STOCK style', () => {
-  beforeEach(() => {
-    render(<Cart
-      currentStyle={sampleData.invalidDataset.results[0]}
-      selectedSize={'Select Size'}
-      selectedQuant={0}
-      isYourOutfit={true}
-      handleSelect={() => {}}
-      submitCartRequest={() => {}}
-      handleAddToYourOutfit={addToYourOutfit}
-      handleRemoveFromYourOutfit={removeFromYourOutfit}
-      />)
-  })
-
-  it('should show out of stock in size selector and disable selector', () => {
-    const sizeSelector = screen.getByRole('option', {name: 'OUT OF STOCK'});
-    expect(sizeSelector).toBeInTheDocument();
-    expect(sizeSelector).toBeDisabled();
-  });
-  it('should have quantity selector disabled', () => {
-    expect(screen.getByRole('option', {name: '-'})).toBeDisabled();
-  });
-  it('should not have a add to cart button', () => {
-    expect(screen.queryByRole('button', {name: /ADD TO CART/i})).not.toBeInTheDocument();
-  });
-});
-
 describe('User activities', () => {
   beforeEach(() => {
     render(<Overview
@@ -297,7 +326,6 @@ describe('App level activity', () => {
   })
 
   it('should switch between solid and empty star when click to add/remove from my outfit', async () => {
-    // renderWithRouter(<App {route: '/71697'}/>);
     await waitFor(async () => {
       const emptyStar = screen.getByTestId(/empty/i);
       expect(emptyStar).toBeInTheDocument();

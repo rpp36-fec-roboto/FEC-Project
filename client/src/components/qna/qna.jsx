@@ -244,6 +244,7 @@ class Qna extends React.Component {
         $('.morequestions').hide();
       }
     }
+    $('.questions').addClass('questions-clicked');
     this.setState({qIndex: index});
   }
 
@@ -256,83 +257,41 @@ class Qna extends React.Component {
         success: (data) => {
           var answer = {
             'question_id': data.question,
-            'results': data.results,
-            'index': 1
+            'results': data.results
           };
-          if (data.results.length === 3) {
-            answer.index = 2;
-            $(`.${id}`).append('<div id="3"></div>');
-            var root = ReactDOM.createRoot(document.getElementById('3'));
-            root.render(<Answer
-              answers={data.results}
-              answersid={[2]}
-              id={id}
-              update={this.updateAnswers}
-              yesAnswer={this.yesAnswerButton}
-              reportAnswer={this.reportAnswerButton}
-              moreAnswers={this.moreAnswers}/>
-            );
-            $(`.moreanswer.${id}`).hide();
-          } else {
-            answer.index = 3;
-            $(`.${id}`).append('<div id="4"></div>');
-            var root = ReactDOM.createRoot(document.getElementById('4'));
-            root.render(<Answer
-              answers={data.results}
-              answersid={[2, 3]}
-              id={id}
-              update={this.updateAnswers}
-              yesAnswer={this.yesAnswerButton}
-              reportAnswer={this.reportAnswerButton}
-              moreAnswers={this.moreAnswers}/>
-            );
-            if (data.results === 4) {
-              $(`.moreanswer.${id}`).hide();
-            }
+          $(`.${id}.all`).append('<div id="more"></div>');
+          $(`.${id}.normal`).css({display: 'none'});
+          if (data.results.length > 4) {
+            $(`.${id}.all`).addClass('answers-clicked overflowtrue');
           }
+          var root = ReactDOM.createRoot(document.getElementById('more'));
+          root.render(<Answer
+            answers={data.results}
+            id={id}
+            yesAnswer={this.yesAnswerButton}
+            reportAnswer={this.reportAnswerButton}
+            moreAnswers={this.moreAnswers}
+            more={true}/>
+          );
           var currentState = this.state.answers;
           currentState[id] = answer;
           this.setState({answers: currentState});
         }
       });
     } else {
-      var moreAnswers = this.state.answers[id];
-      if (moreAnswers.results.length === moreAnswers.index + 1) {
-        moreAnswers.index++;
-        $(`.${id}`).append(`<div id=${moreAnswers.index}></div>`);
-        var root = ReactDOM.createRoot(document.getElementById(`${moreAnswers.index}`));
-        root.render(<Answer
-          answers={moreAnswers.results}
-          answersid={[moreAnswers.index]}
-          id={id}
-          update={this.updateAnswers}
-          yesAnswer={this.yesAnswerButton}
-          reportAnswer={this.reportAnswerButton}
-          moreAnswers={this.moreAnswers}/>
-        );
-        $(`.moreanswer.${id}`).hide();
-      } else {
-        moreAnswers.index += 2;
-        $(`.${id}`).append(`<div id=${moreAnswers.index}></div>`);
-        var root = ReactDOM.createRoot(document.getElementById(`${moreAnswers.index}`));
-        root.render(<Answer
-          answers={moreAnswers.results}
-          answersid={[moreAnswers.index - 1, moreAnswers.index]}
-          id={id}
-          update={this.updateAnswers}
-          yesAnswer={this.yesAnswerButton}
-          reportAnswer={this.reportAnswerButton}
-          moreAnswers={this.moreAnswers}/>
-        );
-        if (moreAnswers.results.length === moreAnswers.index + 1) {
-          $(`.moreanswer.${id}`).hide();
+      if ($(`.${id}.normal`).is(':hidden')) {
+        if ($(`.${id}.all`).hasClass('overflowtrue')) {
+          $(`.${id}.all`).removeClass('answers-clicked');
         }
+        $(`.${id}.normal`).css({display: 'block'});
+        $(`.${id}.more`).css({display: 'none'});
+      } else {
+        if ($(`.${id}.all`).hasClass('overflowtrue')) {
+          $(`.${id}.all`).addClass('answers-clicked');
+        }
+        $(`.${id}.normal`).css({display: 'none'});
+        $(`.${id}.more`).css({display: 'block'});
       }
-      var currentState = this.state.answers;
-      currentState[id] = moreAnswers;
-      this.setState({answers: currentState}, () => {
-        console.log(this.state.answers[id]);
-      });
     }
   }
 

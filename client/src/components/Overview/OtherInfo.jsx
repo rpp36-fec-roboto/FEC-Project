@@ -20,11 +20,11 @@ var OtherInfo = ({ productInfo }) => {
       <div className="ov-left-2">
         <div className="ov-other-info-container">
           <h4>{productInfo.slogan}</h4>
-          <p className="ov-grey-text">{productInfo.description}</p>
+          <p>{productInfo.description}</p>
         </div>
       </div>
       <div className="ov-right-1">
-        <ul className="ov-product-feature ov-grey-text">
+        <ul className="ov-product-feature">
           {featuresList(productInfo.features)}
         </ul>
       </div>

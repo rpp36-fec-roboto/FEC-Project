@@ -96,9 +96,9 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
           className="my-outfit-star"
           onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
         >{isYourOutfit ?
-            <AiFillStar size={20} style={{position: 'inherit'}} data-testid="filled-star"/>
+            <AiFillStar size={20} style={{position: 'inherit', color: 'black'}} data-testid="filled-star"/>
             :
-            <AiOutlineStar size={20} style={{position: 'inherit'}} data-testid="empty-star"/>
+            <AiOutlineStar size={20} style={{position: 'inherit', color: 'black'}} data-testid="empty-star"/>
           }</div>
       </form>
 

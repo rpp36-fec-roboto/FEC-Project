@@ -4,9 +4,18 @@ const app = express();
 const PORT = 5555;
 const api = require('./api.js');
 
+app.get('*.js', function (req, res, next) {
+  console.log(req.url);
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  console.log(req.url);
+  next();
+});
+
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
 
 // set up route to send back html file that points to static assets of bundle.js
 app.get('/:product_id', (req, res) => {

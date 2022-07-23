@@ -399,6 +399,19 @@ body {
   to {top: 30%; opacity: 1}
 }
 
+.questions-clicked {
+  overflow: auto;
+  height: 80vh;
+  border-style: double;
+}
+
+.answers-clicked {
+  width: 100%;
+  overflow: auto;
+  height: 50vh;
+  border-style: double;
+}
+
 /*
 //////// RELATED ITEMS SECTION //////////////////////////////////////////////
 */

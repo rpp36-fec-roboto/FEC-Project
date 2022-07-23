@@ -25,7 +25,7 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
       });
 
       // add the default value to size options
-      sizes.unshift(<option key='select-size'>Select Size</option>);
+      sizes.unshift(<option key='select-size' selected={selectedSize === 'Select Size'}>Select Size</option>);
       return sizes;
     }
   };

@@ -1,14 +1,15 @@
 // import API mocking utilities from Mock Service Worker
-import {rest} from 'msw';
-import {setupServer} from 'msw/node';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 
 import sampleData from './sampleData.js';
 
 // declare which API requests to mock
 const server = setupServer(
   rest.get('/products/:product_id', (res, req, ctx) => {
+    console.log('product info');
     // response using a mocked JSON body
-    ctx.json(sampleData.productInfo);
+    return res(ctx.json(sampleData.productInfo));
   }),
 
   rest.get('/products/:product_id/styles', (req, res, ctx) => {
@@ -29,12 +30,12 @@ const server = setupServer(
     return res(ctx.json([71697]));
   }),
 
-  rest.get('/qa/questions/:question_id/answers', (req, res, ctx) => {
-    return res(ctx.json(sampleData.answers));
-  }),
-
   rest.get('/qa/questions', (req, res, ctx) => {
     return res(ctx.json(sampleData.questions));
+  }),
+
+  rest.get('/qa/questions/:question_id/answers', (req, res, ctx) => {
+    return res(ctx.json(sampleData.answers));
   }),
 
   rest.post('/interactions', (req, res, ctx) => {

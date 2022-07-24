@@ -13,11 +13,8 @@ var Price = function (props) {
   }
 
   let defaultPrice = productInfo.default_price;
-  let originalPrice = productStyle.original_price; // need to capture selected style
-  let salePrice = productStyle.sale_price; // need to capture selected style
-
-  // Need to capture selected style; for now, disable sale pricing
-  salePrice = null;
+  let originalPrice = productStyle.original_price;
+  let salePrice = productStyle.sale_price;
 
   if (!salePrice) {
     return <p><span>${defaultPrice}</span></p>;

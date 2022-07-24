@@ -25,7 +25,7 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
       });
 
       // add the default value to size options
-      sizes.unshift(<option key='select-size'>Select Size</option>);
+      sizes.unshift(<option key='select-size' selected={selectedSize === 'Select Size'}>Select Size</option>);
       return sizes;
     }
   };
@@ -96,9 +96,9 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
           className="my-outfit-star"
           onClick={isYourOutfit ? handleRemoveFromYourOutfit : handleAddToYourOutfit}
         >{isYourOutfit ?
-            <AiFillStar size={20} style={{position: 'inherit'}}/>
+            <AiFillStar size={20} style={{position: 'inherit', color: 'black'}} data-testid="filled-star"/>
             :
-            <AiOutlineStar size={20} style={{position: 'inherit'}}/>
+            <AiOutlineStar size={20} style={{position: 'inherit', color: 'black'}} data-testid="empty-star"/>
           }</div>
       </form>
 

@@ -19,7 +19,7 @@ var addAnswer = (props) => (
           <label>*Your email:</label>
           <input type="text" className="answer-email" name="email" size="35" placeholder="Example: jack@email.com" required></input>
           <h6>For authentication reasons, you will not be emailed</h6>
-          {/* <>photo</> */}
+          <input id='data' type='file' name="data"></input>
           <input type="submit" value="Submit" onClick={props.submitAnswer}></input>
         </form>
       </div>

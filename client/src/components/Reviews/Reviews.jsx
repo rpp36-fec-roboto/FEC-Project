@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import sampleData from '../../data/sampleData.js';
+import sampleData from '../../mockFiles/sampleData.js';
 import StarRating from '../Sharables/StarRating.jsx';
 
 // import axios from 'axios';

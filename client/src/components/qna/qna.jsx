@@ -5,7 +5,7 @@ import QuestionAnswer from './questionAnswer.jsx';
 import BottomButtons from './bottomButtons.jsx';
 import AddAnswer from './addAnswer.jsx';
 import AddQuestion from './addQuestion.jsx';
-import data from '../../data/sampleData.js';
+import data from '../../mockFiles/sampleData.js';
 import Answer from './answer.jsx';
 import Question from './question.jsx';
 import $ from 'jquery';
@@ -22,7 +22,8 @@ class Qna extends React.Component {
       questionhelpful: [],
       answerhelpful: [],
       reportAnswer: [],
-      currentQuestion: '',
+      currentQuestionId: '',
+      currentQuestionBody: '',
       qIndex: ''
     };
     this.yesQuestionButton = this.yesQuestionButton.bind(this);
@@ -36,9 +37,7 @@ class Qna extends React.Component {
     this.submitQuestion = this.submitQuestion.bind(this);
     this.input = this.input.bind(this);
   }
-
-  componentDidMount() {
-    //get request to get all question/answers
+  updateQNA() {
     $.ajax({
       method: 'get',
       url: '/qa/questions',
@@ -60,6 +59,16 @@ class Qna extends React.Component {
           qIndex});
       }
     });
+  }
+
+  componentDidMount() {
+    this.updateQNA();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.productId !== prevProps.productId) {
+      this.updateQNA();
+    }
   }
 
   input(e) {
@@ -97,10 +106,11 @@ class Qna extends React.Component {
 
   }
 
-  addAnswerButton(qid) {
-    console.log('add answer button');
+  addAnswerButton(qid, body) {
     $('.answer-modal').css('display', 'block');
-    this.setState({currentQuestion: qid});
+    this.setState({
+      currentQuestionId: qid,
+      currentQuestionBody: body});
   }
 
   yesAnswerButton(id) {
@@ -121,13 +131,13 @@ class Qna extends React.Component {
   }
 
   reportAnswerButton(id) {
-    console.log('report answer button');
     if (!this.state.reportAnswer.includes(id)) {
       $.ajax({
         method: 'put',
         url: `/qa/answer/${id}/report`,
         success: () => {
           console.log('Thank you for reporting this answer!');
+          $(`.${id}`).text('Reported');
           let tempState = this.state.answerhelpful;
           tempState.push(id);
           this.setState({reportAnswer: tempState});
@@ -139,13 +149,10 @@ class Qna extends React.Component {
   }
 
   addQuestionButton(e) {
-    console.log('add question button');
     $('.question-modal').css('display', 'block');
   }
 
   moreQuestions(e) {
-    console.log('more questions button');
-    console.log(this.state.questions);
     var index = this.state.qIndex;
     if (this.state.questions.length === index + 2) {
       index++;
@@ -237,6 +244,7 @@ class Qna extends React.Component {
         $('.morequestions').hide();
       }
     }
+    $('.questions').addClass('questions-clicked');
     this.setState({qIndex: index});
   }
 
@@ -249,83 +257,41 @@ class Qna extends React.Component {
         success: (data) => {
           var answer = {
             'question_id': data.question,
-            'results': data.results,
-            'index': 1
+            'results': data.results
           };
-          if (data.results.length === 3) {
-            answer.index = 2;
-            $(`.${id}`).append('<div id="3"></div>');
-            var root = ReactDOM.createRoot(document.getElementById('3'));
-            root.render(<Answer
-              answers={data.results}
-              answersid={[2]}
-              id={id}
-              update={this.updateAnswers}
-              yesAnswer={this.yesAnswerButton}
-              reportAnswer={this.reportAnswerButton}
-              moreAnswers={this.moreAnswers}/>
-            );
-            $(`.moreanswer.${id}`).hide();
-          } else {
-            answer.index = 3;
-            $(`.${id}`).append('<div id="4"></div>');
-            var root = ReactDOM.createRoot(document.getElementById('4'));
-            root.render(<Answer
-              answers={data.results}
-              answersid={[2, 3]}
-              id={id}
-              update={this.updateAnswers}
-              yesAnswer={this.yesAnswerButton}
-              reportAnswer={this.reportAnswerButton}
-              moreAnswers={this.moreAnswers}/>
-            );
-            if (data.results === 4) {
-              $(`.moreanswer.${id}`).hide();
-            }
+          $(`.${id}.all`).append('<div id="more"></div>');
+          $(`.${id}.normal`).css({display: 'none'});
+          if (data.results.length > 4) {
+            $(`.${id}.all`).addClass('answers-clicked overflowtrue');
           }
+          var root = ReactDOM.createRoot(document.getElementById('more'));
+          root.render(<Answer
+            answers={data.results}
+            id={id}
+            yesAnswer={this.yesAnswerButton}
+            reportAnswer={this.reportAnswerButton}
+            moreAnswers={this.moreAnswers}
+            more={true}/>
+          );
           var currentState = this.state.answers;
           currentState[id] = answer;
           this.setState({answers: currentState});
         }
       });
     } else {
-      var moreAnswers = this.state.answers[id];
-      if (moreAnswers.results.length === moreAnswers.index + 1) {
-        moreAnswers.index++;
-        $(`.${id}`).append(`<div id=${moreAnswers.index}></div>`);
-        var root = ReactDOM.createRoot(document.getElementById(`${moreAnswers.index}`));
-        root.render(<Answer
-          answers={moreAnswers.results}
-          answersid={[moreAnswers.index]}
-          id={id}
-          update={this.updateAnswers}
-          yesAnswer={this.yesAnswerButton}
-          reportAnswer={this.reportAnswerButton}
-          moreAnswers={this.moreAnswers}/>
-        );
-        $(`.moreanswer.${id}`).hide();
-      } else {
-        moreAnswers.index += 2;
-        $(`.${id}`).append(`<div id=${moreAnswers.index}></div>`);
-        var root = ReactDOM.createRoot(document.getElementById(`${moreAnswers.index}`));
-        root.render(<Answer
-          answers={moreAnswers.results}
-          answersid={[moreAnswers.index - 1, moreAnswers.index]}
-          id={id}
-          update={this.updateAnswers}
-          yesAnswer={this.yesAnswerButton}
-          reportAnswer={this.reportAnswerButton}
-          moreAnswers={this.moreAnswers}/>
-        );
-        if (moreAnswers.results.length === moreAnswers.index + 1) {
-          $(`.moreanswer.${id}`).hide();
+      if ($(`.${id}.normal`).is(':hidden')) {
+        if ($(`.${id}.all`).hasClass('overflowtrue')) {
+          $(`.${id}.all`).removeClass('answers-clicked');
         }
+        $(`.${id}.normal`).css({display: 'block'});
+        $(`.${id}.more`).css({display: 'none'});
+      } else {
+        if ($(`.${id}.all`).hasClass('overflowtrue')) {
+          $(`.${id}.all`).addClass('answers-clicked');
+        }
+        $(`.${id}.normal`).css({display: 'none'});
+        $(`.${id}.more`).css({display: 'block'});
       }
-      var currentState = this.state.answers;
-      currentState[id] = moreAnswers;
-      this.setState({answers: currentState}, () => {
-        console.log(this.state.answers[id]);
-      });
     }
   }
 
@@ -334,19 +300,42 @@ class Qna extends React.Component {
     var name = $('.answer-name').val();
     var body = $('.answer-body').val();
     var email = $('.answer-email').val();
-    $.ajax({
-      method: 'post',
-      url: `/qa/questions/${this.state.currentQuestion}/answers`,
-      data: {
-        name,
-        body,
-        email
-      },
-      success: () => {
-        console.log('Answer has been submitted');
-        $('.answer-modal').css('display', 'none');
-      }
-    });
+    var message = 'You must enter the following:';
+    var nameBool = true;
+    var bodyBool = true;
+    var emailBool = true;
+    if (!email.includes('@') ||
+      (!email.includes('.com') &&
+      !email.includes('.net') &&
+      !email.includes('.org'))) {
+      emailBool = false;
+      message += '\n Your email';
+    }
+    if (!name) {
+      nameBool = false;
+      message += '\n What is your nickname';
+    }
+    if (!body) {
+      bodyBool = false;
+      message += '\n Your Question';
+    }
+    if (!emailBool || !nameBool || !bodyBool) {
+      alert(message);
+    } else {
+      $.ajax({
+        method: 'post',
+        url: `/qa/questions/${this.state.currentQuestionId}/answers`,
+        data: {
+          name,
+          body,
+          email
+        },
+        success: () => {
+          console.log('Answer has been submitted');
+          $('.answer-modal').css('display', 'none');
+        }
+      });
+    }
   }
 
   submitQuestion(e) {
@@ -354,20 +343,43 @@ class Qna extends React.Component {
     var name = $('.question-name').val();
     var body = $('.question-body').val();
     var email = $('.question-email').val();
-    $.ajax({
-      method: 'post',
-      url: '/qa/questions/',
-      data: {
-        name,
-        body,
-        email,
-        'product_id': this.props.productId
-      },
-      success: () => {
-        console.log('Question has been submitted');
-        $('.question-modal').css('display', 'none');
-      }
-    });
+    var message = 'You must enter the following:';
+    var nameBool = true;
+    var bodyBool = true;
+    var emailBool = true;
+    if (!email.includes('@') ||
+      (!email.includes('.com') &&
+      !email.includes('.net') &&
+      !email.includes('.org'))) {
+      emailBool = false;
+      message += '\n Your email';
+    }
+    if (!name) {
+      nameBool = false;
+      message += '\n What is your nickname';
+    }
+    if (!body) {
+      bodyBool = false;
+      message += '\n Your Question';
+    }
+    if (!emailBool || !nameBool || !bodyBool) {
+      alert(message);
+    } else {
+      $.ajax({
+        method: 'post',
+        url: '/qa/questions/',
+        data: {
+          name,
+          body,
+          email,
+          'product_id': this.props.productId
+        },
+        success: () => {
+          console.log('Question has been submitted');
+          $('.question-modal').css('display', 'none');
+        }
+      });
+    }
   }
 
 
@@ -390,8 +402,13 @@ class Qna extends React.Component {
           questions={this.state.questions}
           addQuestion={this.addQuestionButton}
           more={this.moreQuestions}/>
-        <AddAnswer submitAnswer={this.submitAnswer}/>
-        <AddQuestion submitQuestion={this.submitQuestion}/>
+        <AddAnswer
+          submitAnswer={this.submitAnswer}
+          productName={this.props.productInfo}
+          body={this.state.currentQuestionBody}/>
+        <AddQuestion
+          submitQuestion={this.submitQuestion}
+          productName={this.props.productInfo} />
       </div>
     );
   }

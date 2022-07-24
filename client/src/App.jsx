@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-// import sampleData from './data/sampleData.js';
 
+import NavBar from './components/Sharables/NavBar.jsx';
 import OverviewWithTracker from './components/Overview/Overview.jsx';
 import QnaWithTracker from './components/qna/qna.jsx';
 import RelatedItemsWithTracker from './components/relatedItems/RelatedItems.jsx';
@@ -15,12 +15,14 @@ class App extends React.Component {
       productId: window.location.href.split('/')[3] || this.props.productId, // get productId from url
       relatedProduct: [],
       productInfo: {},
-      yourOutfit: JSON.parse(localStorage.getItem('myOutfit')) || []
+      yourOutfit: JSON.parse(localStorage.getItem('myOutfit')) || [],
+      isInLightMode: true
     };
     this.getRelatedProduct = this.getRelatedProduct.bind(this);
     this.handleAddToYourOutfit = this.handleAddToYourOutfit.bind(this);
     this.handleChangeProductId = this.handleChangeProductId.bind(this);
     this.handleRemoveFromYourOutfit = this.handleRemoveFromYourOutfit.bind(this);
+    this.handleChangeColorScheme = this.handleChangeColorScheme.bind(this);
   }
 
   componentDidMount() {
@@ -86,27 +88,38 @@ class App extends React.Component {
     }
   }
 
+  handleChangeColorScheme (event) {
+    event.preventDefault();
+    // console.log('change color scheme');
+    this.setState({
+      isInLightMode: !this.state.isInLightMode
+    });
+  }
+
   render() {
     return (
-      <>
-        <OverviewWithTracker
-          productId={this.state.productId}
-          productInfo={this.state.productInfo}
-          yourOutfit={this.state.yourOutfit}
-          handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
-          handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/>
-        <RelatedItemsWithTracker
-          productId={this.state.productId}
-          relatedProduct={this.state.relatedProduct}
-          yourOutfit={this.state.yourOutfit}
-          onCardClick={this.handleChangeProductId}
-          onStarClick={this.handleAddToYourOutfit}
-          onXClick={this.handleRemoveFromYourOutfit}/>
-        <QnaWithTracker
-          productId={this.state.productId}
-          productInfo={this.state.productInfo}/>
-        <Reviews />
-      </>
+      <div className={this.state.isInLightMode ? 'light-mode' : 'dark-mode'}>
+        <NavBar isInLightMode={this.state.isInLightMode} changeColorScheme={this.handleChangeColorScheme}/>
+        <div className="main">
+          <OverviewWithTracker
+            productId={this.state.productId}
+            productInfo={this.state.productInfo}
+            yourOutfit={this.state.yourOutfit}
+            handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
+            handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/>
+          <RelatedItemsWithTracker
+            productId={this.state.productId}
+            relatedProduct={this.state.relatedProduct}
+            yourOutfit={this.state.yourOutfit}
+            onCardClick={this.handleChangeProductId}
+            onStarClick={this.handleAddToYourOutfit}
+            onXClick={this.handleRemoveFromYourOutfit}/>
+          <QnaWithTracker
+            productId={this.state.productId}
+            productInfo={this.state.productInfo}/>
+          <Reviews />
+        </div>
+      </div>
     );
   }
 }

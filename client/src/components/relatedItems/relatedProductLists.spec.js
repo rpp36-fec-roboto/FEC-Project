@@ -9,14 +9,14 @@ import ReactDOM from 'react-dom/client';
 
 // import test environment and methods
 import '@testing-library/jest-dom'; // provides method for DOM matcher
-import { render, fireEvent, screen, waitFor, within, cleanup } from '@testing-library/react'; // provides methods to test element rendering and user event
+import { render, fireEvent, screen } from '@testing-library/react'; // provides methods to test element rendering and user event
 import userEvent from '@testing-library/user-event'; // provide method to trigger user activity
 import { act } from 'react-dom/test-utils';
 // import TestRenderer from 'react-test-renderer'; // used for snapshot test
 
 
 // import API mocking utilities and Mock Service Worker
-import mockServer from '../../mockFiles/mockServer.js';
+// import mockServer from '../../mockFiles/mockServer.js';
 
 // add components to test
 import App from '../../App.jsx';
@@ -33,35 +33,17 @@ import sampleData from '../../data/sampleData.js';
 import helper from '../../../../lib/clientHelpers.js';
 
 /////////////////////////////////////////////////
-//---------------  TEST SETUP  ----------------//
-/////////////////////////////////////////////////
-
-// establish API mocking before all tests
-beforeAll(() => mockServer.listen());
-
-// reset any request handlers that are declared as a part of our tests
-afterEach(() => mockServer.resetHandlers());
-
-afterAll(() => mockServer.close());
-
-/////////////////////////////////////////////////
-//---------------  UNIT TEST  -----------------//
+//------------------  TESTS  ------------------//
 /////////////////////////////////////////////////
 
 describe('Related Items & Comparison Widget', () => {
   let state = {
     productId: 71697,
     productInfo: sampleData.productInfo,
-    productRatings: sampleData.reviewsMeta,
-    productStyle: sampleData.productStyle,
+    productReviews: sampleData.reviewsMeta,
+    productStyles: sampleData.productStyle,
     relatedProduct: sampleData.relatedProduct,
-    relatedProductInfo: [],
-    relatedProductReviews: [],
-    relatedProductStyles: [],
-    yourOutfit: [71698, 71699, 71700],
-    yourOutfitInfo: [],
-    yourOutfitReviews: [],
-    yourOutfitStyles: []
+    yourOutfit: []
   };
 
   it('use jsdom in this test file', () => {
@@ -69,30 +51,15 @@ describe('Related Items & Comparison Widget', () => {
     expect(element).not.toBeNull();
   });
 
-  describe('render RelatedItem component', () => {
+  describe('render related product list', () => {
     beforeEach(() => {
-      render(<RelatedItems productId={state.productId} yourOutfit={state.yourOutfit} />);
-    });
-
-    it('should show headers', () => {
-      expect(screen.getByText('RELATED PRODUCTS', {exact: true})).toBeInTheDocument();
-      expect(screen.getByText('YOUR OUTFIT', {exact: true})).toBeInTheDocument();
-    });
-
-    it('render Related Items component without crashing', () => {
-      expect(screen.getAllByRole('heading')).toHaveTextContent(/RELATED PRODUCTS/);
-      screen.debug();
-    });
-  });
-
-  describe('render product card for a related item', () => {
-    beforeEach(() => {
-      render(<RelatedProductCard
+      render(<RelatedProductLists
         listType={'relatedProduct'}
         productId={state.productId}
         productInfo={state.productInfo}
-        productRatings={state.productRatings}
-        productStyle={state.productStyle}
+        productReviews={state.productReviews}
+        productStyles={state.productStyles}
+        relatedProduct={state.relatedProduct}
       />);
     });
 
@@ -119,20 +86,17 @@ describe('Related Items & Comparison Widget', () => {
     // update after sale price is captured
     it.todo('renders sales price with original price lined-out');
 
-    // update this test after stars are rendered
-    it('renders the product rating on the card', () => {
-      expect(screen.getByText('Star rating: 3.75/5')).toBeInTheDocument();
-    });
   });
 
-  describe('render product card for an outfit item', () => {
+  describe('render outfit list', () => {
     beforeEach(() => {
       render(<RelatedProductCard
         listType={'yourOutfit'}
         productId={state.productId}
         productInfo={state.productInfo}
-        productRatings={state.productRatings}
-        productStyle={state.productStyle}
+        productReviews={state.productReviews}
+        productStyles={state.productStyles}
+        yourOutfit={state.yourOutfit}
       />);
     });
 
@@ -159,21 +123,6 @@ describe('Related Items & Comparison Widget', () => {
     // update after sale price is captured
     it.todo('renders sales price with original price lined-out');
 
-    // update this test after stars are rendered
-    it('renders the product rating on the card', () => {
-      expect(screen.getByText('Star rating: 3.75/5')).toBeInTheDocument();
-    });
   });
-
-
-  // describe('render RelatedProductLists component', () => {
-  //   beforeEach(() => {
-  //     render(<RelatedItems productId={state.productId} yourOutfit={state.yourOutfit} />);
-  //   });
-
-  //   it('render Related Items component without crashing', () => {
-  //     expect(container).not.toBeNull();
-  //   });
-  // });
 
 });

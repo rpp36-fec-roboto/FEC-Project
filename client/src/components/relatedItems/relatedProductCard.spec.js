@@ -2,21 +2,45 @@
  * @jest-environment jsdom
  */
 
-// import TestRenderer from 'react-test-renderer'; // used for snapshot test
+// import dependencies
 import React from 'react';
-import ReactDOMClient from 'react-dom/client';
-import { render, fireEvent, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
+import ReactDOM from 'react-dom/client';
+// import ReactDOMClient from 'react-dom/client';
 
+// import test environment and methods
+import '@testing-library/jest-dom'; // provides method for DOM matcher
+import { render, fireEvent, screen } from '@testing-library/react'; // provides methods to test element rendering and user event
+import userEvent from '@testing-library/user-event'; // provide method to trigger user activity
+import { act } from 'react-dom/test-utils';
+// import TestRenderer from 'react-test-renderer'; // used for snapshot test
+
+
+// import API mocking utilities and Mock Service Worker
+// import mockServer from '../../mockFiles/mockServer.js';
+
+// add components to test
+import App from '../../App.jsx';
+import RelatedItems from './RelatedItems.jsx';
+import RelatedProductLists from './RelatedProductLists.jsx';
 import RelatedProductCard from './RelatedProductCard.jsx';
-import ActionBtn from './ActionButton.jsx';
-import PrimaryImage from './Images.jsx';
-import Price from './Price.jsx';
-import Rating from './Rating.jsx';
+// import ActionBtn from './ActionButton.jsx';
+// import PrimaryImage from './Images.jsx';
+// import Price from './Price.jsx';
+// import Rating from './Rating.jsx';
+
+// add helper data and functions
 import sampleData from '../../data/sampleData.js';
 import helper from '../../../../lib/clientHelpers.js';
+
+/////////////////////////////////////////////////
+//------------------  TESTS  ------------------//
+/////////////////////////////////////////////////
+
+describe('helper function unit tests', () => {
+  it('should calculate average rating', () => {
+    expect(helper.calculateRating(sampleData.reviewsMeta.ratings)).toBe('72%');
+  });
+});
 
 describe('Related Items & Comparison Widget', () => {
   let state = {
@@ -39,7 +63,7 @@ describe('Related Items & Comparison Widget', () => {
         productId={state.productId}
         productInfo={state.productInfo}
         productRatings={state.productRatings}
-        productStyle={state.productStyle}
+        productStyles={state.productStyle}
       />);
     });
 
@@ -66,11 +90,6 @@ describe('Related Items & Comparison Widget', () => {
     // update after sale price is captured
     it.todo('renders sales price with original price lined-out');
 
-    // update this test after stars are rendered
-    it('renders the product rating on the card', () => {
-      expect(screen.getByText('Star rating: 3.75/5')).toBeInTheDocument();
-    });
-
   });
 
   describe('render product card for an outfit item', () => {
@@ -80,7 +99,7 @@ describe('Related Items & Comparison Widget', () => {
         productId={state.productId}
         productInfo={state.productInfo}
         productRatings={state.productRatings}
-        productStyle={state.productStyle}
+        productStyles={state.productStyle}
       />);
     });
 
@@ -107,10 +126,6 @@ describe('Related Items & Comparison Widget', () => {
     // update after sale price is captured
     it.todo('renders sales price with original price lined-out');
 
-    // update this test after stars are rendered
-    it('renders the product rating on the card', () => {
-      expect(screen.getByText('Star rating: 3.75/5')).toBeInTheDocument();
-    });
   });
 
 });

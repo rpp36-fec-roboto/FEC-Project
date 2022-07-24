@@ -1,34 +1,35 @@
 body {
   margin: 0;
-  /* background:white; */
   font-family: 'Helvetica', sans-serif;
-  /* color: rgb(57, 56, 53); */
+}
+
+.main {
+  padding: 1%;
+  margin-top: 1%;
 }
 
 .light-mode {
-  background-color: #eee;
+  background-color: rgb(221, 220, 220);
   color: rgba(0,0,0,0.9);
 }
 
 .dark-mode {
-  background-color: #111;
+  background-color: rgb(34, 34, 34);
   color: rgba(255,255,255,0.77);
 }
 
 .nav {
+  position: relative;
   height: 50px;
+  padding: 5px;
 }
 
-/* .toggle {
-  margin: auto;
-  height: 80%;
-  float: right;
-  text-align: center;
-  padding: 10px 15px;
-} */
-
 .logo {
+  position: absolute;
+  left: 2%;
   display: inline-block;
+  text-decoration: underline;
+  font-style: italic;
 }
 
 .toggle-container {
@@ -40,7 +41,12 @@ body {
   padding: 2px;
   height: 32px;
   position: relative;
-  float: right;
+  /* float: right; */
+  position: absolute;
+  top: 50%;
+  right: 1%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .dialog-button {

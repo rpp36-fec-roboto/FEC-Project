@@ -100,23 +100,25 @@ class App extends React.Component {
     return (
       <div className={this.state.isInLightMode ? 'light-mode' : 'dark-mode'}>
         <NavBar isInLightMode={this.state.isInLightMode} changeColorScheme={this.handleChangeColorScheme}/>
-        <OverviewWithTracker
-          productId={this.state.productId}
-          productInfo={this.state.productInfo}
-          yourOutfit={this.state.yourOutfit}
-          handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
-          handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/>
-        <RelatedItemsWithTracker
-          productId={this.state.productId}
-          relatedProduct={this.state.relatedProduct}
-          yourOutfit={this.state.yourOutfit}
-          onCardClick={this.handleChangeProductId}
-          onStarClick={this.handleAddToYourOutfit}
-          onXClick={this.handleRemoveFromYourOutfit}/>
-        <QnaWithTracker
-          productId={this.state.productId}
-          productInfo={this.state.productInfo}/>
-        <Reviews />
+        <div className="main">
+          <OverviewWithTracker
+            productId={this.state.productId}
+            productInfo={this.state.productInfo}
+            yourOutfit={this.state.yourOutfit}
+            handleAddToYourOutfit={ () => { this.handleAddToYourOutfit(this.state.productId); } }
+            handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/>
+          <RelatedItemsWithTracker
+            productId={this.state.productId}
+            relatedProduct={this.state.relatedProduct}
+            yourOutfit={this.state.yourOutfit}
+            onCardClick={this.handleChangeProductId}
+            onStarClick={this.handleAddToYourOutfit}
+            onXClick={this.handleRemoveFromYourOutfit}/>
+          <QnaWithTracker
+            productId={this.state.productId}
+            productInfo={this.state.productInfo}/>
+          <Reviews />
+        </div>
       </div>
     );
   }

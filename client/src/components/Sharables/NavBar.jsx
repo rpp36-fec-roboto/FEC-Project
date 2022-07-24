@@ -7,10 +7,10 @@ const NavBar = ({ isInLightMode, changeColorScheme }) => {
       {/* <button onClick={changeColorScheme} className="toggle">{isInLightMode ? 'Dark' : 'Light'}</button> */}
       <div className="toggle-container" onClick={changeColorScheme}>
         <div className={`dialog-button ${isInLightMode ? "disabled" : ""}`}>
-          {isInLightMode ? "Dark" : "Light"}
+          {isInLightMode ? "Light" : "Dark"}
         </div>
       </div>
-      <h2 className={`logo ${navColor}`}>LOGO</h2>
+      <h3 className={`logo ${navColor}`}>LOGO</h3>
     </div>
   );
 };

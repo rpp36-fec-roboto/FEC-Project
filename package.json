@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "jest",
-    "start": "open http://localhost:5555/",
+    "start": "open http://0.0.0.0:5555/",
     "build": "webpack --config webpack.prod.js",
     "react-dev": "webpack -w --config webpack.dev.js",
     "server-dev": "nodemon server/server.js"
@@ -38,6 +38,7 @@
     "eslint": "^8.18.0",
     "express": "^4.15.0",
     "jquery": "^3.1.1",
+    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0"

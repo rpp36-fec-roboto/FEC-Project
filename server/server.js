@@ -8,6 +8,7 @@ const PORT = 5555;
 const api = require('./api.js');
 
 app.get('*.js', function (req, res, next) {
+  console.log('recieved');
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
   next();
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended: true}));
 
 // set up route to send back html file that points to static assets of bundle.js
 app.get('/:product_id', (req, res) => {
+  console.log('product id');
   res.status(200).sendFile(path.join(__dirname, './index.html'));
 });
 

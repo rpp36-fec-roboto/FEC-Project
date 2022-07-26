@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import MainImage from './MainImage.jsx';
 import noImg from '../../assets/no-image.jpeg';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown, MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md';
 import { AiOutlineExpand } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 
-var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbnails,
+var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbnails, isDefaultView,
   handleImgBtnClick, handleImgThumbnailClick, handleThumbnailScrollUp, handleThumbnailScrollDown, handleChangeView}) => {
 
   // generate thumbnail img list
@@ -28,20 +29,15 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
     return thumbnails;
   };
 
-  const handleImgMagnify = () => {};
-
   return (
     <>
       <div className="ov-img-view-container">
-
-        <div className="ov-main-img-container">
-          <img
-            className="ov-main-img"
-            onClick={handleImgMagnify}
-            src={currentStyle.photos[mainImgIndex].url || noImg}
-            alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
-          />
-        </div>
+        <MainImage
+          isDefaultView={isDefaultView}
+          mainImgIndex={mainImgIndex}
+          currentStyle={currentStyle}
+          handleChangeView={handleChangeView}
+        />
 
         <div className="ov-thumbnails-list-container">
           {thumbnailStartIndex !== 0 &&

@@ -128,6 +128,7 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
             mainImgIndex={mainImgIndex}
             maxThumbnails={maxThumbnails}
             thumbnailStartIndex={thumbnailStartIndex}
+            isDefaultView={isDefaultView}
             handleImgBtnClick={handleImgBtnClick}
             handleImgThumbnailClick={handleImgThumbnailClick}
             handleThumbnailScrollUp={handleThumbnailScrollUp}

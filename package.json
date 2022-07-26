@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "jest",
-    "start": "open http://0.0.0.0:5555/",
+    "start": "open http://localhost:5555/",
     "build": "webpack --config webpack.prod.js",
     "react-dev": "webpack -w --config webpack.dev.js",
     "server-dev": "nodemon server/server.js"

@@ -34,7 +34,6 @@ var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
           <IoIosCheckmarkCircleOutline
             style={{
               position: 'absolute',
-              background: 'white',
               borderRadius: '50%',
               left: '80%',
               height: '1.2em',

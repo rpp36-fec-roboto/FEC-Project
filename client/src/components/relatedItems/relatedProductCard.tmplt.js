@@ -29,7 +29,7 @@ import RelatedProductCard from './RelatedProductCard.jsx';
 // import Rating from './Rating.jsx';
 
 // add helper data and functions
-import sampleData from '../../data/sampleData.js';
+import sampleData from '../../mockFiles/sampleData.js';
 import helper from '../../../../lib/clientHelpers.js';
 
 /////////////////////////////////////////////////

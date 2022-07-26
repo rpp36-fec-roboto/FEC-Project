@@ -12,11 +12,25 @@ var RelatedProductCard = function (props) {
     productId,
     productInfo,
     productRatings,
-    productStyle,
+    productStyles,
     onCardClick,
     onStarClick,
     onXClick
   } = props;
+
+  // styleId not currently passed in as prop
+  // declare it undefined, anticipation of future enhancement
+  let category, name, productStyle, styleId, styleName;
+
+  if (productStyles !== undefined) {
+    let defaultStyle = styleId !== undefined
+      ? productStyles.results.filter((style) => style['style_id'] === styleId)
+      : productStyles.results.filter((style) => style['default?'] === true);
+
+    productStyle = defaultStyle.length > 0
+      ? defaultStyle[0]
+      : productStyles.results[0];
+  }
 
   let prodRatings = productRatings
     ? productRatings.ratings
@@ -25,9 +39,6 @@ var RelatedProductCard = function (props) {
   const onClickAction = listType === 'relatedProduct'
     ? onStarClick
     : onXClick;
-
-  // need to capture selected style
-  let category, name, styleName;
 
   if (productInfo !== undefined) {
     category = productInfo.category || '';

@@ -89,7 +89,7 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
     setMainImgIndex(imgIndex);
   };
 
-  const handleImgClick = () => {
+  const handleChangeView = () => {
     setIsDefaultView(!isDefaultView);
   };
 
@@ -132,7 +132,7 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
             handleImgThumbnailClick={handleImgThumbnailClick}
             handleThumbnailScrollUp={handleThumbnailScrollUp}
             handleThumbnailScrollDown={handleThumbnailScrollDown}
-            handleImgClick={handleImgClick}
+            handleChangeView={handleChangeView}
           />
         </div>
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import noImg from '../../assets/no-image.jpeg';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown, MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md';
+import { AiOutlineExpand } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 
 var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbnails,
-  handleImgBtnClick, handleImgThumbnailClick, handleThumbnailScrollUp, handleThumbnailScrollDown, handleImgClick}) => {
+  handleImgBtnClick, handleImgThumbnailClick, handleThumbnailScrollUp, handleThumbnailScrollDown, handleChangeView}) => {
 
   // generate thumbnail img list
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
@@ -27,6 +28,8 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
     return thumbnails;
   };
 
+  const handleImgMagnify = () => {};
+
   return (
     <>
       <div className="ov-img-view-container">
@@ -34,7 +37,7 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
         <div className="ov-main-img-container">
           <img
             className="ov-main-img"
-            onClick={handleImgClick}
+            onClick={handleImgMagnify}
             src={currentStyle.photos[mainImgIndex].url || noImg}
             alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
           />
@@ -64,13 +67,6 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
             >
               <MdOutlineKeyboardArrowDown/>
             </div>}
-            {/* <div
-              className="ov-scroll-btn"
-              onClick={handleThumbnailScrollDown}
-              data-testid="scroll-down"
-            > {maxThumbnails < (currentStyle.photos.length - thumbnailStartIndex) &&  <MdOutlineKeyboardArrowDown />}
-
-            </div> */}
         </div>
 
         { // conditionally rendering of left arrow button
@@ -88,7 +84,7 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
         { // conditionally rendering of right arrow button
           mainImgIndex !== currentStyle.photos.length - 1 &&
           <div
-          data-testid="right-click"
+            data-testid="right-click"
             className="ov-right-btn"
             name="right-click"
             onClick={handleImgBtnClick}>
@@ -97,6 +93,9 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
             </IconContext.Provider>
           </div>
         }
+        <div className="ov-expand-icon-container" onClick={handleChangeView}>
+          <AiOutlineExpand />
+        </div>
       </div>
     </>
   );

@@ -119,7 +119,6 @@ body {
 
 /* Image Gallery Styling*/
 .ov-img-view-container {
-  /* background-color: rgb(229, 229, 229); */
   text-align: center;
   height: 620px;
   min-width: 600px;
@@ -136,6 +135,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+.ov-main-img {
+  top: 2%;
+  left: 2%;
+  max-height: 96%;
+  max-width: 96%;
+  object-fit: contain;
 }
 
 .ov-thumbnails-list-container {
@@ -186,6 +194,28 @@ body {
   right: 5%;
 }
 
+.ov-expand-icon-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.ov-top-row-default .ov-main-img:hover {
+  cursor: zoom-in;
+}
+
+/* .ov-main-img:hover {
+  cursor: zoom-out;
+} */
+
+.style-thumbnail, .ov-img-thumbnail {
+  border: 1px solid rgba(65, 64, 64, 0.825);
+  height: 65px;
+  width: 65px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
 /* Style styling*/
 .style-container {
   position: relative;
@@ -200,32 +230,8 @@ body {
   overflow: scroll;
 }
 
-/* Images styling */
-.style-thumbnail, .ov-img-thumbnail {
-  border: 1px solid rgba(65, 64, 64, 0.825);
-  height: 65px;
-  width: 65px;
-  object-fit: cover;
-  cursor: pointer;
-}
-
 .style-thumbnail {
   border-radius: 50%;
-}
-
-.ov-main-img {
-  top: 2%;
-  left: 2%;
-  max-height: 96%;
-  max-width: 96%;
-  object-fit: contain;
-}
-
-.ov-top-row-default .ov-main-img:hover {
-  cursor: zoom-in;
-}
-.ov-main-img:hover {
-  cursor: zoom-out;
 }
 
 /* Cart */

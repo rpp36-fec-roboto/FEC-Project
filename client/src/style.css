@@ -421,7 +421,7 @@ body {
 }
 
 .answer-close, .question-close{
-  color: #aaa;
+  color: black;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -439,8 +439,8 @@ body {
 /* Modal Header */
 .answer-modal-header, .question-modal-header{
   padding: 2px 16px;
-  background-color: grey;
-  color: white;
+  background-color: darkgrey;
+  color: black;
 }
 
 /* Modal Body */
@@ -451,14 +451,15 @@ body {
 /* Modal Content */
 .answer-modal-content, .question-modal-content{
   position: relative;
-  background-color: #fefefe;
+  background-color: lightgrey;
   margin: auto;
   padding: 0;
   border: 1px solid #888;
   width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   animation-name: animatetop;
-  animation-duration: 0.4s
+  animation-duration: 0.4s;
+  color: black;
 }
 
 /* Add Animation */

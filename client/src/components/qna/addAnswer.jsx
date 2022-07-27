@@ -19,8 +19,12 @@ var addAnswer = (props) => (
           <label>*Your email:</label>
           <input type="text" className="answer-email" name="email" size="35" placeholder="Example: jack@email.com" required></input>
           <h6>For authentication reasons, you will not be emailed</h6>
-          {/* <>photo</> */}
-          <input type="submit" value="Submit" onClick={props.submitAnswer}></input>
+          <input id='data' type='file' name="data" onChange={(e) => { props.fileHandler(e); }}></input><br></br>
+          <input id='data' type='file' name="data" onChange={(e) => { props.fileHandler(e); }}></input><br></br>
+          <input id='data' type='file' name="data" onChange={(e) => { props.fileHandler(e); }}></input><br></br>
+          <input id='data' type='file' name="data" onChange={(e) => { props.fileHandler(e); }}></input><br></br>
+          <input id='data' type='file' name="data" onChange={(e) => { props.fileHandler(e); }}></input><br></br><br></br>
+          <input type="submit" value="Submit" onClick={(e) => { props.submitAnswer(e); }}></input>
         </form>
       </div>
     </div>
@@ -28,8 +32,3 @@ var addAnswer = (props) => (
 );
 
 export default addAnswer;
-
-
-
-
-

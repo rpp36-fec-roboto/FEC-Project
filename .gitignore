@@ -6,6 +6,7 @@
 config.js
 coverage
 .DS_Store
+imgurconfig.js
 
 #client
 client/dist/bundle.js

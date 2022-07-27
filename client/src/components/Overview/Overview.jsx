@@ -23,11 +23,13 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
 
     axios.all([styleRequest, reviewsMeta])
       .then(axios.spread((...responses) => {
-        // console.dir(responses[0].data);
-        // console.dir(responses[1].data);
+        console.dir(responses[0].data);
+        console.dir(responses[1].data);
         setProductStyle(responses[0].data);
         setReviewsMeta(responses[1].data);
         setCurrentStyle(responses[0].data.results[0]);
+        setMainImgIndex(0);
+        setThumbnailStartIndex(0);
         setSize('Select Size');
         setQuant(0);
       }))
@@ -39,6 +41,14 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
   const handleStyleChange = (style) => {
     setCurrentStyle(style);
     setSize('Select Size');
+
+    // if switched to a style has less thumbnails than the current main image index
+    if (style.photos.length - 1 < mainImgIndex) {
+      // reset the main img and thumbnail to the last item available
+      let reSetIndex = style.photos.length - 1;
+      setMainImgIndex(reSetIndex);
+      setThumbnailStartIndex(reSetIndex);
+    }
   };
 
   /*------ IMAGE GALLERY -------*/

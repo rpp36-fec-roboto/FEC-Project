@@ -1,3 +1,6 @@
+// import enviroment variables
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -5,10 +8,8 @@ const PORT = 5555;
 const api = require('./api.js');
 
 app.get('*.js', function (req, res, next) {
-  console.log(req.url);
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
-  console.log(req.url);
   next();
 });
 

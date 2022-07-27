@@ -18,7 +18,7 @@ import '@testing-library/jest-dom';
 
 // add the component to test
 import RelatedItems from './RelatedItems.jsx';
-import sampleData from '../../data/sampleData.js';
+import sampleData from '../../mockFiles/sampleData.js';
 
 let reqData = {
   productId: 71697

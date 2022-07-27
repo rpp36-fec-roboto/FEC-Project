@@ -1,12 +1,15 @@
+/* create a .env file in your root directory on your virtual machine. Include your token like this:
+TOKEN="your_token" */
+
+const API_KEY = process.env;
+
 const axios = require('axios');
-const API_KEY = require('./config.js');
 
 const baseURL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/';
 const headers = { 'Authorization': `${API_KEY.TOKEN}` };
 
 let getData = (url, param, callback) => {
   let options = {
-    // url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp${url}${param}`,
     url,
     baseURL,
     params: param,

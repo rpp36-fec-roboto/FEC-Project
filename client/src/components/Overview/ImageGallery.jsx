@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-// import MainImage from './MainImage.jsx';
-// import ZoomAndPanImg from './ZoomAndPanImg.jsx';
 import usePanAndZoom from './customHook/hooks.js';
 
 import noImg from '../../assets/no-image.jpeg';

@@ -6,11 +6,11 @@ const usePanAndZoom = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const containerRef = useRef(null);
 
-  const onMouseMoveInWindow = useCallback (event => {
+  const onMouseMoveInWindow = event => {
     event.preventDefault();
     console.log('moving');
     dispatch(pan(event));
-  });
+  };
 
   const onMouseOver = (event) => {
     event.preventDefault();
@@ -24,7 +24,6 @@ const usePanAndZoom = () => {
     onMouseOver,
     onMouseMoveInWindow,
   }
-
 };
 
 export default usePanAndZoom;

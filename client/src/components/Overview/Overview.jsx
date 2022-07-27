@@ -8,7 +8,6 @@ import Cart from './Cart.jsx';
 import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import ZoomAndPanImg from './ZoomAndPanImg.jsx';
-import usePanAndZoom from './customHook/hooks';
 import withTracker from '../../components/Sharables/withTracker.js';
 
 var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
@@ -57,9 +56,8 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
   const [isInZoomMode, setIsInZoomMode] = useState(false);
   const [mainImgIndex, setMainImgIndex] = useState(0);
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
-  const [initialX, setInitialX] = useState(0);
-  const [initialY, setInitialY] = useState(0);
-  const { onMouseMoveInWindow } = usePanAndZoom();
+  // const [initialX, setInitialX] = useState(0);
+  // const [initialY, setInitialY] = useState(0);
 
   // client requests to show up to 7 thumbnails, using 4 to test up/down arrow function
   const maxThumbnails = 4;
@@ -112,12 +110,9 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
   const handleChangeToZoomMode = (event) => {
     event.preventDefault();
 
-    setInitialX(event.clientX);
-    setInitialY(event.clientY);
-    if (isInZoomMode) {
-      console.log('invoke remove event listener');
-      window.removeEventListener('mousemove', onMouseMoveInWindow);
-    }
+    // setInitialX(event.clientX);
+    // setInitialY(event.clientY);
+
     setIsInZoomMode(!isInZoomMode);
   };
 
@@ -151,28 +146,31 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
 
         <div className="ov-left-2">
           <div className="ov-img-view-container">
-            <ZoomAndPanImg
-              isInZoomMode={isInZoomMode}
-              initialX={initialX}
-              initialY={initialY}
-              currentStyle={currentStyle}
-              mainImgIndex={mainImgIndex}
-              handleChangeToZoomMode={handleChangeToZoomMode}
-            />
-            <ImageGallery
-              isInZoomMode={isInZoomMode}
-              currentStyle={currentStyle}
-              mainImgIndex={mainImgIndex}
-              maxThumbnails={maxThumbnails}
-              thumbnailStartIndex={thumbnailStartIndex}
-              isDefaultView={isDefaultView}
-              handleImgBtnClick={handleImgBtnClick}
-              handleImgThumbnailClick={handleImgThumbnailClick}
-              handleThumbnailScrollUp={handleThumbnailScrollUp}
-              handleThumbnailScrollDown={handleThumbnailScrollDown}
-              handleChangeView={handleChangeView}
-              handleChangeToZoomMode={handleChangeToZoomMode}
-            />
+            {isInZoomMode ?
+              <ZoomAndPanImg
+                // isInZoomMode={isInZoomMode}
+                // initialX={initialX}
+                // initialY={initialY}
+                currentStyle={currentStyle}
+                mainImgIndex={mainImgIndex}
+                handleChangeToZoomMode={handleChangeToZoomMode}
+              />
+              :
+              <ImageGallery
+                isInZoomMode={isInZoomMode}
+                currentStyle={currentStyle}
+                mainImgIndex={mainImgIndex}
+                maxThumbnails={maxThumbnails}
+                thumbnailStartIndex={thumbnailStartIndex}
+                isDefaultView={isDefaultView}
+                handleImgBtnClick={handleImgBtnClick}
+                handleImgThumbnailClick={handleImgThumbnailClick}
+                handleThumbnailScrollUp={handleThumbnailScrollUp}
+                handleThumbnailScrollDown={handleThumbnailScrollDown}
+                handleChangeView={handleChangeView}
+                handleChangeToZoomMode={handleChangeToZoomMode}
+              />
+            }
           </div>
         </div>
 

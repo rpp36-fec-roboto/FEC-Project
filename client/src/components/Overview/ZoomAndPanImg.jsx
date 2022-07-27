@@ -1,12 +1,9 @@
-import React, { useState, useReducer, useRef } from 'react';
-// import reducer from './customHook/reducer.js';
-// import { pan, startPanAndZoom } from './customHook/actions.js';
+import React, { useState, useEffect, useRef } from 'react';
 import usePanAndZoom from './customHook/hooks.js';
 
 import noImg from '../../assets/no-image.jpeg';
 
 const ZoomAndPanImg = ({
-  isInZoomMode,
   initialX,
   initialY,
   mainImgIndex,
@@ -20,35 +17,33 @@ const ZoomAndPanImg = ({
     translateY,
     scale,
     onMouseOver,
+    onMouseMoveInWindow
   } = usePanAndZoom();
 
-  if (!isInZoomMode) {
-    return null;
-  }
+
+  useEffect(() => {
+    containerRef.current.addEventListener('mouseover', onMouseOver);
+    return () => {
+      window.removeEventListener('mousemove', onMouseMoveInWindow);
+    };
+  }, []);
 
   return (
-    // <div className="ov-main-img-container-zoom"
-    //   ref={containerRef}
-    //   onClick={handleChangeToZoomMode}
-    //   onMouseOver={onMouseOver}
-    // >
-      <div
-        className="ov-main-img-style-container"
+    <div
+      className="ov-main-img-style-container"
+    >
+      <img
+        className="ov-main-img"
         ref={containerRef}
         onClick={handleChangeToZoomMode}
-        onMouseOver={onMouseOver}
         style={{
           transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
         }}
-      >
-        <img
-          className="ov-main-img"
-          src={currentStyle.photos[mainImgIndex].url || noImg}
-          alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
-        />
+        src={currentStyle.photos[mainImgIndex].url || noImg}
+        alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
+      />
 
-      </div>
-    // </div>
+    </div>
   );
 };
 

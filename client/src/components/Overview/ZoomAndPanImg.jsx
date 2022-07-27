@@ -14,7 +14,6 @@ const ZoomAndPanImg = ({ isInZoomMode, mainImgIndex, currentStyle, handleChangeT
 
   const onMouseMoveInWindow = (event) => {
     event.preventDefault();
-    console.log('moving');
     dispatch(pan(event));
   };
 

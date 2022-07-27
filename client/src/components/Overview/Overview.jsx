@@ -7,6 +7,7 @@ import Style from './Style.jsx';
 import Cart from './Cart.jsx';
 import OtherInfo from './OtherInfo.jsx';
 import ImageGallery from './ImageGallery.jsx';
+import ZoomAndPanImg from './ZoomAndPanImg.jsx';
 import withTracker from '../../components/Sharables/withTracker.js';
 
 var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, handleRemoveFromYourOutfit }) => {
@@ -15,7 +16,7 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
   const [reviewsMeta, setReviewsMeta] = useState({});
   const [currentStyle, setCurrentStyle] = useState({photos: [{url: null}]});
 
-  // ComponentDidMount
+  // Run on every productId change
   useEffect(() => {
     var styleRequest = axios.get(`products/${productId}/styles`);
     var reviewsMeta = axios.get('reviews/meta', {params: { 'product_id': productId }});
@@ -34,14 +35,15 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
 
   }, [productId]);
 
-  // handle style change
+  /*------ STYLE -------*/
   const handleStyleChange = (style) => {
     setCurrentStyle(style);
     setSize('Select Size');
   };
 
-  // IMAGE GALLERY component state and function
+  /*------ IMAGE GALLERY -------*/
   const [isDefaultView, setIsDefaultView] = useState(true);
+  const [isInZoomMode, setIsInZoomMode] = useState(false);
   const [mainImgIndex, setMainImgIndex] = useState(0);
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
 
@@ -93,7 +95,11 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
     setIsDefaultView(!isDefaultView);
   };
 
-  // CART component state and function
+  const handleChangeToZoomMode = () => {
+    setIsInZoomMode(!isInZoomMode);
+  };
+
+  /*------ CART -------*/
   const [selectedSize, setSize] = useState('Select Size');
   const [selectedQuant, setQuant] = useState(0);
 
@@ -108,7 +114,6 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
 
   const submitCartRequest = (data) => {
     event.preventDefault();
-    // post request to server
     axios.post('/cart', data)
       .then(response => {
         alert('added to cart');
@@ -123,18 +128,28 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
       <div className={`ov-top-row-${isDefaultView ? 'default' : 'expended'}`}>
 
         <div className="ov-left-2">
-          <ImageGallery
-            currentStyle={currentStyle}
-            mainImgIndex={mainImgIndex}
-            maxThumbnails={maxThumbnails}
-            thumbnailStartIndex={thumbnailStartIndex}
-            isDefaultView={isDefaultView}
-            handleImgBtnClick={handleImgBtnClick}
-            handleImgThumbnailClick={handleImgThumbnailClick}
-            handleThumbnailScrollUp={handleThumbnailScrollUp}
-            handleThumbnailScrollDown={handleThumbnailScrollDown}
-            handleChangeView={handleChangeView}
-          />
+          <div className="ov-img-view-container">
+            <ZoomAndPanImg
+              isInZoomMode={isInZoomMode}
+              currentStyle={currentStyle}
+              mainImgIndex={mainImgIndex}
+              handleChangeToZoomMode={handleChangeToZoomMode}
+            />
+            <ImageGallery
+              isInZoomMode={isInZoomMode}
+              currentStyle={currentStyle}
+              mainImgIndex={mainImgIndex}
+              maxThumbnails={maxThumbnails}
+              thumbnailStartIndex={thumbnailStartIndex}
+              isDefaultView={isDefaultView}
+              handleImgBtnClick={handleImgBtnClick}
+              handleImgThumbnailClick={handleImgThumbnailClick}
+              handleThumbnailScrollUp={handleThumbnailScrollUp}
+              handleThumbnailScrollDown={handleThumbnailScrollDown}
+              handleChangeView={handleChangeView}
+              handleChangeToZoomMode={handleChangeToZoomMode}
+            />
+          </div>
         </div>
 
         {// Only in default view, show product info, style selector and cart

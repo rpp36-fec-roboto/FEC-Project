@@ -1,7 +1,6 @@
 import { types } from './actions.js';
 
 export const initialState = {
-  isZoomedIn: false,
   translateX: 0,
   translateY: 0,
   prevMouseX: 0,
@@ -34,15 +33,6 @@ const reducer = (state, action) => {
         ...state,
         isZoomedIn: true,
         scale: 2.5
-      }
-
-    case types.ZOOM_OUT:
-      return {
-        ...state,
-        isZoomedIn: false,
-        translateX: 0,
-        translateY: 0,
-        scale: 1
       }
 
     default:

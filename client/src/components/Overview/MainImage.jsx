@@ -21,23 +21,12 @@ const MainImage = ({ isDefaultView, mainImgIndex, currentStyle, handleChangeView
   };
 
   return (
-    <div className="ov-main-img-container"
-      ref={containerRef}
-      onClick={isDefaultView ? handleChangeView : zoom}
-    >
-      <div
-        className="ov-main-img-style-container"
-        style={{
-          transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
-        }}
-      >
-        <img
-          className="ov-main-img"
-          src={currentStyle.photos[mainImgIndex].url || noImg}
-          alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
-        />
-
-      </div>
+    <div className="ov-main-img-container">
+      <img
+        className="ov-main-img"
+        src={currentStyle.photos[mainImgIndex].url || noImg}
+        alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
+      />
     </div>
   );
 };

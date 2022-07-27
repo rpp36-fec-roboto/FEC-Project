@@ -124,6 +124,7 @@ body {
   min-width: 600px;
   width: auto;
   position: relative;
+  overflow: hidden;
 }
 
 .ov-main-img-container {

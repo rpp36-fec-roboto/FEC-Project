@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 // import MainImage from './MainImage.jsx';
 // import ZoomAndPanImg from './ZoomAndPanImg.jsx';
+import usePanAndZoom from './customHook/hooks.js';
+
 import noImg from '../../assets/no-image.jpeg';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown, MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md';
 import { AiOutlineExpand } from 'react-icons/ai';
@@ -18,13 +20,12 @@ var ImageGallery = ({
   handleThumbnailScrollUp,
   handleThumbnailScrollDown,
   handleChangeView,
-  handleChangeToZoomMode}) => {
+  handleChangeToZoomMode
+}) => {
 
   if (isInZoomMode) {
     return null;
   }
-
-  // const [isInZoomMode, setIsInZoomMode] = useState(false);
 
   // generate thumbnail img list
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {

@@ -1,6 +1,7 @@
 import { types } from './actions.js';
 
 export const initialState = {
+  // isInZoomMode: false,
   translateX: 0,
   translateY: 0,
   prevMouseX: 0,
@@ -10,16 +11,17 @@ export const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case types.PAN_START:
+    case types.PAN_START_AND_ZOOM:
       return {
         ...state,
+        scale: 2.5,
         prevMouseX: action.clientX,
         prevMouseY: action.clientY,
       };
 
     case types.PAN:
-      const deltaMouseX = action.clientX - state.prevMouseX;
-      const deltaMouseY = action.clientY - state.prevMouseY;
+      const deltaMouseX = state.prevMouseX - action.clientX;
+      const deltaMouseY = state.prevMouseY - action.clientY;
       return {
         ...state,
         translateX: state.translateX + deltaMouseX,
@@ -28,12 +30,11 @@ const reducer = (state, action) => {
         prevMouseY: action.clientY
       }
 
-    case types.ZOOM_IN:
-      return {
-        ...state,
-        isZoomedIn: true,
-        scale: 2.5
-      }
+    // case types.CHANGE_ZOOM_MODE:
+    //   return {
+    //     ...state,
+    //     isInZoomMode: !state.isInZoomMode
+    //   }
 
     default:
       return state;

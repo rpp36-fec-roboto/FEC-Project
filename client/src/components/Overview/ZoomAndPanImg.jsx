@@ -1,36 +1,44 @@
 import React, { useState, useReducer, useRef } from 'react';
-import reducer, { initialState } from './customHook/reducer.js';
-import { pan, startPan, zoomIn, zoomOut } from './customHook/actions.js';
+// import reducer from './customHook/reducer.js';
+// import { pan, startPanAndZoom } from './customHook/actions.js';
+import usePanAndZoom from './customHook/hooks.js';
 
 import noImg from '../../assets/no-image.jpeg';
 
-const ZoomAndPanImg = ({ isInZoomMode, mainImgIndex, currentStyle, handleChangeToZoomMode }) => {
+const ZoomAndPanImg = ({
+  isInZoomMode,
+  initialX,
+  initialY,
+  mainImgIndex,
+  currentStyle,
+  handleChangeToZoomMode
+}) => {
+
+  const {
+    containerRef,
+    translateX,
+    translateY,
+    scale,
+    onMouseOver,
+  } = usePanAndZoom();
+
   if (!isInZoomMode) {
     return null;
   }
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const containerRef = useRef(null);
-
-  const onMouseMoveInWindow = (event) => {
-    event.preventDefault();
-    dispatch(pan(event));
-  };
-
   return (
-    <div className="ov-main-img-container-zoom"
-      ref={containerRef}
-      onClick={handleChangeToZoomMode}
-      onMouseOver={() => {
-        dispatch(zoomIn(event));
-        dispatch(startPan(event));
-        window.addEventListener('mousemove', onMouseMoveInWindow);
-      }}
-    >
+    // <div className="ov-main-img-container-zoom"
+    //   ref={containerRef}
+    //   onClick={handleChangeToZoomMode}
+    //   onMouseOver={onMouseOver}
+    // >
       <div
         className="ov-main-img-style-container"
+        ref={containerRef}
+        onClick={handleChangeToZoomMode}
+        onMouseOver={onMouseOver}
         style={{
-          transform: `scale(${state.scale}) translate(${state.translateX}px, ${state.translateY}px)`,
+          transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
         }}
       >
         <img
@@ -40,7 +48,7 @@ const ZoomAndPanImg = ({ isInZoomMode, mainImgIndex, currentStyle, handleChangeT
         />
 
       </div>
-    </div>
+    // </div>
   );
 };
 

@@ -1,11 +1,11 @@
 export const types = {
   PAN: 'PAN',
-  PAN_START: 'PAN_START',
-  ZOOM_IN: 'ZOOM_IN',
+  PAN_START_AND_ZOOM: 'PAN_START_AND_ZOOM',
+  // CHANGE_ZOOM_MODE: 'CHANGE_ZOOM_MODE'
 };
 
-export const startPan = (event) => ({
-  type: types.PAN_START,
+export const startPanAndZoom = (event) => ({
+  type: types.PAN_START_AND_ZOOM,
   clientX: event.clientX,
   clientY: event.clientY
 });
@@ -16,6 +16,6 @@ export const pan = (event) => ({
   clientY: event.clientY
 });
 
-export const zoomIn = (event) => ({
-  type: types.ZOOM_IN
-});
+// export const changeZoomMode = (event) => ({
+//   type: types.CHANGE_ZOOM_MODE
+// });

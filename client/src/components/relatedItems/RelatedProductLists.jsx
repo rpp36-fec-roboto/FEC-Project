@@ -37,7 +37,7 @@ var RelatedProductLists = function (props) {
   let products = list.map((id) => {
     let prodInfo = productInfo.filter((prod) => prod.id === id);
     let prodRatings = productReviews.filter((prod) => Number(prod.product_id) === id);
-    let prodStyle = productStyles.filter((prod) => Number(prod.product_id) === id);
+    let prodStyles = productStyles.filter((prod) => Number(prod.product_id) === id);
 
     if (id === 'addToOutfit') {
       return (
@@ -56,7 +56,7 @@ var RelatedProductLists = function (props) {
               productId={id}
               productInfo={prodInfo[0]}
               productRatings={prodRatings[0]}
-              productStyle={prodStyle[0]}
+              productStyles={prodStyles[0]}
               onCardClick={onCardClick}
               onStarClick={onStarClick}
               onXClick={onXClick}
@@ -84,9 +84,9 @@ var RelatedProductLists = function (props) {
   };
 
   return (
-    <div>
-      <h3>{listHeading}</h3>
+    <>
       <div className="ri-carousel-container">
+        <h3>{listHeading}</h3>
         <div className="ri-carousel-wrapper">
           {
             currentIndex > 0 &&
@@ -110,7 +110,7 @@ var RelatedProductLists = function (props) {
           }
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

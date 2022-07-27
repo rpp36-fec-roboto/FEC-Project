@@ -9,6 +9,7 @@ import data from '../../mockFiles/sampleData.js';
 import Answer from './answer.jsx';
 import Question from './question.jsx';
 import $ from 'jquery';
+import imgur from '../../../../server/imgur.js';
 
 import withTracker from '../../components/Sharables/withTracker.js';
 
@@ -24,7 +25,8 @@ class Qna extends React.Component {
       reportAnswer: [],
       currentQuestionId: '',
       currentQuestionBody: '',
-      qIndex: ''
+      qIndex: '',
+      files: []
     };
     this.yesQuestionButton = this.yesQuestionButton.bind(this);
     this.addAnswerButton = this.addAnswerButton.bind(this);
@@ -36,6 +38,7 @@ class Qna extends React.Component {
     this.submitAnswer = this.submitAnswer.bind(this);
     this.submitQuestion = this.submitQuestion.bind(this);
     this.input = this.input.bind(this);
+    this.fileHandler = this.fileHandler.bind(this);
   }
   updateQNA() {
     $.ajax({
@@ -328,7 +331,8 @@ class Qna extends React.Component {
         data: {
           name,
           body,
-          email
+          email,
+          photos: this.state.files
         },
         success: () => {
           console.log('Answer has been submitted');
@@ -382,6 +386,24 @@ class Qna extends React.Component {
     }
   }
 
+  fileHandler(e) {
+    var file = new FormData();
+    file.append('image', e.target.files[0], e.target.files[0].name);
+    imgur.postData(file, (err, data) => {
+      if (err) {
+        console.log('Error uploading photo');
+        console.log(err);
+      } else {
+        var picture = data.data.data.link;
+        var files = this.state.files;
+        files.push(picture);
+        this.setState({files: files});
+        console.log('uploaded picture');
+        console.log(picture)
+      }
+    });
+  }
+
 
   render() {
     return (
@@ -405,7 +427,8 @@ class Qna extends React.Component {
         <AddAnswer
           submitAnswer={this.submitAnswer}
           productName={this.props.productInfo}
-          body={this.state.currentQuestionBody}/>
+          body={this.state.currentQuestionBody}
+          fileHandler={this.fileHandler}/>
         <AddQuestion
           submitQuestion={this.submitQuestion}
           productName={this.props.productInfo} />

@@ -450,7 +450,7 @@ body {
 }
 
 .answer-close, .question-close{
-  color: #aaa;
+  color: black;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -468,8 +468,8 @@ body {
 /* Modal Header */
 .answer-modal-header, .question-modal-header{
   padding: 2px 16px;
-  background-color: grey;
-  color: white;
+  background-color: darkgrey;
+  color: black;
 }
 
 /* Modal Body */
@@ -480,14 +480,15 @@ body {
 /* Modal Content */
 .answer-modal-content, .question-modal-content{
   position: relative;
-  background-color: #fefefe;
+  background-color: lightgrey;
   margin: auto;
   padding: 0;
   border: 1px solid #888;
   width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   animation-name: animatetop;
-  animation-duration: 0.4s
+  animation-duration: 0.4s;
+  color: black;
 }
 
 /* Add Animation */
@@ -518,17 +519,17 @@ body {
   display: grid;
   box-sizing: border-box;
   grid-template-rows: 1fr 1fr;
-  width: 80%;
+  width: auto;
   height: 1000px;
-  max-width: 1600px;
-  margin-left: 0;
-  margin-right: auto;
   margin-bottom: 50px;
-  padding-left: 10%
+  margin-top: 50px;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .ri-carousel-container {
   width: 100%;
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
 }
@@ -604,10 +605,11 @@ body {
 .rp-card-container {
   display: flex;
   flex-direction: column;
-  height: 420px;
+  height: 400px;
   position: relative;
   border: 2px solid black;
-  max-width: 320px;
+  max-width: 260px;
+  min-width: 260px;
 }
 
 .rp-card {

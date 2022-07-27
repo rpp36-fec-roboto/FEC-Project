@@ -17,7 +17,6 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-
 // set up route to send back html file that points to static assets of bundle.js
 app.get('/:product_id', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, './index.html'));

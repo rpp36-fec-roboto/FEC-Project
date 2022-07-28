@@ -4,7 +4,7 @@ import { pan, startPanAndZoom } from './actions';
 
 const usePanAndZoom = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const containerRef = useRef(null);
+  // const containerRef = useRef(null);
   const imgRef = useRef(null);
 
   const onMouseMoveInWindow = event => {
@@ -15,7 +15,6 @@ const usePanAndZoom = () => {
 
   const onMouseOver = (event) => {
     event.preventDefault();
-    console.log(state);
     const imgRect = imgRef.current.getBoundingClientRect();
     dispatch(startPanAndZoom(event, imgRect));
     window.addEventListener('mousemove', onMouseMoveInWindow);
@@ -24,7 +23,7 @@ const usePanAndZoom = () => {
 
   return {
     ...state,
-    containerRef,
+    // containerRef,
     imgRef,
     onMouseOver,
     onMouseMoveInWindow,

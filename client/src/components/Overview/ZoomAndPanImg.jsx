@@ -12,7 +12,7 @@ const ZoomAndPanImg = ({
 }) => {
 
   const {
-    containerRef,
+    // containerRef,
     imgRef,
     translateX,
     translateY,
@@ -30,14 +30,8 @@ const ZoomAndPanImg = ({
     };
   }, []);
 
-  // useEffect(() => {
-  //   return () => {
-  //     imgRef.current.removeEventListener('mouseover', onMouseOver);
-  //   };
-  // }, translateX);
-
   return (
-    <div className="ov-main-img-container" ref={containerRef}>
+    // <div className="ov-main-img-container" ref={containerRef}>
       <img
         className="ov-main-img"
         ref={imgRef}
@@ -49,7 +43,7 @@ const ZoomAndPanImg = ({
         alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
       />
 
-    </div>
+    // </div>
   );
 };
 

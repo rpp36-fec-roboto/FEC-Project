@@ -13,20 +13,42 @@ const reducer = (state, action) => {
     case types.PAN_START_AND_ZOOM:
       // containerRef.current.getBoundingClientRect() has height and weight property of the containerRef
 
-      // get center of the image and the translate should be centerX - mouseX and centerY - moustY with scales
-      const centerX = action.imgRect.width / 2;
-      const centerY = action.imgRect.height / 2;
+      // get coordinate of the center of the image
+      const imgCenter = {
+        x: action.imgRect.width / 2,
+        y: action.imgRect.height / 2
+      }
 
-      console.log(action.clientX, action.clientY);
-      console.log(centerX, centerY);
-      // const translateX = (centerX - action.clientX) * 2.5;
-      // const translateY = (centerY - action.clientY) * 2.5;
+      // mouse position relative to the img element
+      const mousePositionOnImg = {
+        x: action.clientX - action.imgRect.left,
+        y: action.clientY - action.imgRect.top
+      }
+
+      const currentDistanceToCenter = {
+        x: mousePositionOnImg.x - imgCenter.x,
+        y: mousePositionOnImg.y - imgCenter.y
+      }
+      // offset scaled image with distance from mouse position to the center of the image
+      const scaledDistanceToCenter = {
+        x: currentDistanceToCenter.x * 2.5,
+        y: currentDistanceToCenter.y * 2.5
+      }
+
+      const offSet = {
+        x: currentDistanceToCenter.x - scaledDistanceToCenter.x,
+        y: currentDistanceToCenter.y - scaledDistanceToCenter.y
+      }
+
+      console.log('mouse distance to center', currentDistanceToCenter);
+      console.log('offset', state.translateX + offSet.x, state.translateY + offSet.y);
+
 
       return {
         ...state,
         scale: 2.5,
-        translateX: (centerX - action.clientX),
-        translateY: (centerY - action.clientY),
+        translateX: offSet.x,
+        translateY: offSet.y,
         prevMouseX: action.clientX,
         prevMouseY: action.clientY,
       };

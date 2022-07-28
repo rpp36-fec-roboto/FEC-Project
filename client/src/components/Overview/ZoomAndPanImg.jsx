@@ -12,7 +12,7 @@ const ZoomAndPanImg = ({
 }) => {
 
   const {
-    // containerRef,
+    containerRef,
     imgRef,
     translateX,
     translateY,
@@ -31,14 +31,26 @@ const ZoomAndPanImg = ({
   }, []);
 
   return (
-    <div className="ov-main-img-container">
+    <div
+      className="ov-main-img-container-zoomed"
+      ref={containerRef}
+      style={{
+        transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
+      }}
+      // style={{
+      //   transform: `scale(${scale})`
+      // }}
+    >
       <img
         className="ov-main-img-zoomed"
         ref={imgRef}
         onClick={handleChangeToZoomMode}
-        style={{
-          transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
-        }}
+        // style={{
+        //   transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
+        // }}
+        // style={{
+        //   transform: `translate(${translateX}px, ${translateY}px)`
+        // }}
         src={currentStyle.photos[mainImgIndex].url || noImg}
         alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
       />

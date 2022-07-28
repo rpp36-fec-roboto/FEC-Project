@@ -148,12 +148,8 @@ body {
   object-fit: contain;
 }
 
-.ov-main-img-container-zoomed {
-
-}
-
 .ov-main-img-zoomed {
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .ov-thumbnails-list-container {

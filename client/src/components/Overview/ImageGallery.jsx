@@ -1,10 +1,29 @@
 import React, { useState } from 'react';
+import usePanAndZoom from './customHook/hooks.js';
+
 import noImg from '../../assets/no-image.jpeg';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown, MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md';
+import { AiOutlineExpand } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 
-var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbnails,
-  handleImgBtnClick, handleImgThumbnailClick, handleThumbnailScrollUp, handleThumbnailScrollDown, handleImgClick}) => {
+var ImageGallery = ({
+  isInZoomMode,
+  currentStyle,
+  mainImgIndex,
+  thumbnailStartIndex,
+  maxThumbnails,
+  isDefaultView,
+  handleImgBtnClick,
+  handleImgThumbnailClick,
+  handleThumbnailScrollUp,
+  handleThumbnailScrollDown,
+  handleChangeView,
+  handleChangeToZoomMode
+}) => {
+
+  if (isInZoomMode) {
+    return null;
+  }
 
   // generate thumbnail img list
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
@@ -29,74 +48,67 @@ var ImageGallery = ({ currentStyle, mainImgIndex, thumbnailStartIndex, maxThumbn
 
   return (
     <>
-      <div className="ov-img-view-container">
+      <div className="ov-main-img-container">
+        <img
+          className="ov-main-img"
+          onClick={isDefaultView ? handleChangeView : handleChangeToZoomMode}
+          src={currentStyle.photos[mainImgIndex].url || noImg}
+          alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
+        />
+      </div>
 
-        <div className="ov-main-img-container">
-          <img
-            className="ov-main-img"
-            onClick={handleImgClick}
-            src={currentStyle.photos[mainImgIndex].url || noImg}
-            alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
-          />
+      <div className="ov-thumbnails-list-container">
+        {thumbnailStartIndex !== 0 &&
+          <div
+            className="ov-scroll-btn"
+            onClick={handleThumbnailScrollUp}
+            data-testid="scroll-up"
+          >
+            <MdOutlineKeyboardArrowUp/>
+          </div>}
+
+        <div className="ov-thumbnails-list">
+          <ul data-testid="thumbnails">
+            {imgThumbnails(currentStyle, thumbnailStartIndex)}
+          </ul>
         </div>
 
-        <div className="ov-thumbnails-list-container">
-          {thumbnailStartIndex !== 0 &&
-            <div
-              className="ov-scroll-btn"
-              onClick={handleThumbnailScrollUp}
-              data-testid="scroll-up"
-            >
-              <MdOutlineKeyboardArrowUp/>
-            </div>}
+        {maxThumbnails < (currentStyle.photos.length - thumbnailStartIndex) &&
+          <div
+            className="ov-scroll-btn"
+            onClick={handleThumbnailScrollDown}
+            data-testid="scroll-down"
+          >
+            <MdOutlineKeyboardArrowDown/>
+          </div>}
+      </div>
 
-          <div className="ov-thumbnails-list">
-            <ul data-testid="thumbnails">
-              {imgThumbnails(currentStyle, thumbnailStartIndex)}
-            </ul>
-          </div>
-
-          {maxThumbnails < (currentStyle.photos.length - thumbnailStartIndex) &&
-            <div
-              className="ov-scroll-btn"
-              onClick={handleThumbnailScrollDown}
-              data-testid="scroll-down"
-            >
-              <MdOutlineKeyboardArrowDown/>
-            </div>}
-            {/* <div
-              className="ov-scroll-btn"
-              onClick={handleThumbnailScrollDown}
-              data-testid="scroll-down"
-            > {maxThumbnails < (currentStyle.photos.length - thumbnailStartIndex) &&  <MdOutlineKeyboardArrowDown />}
-
-            </div> */}
+      { // conditionally rendering of left arrow button
+        mainImgIndex !== 0 &&
+        <div
+          data-testid="left-click"
+          className="ov-left-btn"
+          name="left-click"
+          onClick={handleImgBtnClick}>
+          <IconContext.Provider value={{className: 'center-icon'}}>
+            <MdOutlineArrowBackIosNew />
+          </IconContext.Provider>
         </div>
-
-        { // conditionally rendering of left arrow button
-          mainImgIndex !== 0 &&
-          <div
-            data-testid="left-click"
-            className="ov-left-btn"
-            name="left-click"
-            onClick={handleImgBtnClick}>
-            <IconContext.Provider value={{className: 'center-icon'}}>
-              <MdOutlineArrowBackIosNew />
-            </IconContext.Provider>
-          </div>
-        }
-        { // conditionally rendering of right arrow button
-          mainImgIndex !== currentStyle.photos.length - 1 &&
-          <div
+      }
+      { // conditionally rendering of right arrow button
+        mainImgIndex !== currentStyle.photos.length - 1 &&
+        <div
           data-testid="right-click"
-            className="ov-right-btn"
-            name="right-click"
-            onClick={handleImgBtnClick}>
-            <IconContext.Provider value={{className: 'center-icon'}}>
-              <MdOutlineArrowForwardIos />
-            </IconContext.Provider>
-          </div>
-        }
+          className="ov-right-btn"
+          name="right-click"
+          onClick={handleImgBtnClick}>
+          <IconContext.Provider value={{className: 'center-icon'}}>
+            <MdOutlineArrowForwardIos />
+          </IconContext.Provider>
+        </div>
+      }
+      <div className="ov-expand-icon-container" onClick={handleChangeView}>
+        <AiOutlineExpand />
       </div>
     </>
   );

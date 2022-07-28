@@ -14,14 +14,14 @@ const reducer = (state, action) => {
 
       // get coordinate of the center of the image
       const imgCenter = {
-        x: action.imgRect.width / 2,
-        y: action.imgRect.height / 2
+        x: action.containerRect.width / 2,
+        y: action.containerRect.height / 2
       }
 
       // mouse coordinate within the img element
       const mousePositionOnImg = {
-        x: action.clientX - action.imgRect.left,
-        y: action.clientY - action.imgRect.top
+        x: action.clientX - action.containerRect.left,
+        y: action.clientY - action.containerRect.top
       }
 
       const currentDistanceToCenter = {
@@ -55,8 +55,8 @@ const reducer = (state, action) => {
 
     case types.PAN:
       const imgSize = {
-        width: action.imgRect.width,
-        height: action.imgRect.height
+        width: action.containerRect.width,
+        height: action.containerRect.height
       }
 
       const deltaMouse = {
@@ -68,11 +68,6 @@ const reducer = (state, action) => {
         width: window.innerWidth,
         height: window.innerHeight
       }
-
-      // var proportionalDeltaMouse = {
-      //   x: deltaMouse.x / windowSize.width * imgSize.width,
-      //   y: deltaMouse.y / windowSize.height * imgSize.height
-      // }
 
       var proportionalDeltaMouse = {x: null, y: null};
 

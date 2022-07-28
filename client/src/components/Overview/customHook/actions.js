@@ -3,16 +3,16 @@ export const types = {
   PAN_START_AND_ZOOM: 'PAN_START_AND_ZOOM',
 };
 
-export const startPanAndZoom = (event, imgRect) => ({
+export const startPanAndZoom = (event, containerRect) => ({
   type: types.PAN_START_AND_ZOOM,
   clientX: event.clientX,
   clientY: event.clientY,
-  imgRect: imgRect
+  containerRect: containerRect
 });
 
-export const pan = (event, imgRect) => ({
+export const pan = (event, containerRect) => ({
   type: types.PAN,
   clientX: event.clientX,
   clientY: event.clientY,
-  imgRect: imgRect
+  containerRect: containerRect
 });

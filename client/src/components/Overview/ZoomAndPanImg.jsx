@@ -22,7 +22,6 @@ const ZoomAndPanImg = ({
   } = usePanAndZoom();
 
   useEffect(() => {
-    // containerRef.current.addEventListener('mouseover', onMouseOver);
     imgRef.current.addEventListener('mouseover', onMouseOver);
 
     return () => {
@@ -35,22 +34,16 @@ const ZoomAndPanImg = ({
       className="ov-main-img-container-zoomed"
       ref={containerRef}
       style={{
-        transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
+        transform: `translate(${translateX}px, ${translateY}px)`,
       }}
-      // style={{
-      //   transform: `scale(${scale})`
-      // }}
     >
       <img
         className="ov-main-img-zoomed"
         ref={imgRef}
         onClick={handleChangeToZoomMode}
-        // style={{
-        //   transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
-        // }}
-        // style={{
-        //   transform: `translate(${translateX}px, ${translateY}px)`
-        // }}
+        style={{
+          transform: `scale(${scale})`
+        }}
         src={currentStyle.photos[mainImgIndex].url || noImg}
         alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
       />

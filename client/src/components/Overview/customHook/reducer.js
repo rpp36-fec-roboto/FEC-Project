@@ -26,7 +26,7 @@ const reducer = (state, action) => {
       }
 
       const currentDistanceToCenter = {
-        x: mousePositionOnImg.x - imgCenter.x,
+        x: mousePositionOnImg.x - imgCenter.x ,
         y: mousePositionOnImg.y - imgCenter.y
       }
       // offset scaled image with distance from mouse position to the center of the image

@@ -33,7 +33,7 @@ const ZoomAndPanImg = ({
   return (
     <div className="ov-main-img-container">
       <img
-        className="ov-main-img"
+        className="ov-main-img-zoomed"
         ref={imgRef}
         onClick={handleChangeToZoomMode}
         style={{

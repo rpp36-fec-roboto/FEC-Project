@@ -128,7 +128,7 @@ body {
 }
 
 .ov-main-img-container {
-  position: absolute;
+  /* position: absolute; */
   height: 100%;
   width: 100%;
   top: 0;
@@ -145,6 +145,14 @@ body {
   max-height: 96%;
   max-width: 96%;
   object-fit: contain;
+}
+
+.ov-main-img-zoomed {
+  /* top: 2%;
+  left: 2%; */
+  /* max-height: 100%;
+  max-width: 100%; */
+  object-fit: cover;
 }
 
 .ov-thumbnails-list-container {

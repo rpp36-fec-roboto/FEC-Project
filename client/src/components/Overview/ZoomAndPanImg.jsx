@@ -31,7 +31,7 @@ const ZoomAndPanImg = ({
   }, []);
 
   return (
-    // <div className="ov-main-img-container" ref={containerRef}>
+    <div className="ov-main-img-container">
       <img
         className="ov-main-img"
         ref={imgRef}
@@ -43,7 +43,7 @@ const ZoomAndPanImg = ({
         alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
       />
 
-    // </div>
+    </div>
   );
 };
 

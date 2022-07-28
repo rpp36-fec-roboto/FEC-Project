@@ -124,10 +124,10 @@ body {
   min-width: 600px;
   width: auto;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
-.ov-main-img-container, .ov-main-img-style-container {
+.ov-main-img-container {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -136,6 +136,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .ov-main-img {

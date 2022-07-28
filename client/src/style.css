@@ -124,7 +124,6 @@ body {
   min-width: 600px;
   width: auto;
   position: relative;
-  /* overflow: hidden; */
 }
 
 .ov-main-img-container {
@@ -140,19 +139,21 @@ body {
 }
 
 .ov-main-img {
-  top: 2%;
-  left: 2%;
-  max-height: 96%;
+  /* top: 2%;
+  left: 2%; */
+  height: 620px;
+  width: 1000px;
+  /* max-height: 96%; */
   max-width: 96%;
   object-fit: contain;
 }
 
+.ov-main-img-container-zoomed {
+
+}
+
 .ov-main-img-zoomed {
-  /* top: 2%;
-  left: 2%; */
-  /* max-height: 100%;
-  max-width: 100%; */
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .ov-thumbnails-list-container {
@@ -196,11 +197,11 @@ body {
 }
 
 .ov-left-btn {
-  left: 15%;
+  left: 120px;
 }
 
 .ov-right-btn {
-  right: 5%;
+  right: 40px;
 }
 
 .ov-expand-icon-container {

@@ -11,7 +11,6 @@ export const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case types.PAN_START_AND_ZOOM:
-      // containerRef.current.getBoundingClientRect() has height and weight property of the containerRef
 
       // get coordinate of the center of the image
       const imgCenter = {
@@ -19,7 +18,7 @@ const reducer = (state, action) => {
         y: action.imgRect.height / 2
       }
 
-      // mouse position relative to the img element
+      // mouse coordinate within the img element
       const mousePositionOnImg = {
         x: action.clientX - action.imgRect.left,
         y: action.clientY - action.imgRect.top
@@ -29,7 +28,7 @@ const reducer = (state, action) => {
         x: mousePositionOnImg.x - imgCenter.x ,
         y: mousePositionOnImg.y - imgCenter.y
       }
-      // offset scaled image with distance from mouse position to the center of the image
+
       const scaledDistanceToCenter = {
         x: currentDistanceToCenter.x * 2.5,
         y: currentDistanceToCenter.y * 2.5
@@ -54,12 +53,40 @@ const reducer = (state, action) => {
       };
 
     case types.PAN:
-      const deltaMouseX = state.prevMouseX - action.clientX;
-      const deltaMouseY = state.prevMouseY - action.clientY;
+      const imgSize = {
+        width: action.imgRect.width,
+        height: action.imgRect.height
+      }
+
+      const deltaMouse = {
+        x: state.prevMouseX - action.clientX,
+        y: state.prevMouseY - action.clientY
+      }
+
+      const windowSize = {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+
+      // var proportionalDeltaMouse = {
+      //   x: deltaMouse.x / windowSize.width * imgSize.width,
+      //   y: deltaMouse.y / windowSize.height * imgSize.height
+      // }
+
+      var proportionalDeltaMouse = {x: null, y: null};
+
+      if(imgSize.width > imgSize.height) {
+        proportionalDeltaMouse.x = deltaMouse.x,
+        proportionalDeltaMouse.y = deltaMouse.y * (imgSize.width / imgSize.height)
+      } else {
+        proportionalDeltaMouse.x = deltaMouse.x * (imgSize.height / imgSize.width),
+        proportionalDeltaMouse.y = deltaMouse.y
+      }
+
       return {
         ...state,
-        translateX: state.translateX + deltaMouseX,
-        translateY: state.translateY + deltaMouseY,
+        translateX: state.translateX + proportionalDeltaMouse.x,
+        translateY: state.translateY + proportionalDeltaMouse.y,
         prevMouseX: action.clientX,
         prevMouseY: action.clientY
       }

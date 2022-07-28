@@ -10,8 +10,9 @@ export const startPanAndZoom = (event, imgRect) => ({
   imgRect: imgRect
 });
 
-export const pan = (event) => ({
+export const pan = (event, imgRect) => ({
   type: types.PAN,
   clientX: event.clientX,
-  clientY: event.clientY
+  clientY: event.clientY,
+  imgRect: imgRect
 });

@@ -9,8 +9,9 @@ const usePanAndZoom = () => {
 
   const onMouseMoveInWindow = event => {
     event.preventDefault();
+    const imgRect = imgRef.current.getBoundingClientRect();
     console.log('moving');
-    dispatch(pan(event));
+    dispatch(pan(event, imgRect));
   };
 
   const onMouseOver = (event) => {

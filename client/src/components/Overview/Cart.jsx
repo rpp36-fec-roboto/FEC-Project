@@ -45,7 +45,7 @@ var Cart = ({ currentStyle, isYourOutfit, selectedSize, selectedQuant,
     }
   };
 
-  // add to cart button, underconstruction for all features
+  // add to cart button, under construction for all features
   const sizeInput = useRef(null);
   const handleAddToCart = (event) => {
     event.preventDefault();

@@ -46,7 +46,7 @@ class Qna extends React.Component {
       url: '/qa/questions',
       data: {
         'product_id': this.props.productId,
-        count: 100
+        count: 50
       },
       success: (data) => {
         data.results.sort(function(a, b) {
@@ -256,7 +256,7 @@ class Qna extends React.Component {
       $.ajax({
         method: 'get',
         url: `/qa/questions/${id}/answers`,
-        data: {count: 100},
+        data: {count: 50},
         success: (data) => {
           var answer = {
             'question_id': data.question,

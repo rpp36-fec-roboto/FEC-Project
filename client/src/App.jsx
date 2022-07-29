@@ -90,7 +90,6 @@ class App extends React.Component {
 
   handleChangeColorScheme (event) {
     event.preventDefault();
-    // console.log('change color scheme');
     this.setState({
       isInLightMode: !this.state.isInLightMode
     });

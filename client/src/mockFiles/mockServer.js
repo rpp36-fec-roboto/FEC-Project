@@ -38,6 +38,18 @@ const server = setupServer(
     return res(ctx.json(sampleData.answers));
   }),
 
+  rest.put('/qa/questions/:question_id/helpful', (req, res, ctx) => {
+    return res(ctx.status(201));
+  }),
+
+  rest.put('/qa/answer/:answer_id/helpful', (req, res, ctx) => {
+    return res(ctx.status(201));
+  }),
+
+  rest.put('/qa/answer/:answer_id/report', (req, res, ctx) => {
+    return res(ctx.status(201));
+  }),
+
   rest.post('/cart', (req, res, ctx) => {
     return res(ctx.status(201));
   }),

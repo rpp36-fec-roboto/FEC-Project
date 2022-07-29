@@ -2,10 +2,10 @@ import React from 'react';
 import $ from 'jquery';
 
 var addQuestion = (props) => (
-  <div className="question-modal">
+  <div className="question-modal" >
     <div className="question-modal-content">
       <div className="question-modal-header">
-        <span className="question-close" onClick={() => { $('.question-modal').css('display', 'none'); }}>&times;</span>
+        <span className="question-close" data-testid="question" onClick={() => { $('.question-modal').css('display', 'none'); }}>&times;</span>
         <h2>Ask Your Question</h2>
         <h5>About the {props.productName.name}</h5>
       </div>

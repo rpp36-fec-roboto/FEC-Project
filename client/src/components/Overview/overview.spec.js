@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom/client';
 
 // import test environment and methds
 import '@testing-library/jest-dom'; // provides method for DOM matcher
-import { render, screen, waitFor, within, cleanup } from '@testing-library/react'; // provides methods to test element rendering and user event
+import { render, screen, waitFor, within, cleanup, fireEvent } from '@testing-library/react'; // provides methods to test element rendering and user event
 import userEvent from '@testing-library/user-event'; // provide method to trigger user activity
 // import {BrowserRouter, MemoryRouter} from 'react-router-dom'
 import { act } from "react-dom/test-utils";
@@ -240,6 +240,9 @@ describe('User activities', () => {
       addHandler={addToYourOutfit}
       removeHandler={removeFromYourOutfit}/>);
   })
+  afterEach(() => {
+    cleanup();
+  })
 
   it('should not show scroll-up when at 1st thumbnails and show scroll-up after scrolling down of the thumbnail', async () => {
     await waitFor(async () => {
@@ -260,7 +263,6 @@ describe('User activities', () => {
 
   it('should show left arrow after clicked right arrow', async () => {
     await waitFor(async () => {
-      // screen.debug();
       expect(screen.queryByTestId(/left/i)).not.toBeInTheDocument();
       await userEvent.click(screen.getByTestId(/right/i));
       expect(screen.getByTestId(/left/i)).toBeInTheDocument();
@@ -269,14 +271,16 @@ describe('User activities', () => {
 
   it.only('should not show right arrow when at the last image, and should show 4 thumbnails', async () => {
     await waitFor(async () => {
-      screen.debug();
-      // click right arrow 7 times to get to the last image
-      expect(screen.getByTestId(/right/i)).toBeInTheDocument();
-      await userEvent.click(screen.getByTestId(/right/i));
+      // click right arrow 5 times to get to the last image
+      // for(var i = 0; i < 7; i++) {
+        // await userEvent.click(screen.getByTestId(/right/i));
+        // }
+      const rightArrow = screen.getByTestId(/right/i);
+      await fireEvent.click(rightArrow);
       expect(screen.queryByTestId(/right/i)).not.toBeInTheDocument();
       const list = screen.getByTestId('thumbnails');
       const thumbnails = within(list).getAllByRole('listitem')
-      expect(thumbnails.length).toBe(4);
+      expect(thumbnails.length).toBe(2);
     });
   });
 

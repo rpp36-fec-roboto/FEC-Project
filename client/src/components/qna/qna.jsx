@@ -91,7 +91,7 @@ class Qna extends React.Component {
     }
   }
 
-  yesQuestionButton(qid) {
+  yesQuestionButton(qid, num) {
     if (!this.state.questionhelpful.includes(qid)) {
       $.ajax({
         method: 'put',
@@ -100,6 +100,9 @@ class Qna extends React.Component {
           console.log('Thank you for marking this helpful!');
           let tempState = this.state.questionhelpful;
           tempState.push(qid);
+          num++;
+          var text = `(${num})`;
+          $(`.help.${qid}`)[0].innerText = text;
           this.setState({questionhelpful: tempState});
         }
       });
@@ -116,7 +119,7 @@ class Qna extends React.Component {
       currentQuestionBody: body});
   }
 
-  yesAnswerButton(id) {
+  yesAnswerButton(id, num) {
     if (!this.state.answerhelpful.includes(id)) {
       $.ajax({
         method: 'put',
@@ -125,7 +128,11 @@ class Qna extends React.Component {
           console.log('Thank you for marking this helpful!');
           let tempState = this.state.answerhelpful;
           tempState.push(id);
+          num++;
+          var text = `(${num})`;
+          $(`.helpanswer.${id}`)[0].innerText = text;
           this.setState({answerhelpful: tempState});
+          // change number ++ and yes button to clicked?
         }
       });
     } else {
@@ -160,7 +167,7 @@ class Qna extends React.Component {
     if (this.state.questions.length === index + 2) {
       index++;
 
-      $('.questions').append(`<div id=question${index}></div>`);
+      $('.questions').append(`<div id=question${index} data-testid="morequestions"></div>`);
 
       var root = ReactDOM.createRoot(document.getElementById(`question${index}`));
 
@@ -191,7 +198,7 @@ class Qna extends React.Component {
       $('.morequestions').hide();
     } else {
       index += 2;
-      $('.questions').append(`<div id=question${index}></div>`);
+      $('.questions').append(`<div id=question${index} data-testid="morequestions"></div>`);
 
       var root = ReactDOM.createRoot(document.getElementById(`question${index}`));
 
@@ -262,7 +269,7 @@ class Qna extends React.Component {
             'question_id': data.question,
             'results': data.results
           };
-          $(`.${id}.all`).append('<div id="more"></div>');
+          $(`.${id}.all`).append('<div id="more" data-testid="moreanswers"></div>');
           $(`.${id}.normal`).css({display: 'none'});
           if (data.results.length > 4) {
             $(`.${id}.all`).addClass('answers-clicked overflowtrue');

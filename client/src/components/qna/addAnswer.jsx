@@ -5,7 +5,7 @@ var addAnswer = (props) => (
   <div className="answer-modal">
     <div className="answer-modal-content">
       <div className="answer-modal-header">
-        <span className="answer-close" onClick={() => { $('.answer-modal').css('display', 'none'); }}>&times;</span>
+        <span className="answer-close" data-testid="answer" onClick={() => { $('.answer-modal').css('display', 'none'); }}>&times;</span>
         <h2>Add an answer</h2>
         <h5>{props.productName.name + ': ' + props.body}</h5>
       </div>

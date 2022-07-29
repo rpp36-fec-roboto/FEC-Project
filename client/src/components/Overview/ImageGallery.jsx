@@ -85,7 +85,7 @@ var ImageGallery = ({
 
       <div className={'ov-main-img-container' + (isDefaultView ? '' : '-expanded')}>
         <img
-          className="ov-main-img"
+          className={'ov-main-img' + (isDefaultView ? '' : '-expanded')}
           style={cursorOnHover(isDefaultView)}
           onClick={isDefaultView ? handleChangeView : handleChangeToZoomMode}
           src={currentStyle.photos[mainImgIndex].url || noImg}

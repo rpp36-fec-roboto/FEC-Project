@@ -138,7 +138,7 @@ body {
   align-items: center;
 }
 
-.ov-main-img {
+.ov-main-img, .ov-main-img-expanded {
   max-height: 620px;
   max-width: 1000px;
   object-fit: contain;
@@ -150,6 +150,7 @@ body {
   z-index: 5;
   position: absolute;
   padding: 5px;
+  width: 65px;
   background-color: rgba(229, 229, 229, 0.7);
 }
 
@@ -165,15 +166,27 @@ body {
 }
 
 .ov-thumbnail-container {
-  margin-top: 17%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 6%;
+  margin-top: 16%;
 }
 
 .style-thumbnail, .ov-img-thumbnail {
   border: 1px solid rgba(65, 64, 64, 0.825);
-  height: 65px;
-  width: 65px;
   object-fit: cover;
   cursor: pointer;
+}
+
+.style-thumbnail {
+  height: 65px;
+  width: 65px;
+}
+
+.ov-img-thumbnail {
+  height: 60px;
+  width: 60px;
 }
 
 .ov-thumbnail-selected {
@@ -181,15 +194,26 @@ body {
 }
 
 /*--- Expanded View ---*/
+.ov-main-img-container-expanded {
+  width: 97%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+}
+
 .ov-thumbnails-list-container-expanded {
-  width: 7%;
+  width: 3%;
   display: inline-block;
   vertical-align: top;
 }
 
-.ov-main-img-container-expanded {
-  width: 93%;
-  display: inline-block;
+.ov-main-img-expanded {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .ov-img-thumbnail-expanded {
@@ -207,11 +231,7 @@ body {
   align-items: center;
 }
 
-.ov-main-img-zoomed {
-  max-height: 620px;
-  max-width: 1000px;
-  object-fit: contain;
-}
+/* .ov-main-img style is same as default view*/
 
 /*--- Buttons/Icons ---*/
 .center-icon {

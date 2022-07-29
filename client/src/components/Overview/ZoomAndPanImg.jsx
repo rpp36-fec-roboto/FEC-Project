@@ -39,7 +39,7 @@ const ZoomAndPanImg = ({
       }}
     >
       <img
-        className="ov-main-img-zoomed"
+        className="ov-main-img"
         style={{cursor: `url(${minusSymbol}), vertical-text`}}
         ref={imgRef}
         onClick={handleChangeToZoomMode}

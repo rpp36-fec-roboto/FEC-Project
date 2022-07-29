@@ -57,8 +57,8 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
   const [mainImgIndex, setMainImgIndex] = useState(0);
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
 
-  // client requests to show up to 7 thumbnails, using 4 to test up/down arrow function
-  const maxThumbnails = 4;
+  // client requests to show up to 7 thumbnails
+  const maxThumbnails = 7;
 
   // handle left/right button click on main image
   const handleImgBtnClick = (event) => {
@@ -81,9 +81,9 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
   };
 
   const handleThumbnailScrollUp = (event) => {
-    // scroll by 3
+    // scroll by 4
     let startIndex = thumbnailStartIndex;
-    startIndex -= 3;
+    startIndex -= 4;
     if (startIndex < 0) {
       startIndex = 0;
     }
@@ -91,9 +91,9 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
   };
 
   const handleThumbnailScrollDown = (event) => {
-    // scroll by 3
+    // scroll by 4
     let startIndex = thumbnailStartIndex;
-    startIndex += 3;
+    startIndex += 4;
     setThumbnailStartIndex(startIndex);
   };
 

@@ -32,10 +32,10 @@ var ImageGallery = ({
         return (
           <li
             key={index.toString()}
-            className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-thumbnail-selected" : "") }
+            className={'ov-thumbnail-container ' + (index === mainImgIndex ? 'ov-thumbnail-selected' : '')}
           >
             <img
-              className="ov-img-thumbnail"
+              className={`ov-img-thumbnail${isDefaultView ? '' : '-expanded'}`}
               src={photo.thumbnail_url || noImg}
               alt={`image #${index + 1} of ${currentStyle.name}`}
               onClick={ (e) => { handleImgThumbnailClick(index); } }
@@ -48,16 +48,7 @@ var ImageGallery = ({
 
   return (
     <>
-      <div className="ov-main-img-container">
-        <img
-          className="ov-main-img"
-          onClick={isDefaultView ? handleChangeView : handleChangeToZoomMode}
-          src={currentStyle.photos[mainImgIndex].url || noImg}
-          alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
-        />
-      </div>
-
-      <div className="ov-thumbnails-list-container">
+      <div className={'ov-thumbnails-list-container' + (isDefaultView ? '' : '-expanded')}>
         {thumbnailStartIndex !== 0 &&
           <div
             className="ov-scroll-btn"
@@ -81,6 +72,15 @@ var ImageGallery = ({
           >
             <MdOutlineKeyboardArrowDown/>
           </div>}
+      </div>
+
+      <div className={'ov-main-img-container' + (isDefaultView ? '' : '-expanded')}>
+        <img
+          className="ov-main-img"
+          onClick={isDefaultView ? handleChangeView : handleChangeToZoomMode}
+          src={currentStyle.photos[mainImgIndex].url || noImg}
+          alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
+        />
       </div>
 
       { // conditionally rendering of left arrow button

@@ -9,8 +9,8 @@ body {
 }
 
 .light-mode {
-  background-color: rgb(221, 220, 220);
-  color: rgba(0,0,0,0.9);
+  background-color: rgb(232, 232, 232);
+  color: rgba(29, 29, 29, 0.9);
 }
 
 .dark-mode {

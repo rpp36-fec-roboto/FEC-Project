@@ -111,7 +111,15 @@ module.exports.productStyle = {
               {
                   "thumbnail_url": "https://images.unsplash.com/photo-1557394976-32cc983558ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
                   "url": "https://images.unsplash.com/photo-1557394976-32cc983558ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
-              }
+              },
+              {
+                "thumbnail_url": "https://images.unsplash.com/photo-1557394976-32cc983558ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1557394976-32cc983558ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                "thumbnail_url": "https://images.unsplash.com/photo-1557394976-32cc983558ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1557394976-32cc983558ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+            }
           ],
           "skus": {
               "2580538": {
@@ -608,7 +616,49 @@ module.exports.questions = {
                   "photos": []
               }
           }
-      }
+      },
+      {
+        "question_id": 641723,
+        "question_body": "Why did you like the product or not?",
+        "question_date": "2022-06-07T00:00:00.000Z",
+        "asker_name": "Example: jackson11!",
+        "question_helpfulness": 2,
+        "reported": false,
+        "answers": {
+            "5986024": {
+                "id": 5986024,
+                "body": "I hide in the woods all the time in my camo onesie and no one has ever noticed me!",
+                "date": "2022-06-09T00:00:00.000Z",
+                "answerer_name": "sneakyPete",
+                "helpfulness": 2,
+                "photos": []
+            },
+            "5986042": {
+                "id": 5986042,
+                "body": "Works perfect!",
+                "date": "2022-06-11T00:00:00.000Z",
+                "answerer_name": "jack543!",
+                "helpfulness": 0,
+                "photos": []
+            },
+            "5986043": {
+                "id": 5986043,
+                "body": "So well!",
+                "date": "2022-06-12T00:00:00.000Z",
+                "answerer_name": "jack543!",
+                "helpfulness": 0,
+                "photos": []
+            },
+            "5986044": {
+                "id": 5986044,
+                "body": "so awesome!",
+                "date": "2022-06-12T00:00:00.000Z",
+                "answerer_name": "jack543!",
+                "helpfulness": 0,
+                "photos": []
+            }
+        }
+    }
   ]
 };
 

@@ -117,7 +117,7 @@ body {
   margin: auto;
 }
 
-/* Image Gallery Styling*/
+/* Image Gallery Styling */
 .ov-img-view-container {
   text-align: center;
   height: 620px;
@@ -138,19 +138,7 @@ body {
   align-items: center;
 }
 
-.ov-main-img {
-  max-height: 620px;
-  max-width: 1000px;
-  object-fit: contain;
-}
-
-.ov-main-img-container-zoomed {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.ov-main-img-zoomed {
+.ov-main-img, .ov-main-img-expanded {
   max-height: 620px;
   max-width: 1000px;
   object-fit: contain;
@@ -162,6 +150,7 @@ body {
   z-index: 5;
   position: absolute;
   padding: 5px;
+  width: 65px;
   background-color: rgba(229, 229, 229, 0.7);
 }
 
@@ -177,11 +166,74 @@ body {
 }
 
 .ov-thumbnail-container {
-  /* height: 70px;
-  width: 70px; */
-  margin-top: 17%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 6%;
+  margin-top: 16%;
 }
 
+.style-thumbnail, .ov-img-thumbnail {
+  border: 1px solid rgba(65, 64, 64, 0.825);
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.style-thumbnail {
+  height: 65px;
+  width: 65px;
+}
+
+.ov-img-thumbnail {
+  height: 60px;
+  width: 60px;
+}
+
+.ov-thumbnail-selected {
+  border-bottom: 3px solid rgb(45, 43, 43);
+}
+
+/*--- Expanded View ---*/
+.ov-main-img-container-expanded {
+  width: 97%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+.ov-thumbnails-list-container-expanded {
+  width: 3%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.ov-main-img-expanded {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.ov-img-thumbnail-expanded {
+  border: 1px solid rgba(65, 64, 64, 0.825);
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  object-fit: cover;
+}
+
+/*--- Zoom Mode ---*/
+.ov-main-img-container-zoomed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .ov-main-img style is same as default view*/
+
+/*--- Buttons/Icons ---*/
 .center-icon {
   display: block;
   margin: auto;
@@ -208,34 +260,6 @@ body {
   position: absolute;
   right: 0;
   top: 0;
-}
-
-.ov-top-row-default .ov-main-img:hover {
-  cursor: zoom-in;
-}
-
-.ov-top-row-expended .ov-main-img:hover {
-  /* cursor: a "+" symbol */
-}
-
-.ov-top-row-expended .ov-thumbnail-container {
-  /* needs to be an icon size */
-}
-
-.ov-top-row-expended .ov-img-thumbnail {
-  /* may need to be a round icon */
-}
-
-/* .ov-top-row-expended .ov-main-img:hover {
-  cursor: a "-" symbol
-} */
-
-.style-thumbnail, .ov-img-thumbnail {
-  border: 1px solid rgba(65, 64, 64, 0.825);
-  height: 65px;
-  width: 65px;
-  object-fit: cover;
-  cursor: pointer;
 }
 
 /* Style styling*/
@@ -361,10 +385,6 @@ body {
 /* Other styling*/
 .ov-padding-bottom {
   padding-bottom: 5%;
-}
-
-.ov-thumbnail-selected {
-  border-bottom: 3px solid rgb(45, 43, 43);
 }
 
 /*

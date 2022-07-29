@@ -149,7 +149,7 @@ describe('Overview widget rendering', () => {
       await waitFor(() => {
         const list = screen.getByTestId('thumbnails');
         const thumbnails = within(list).getAllByRole('listitem');
-        expect(thumbnails.length).toBe(4)
+        expect(thumbnails.length).toBe(7)
       });
     });
     it('should not show scroll up icon initially', async () => {
@@ -260,22 +260,23 @@ describe('User activities', () => {
 
   it('should show left arrow after clicked right arrow', async () => {
     await waitFor(async () => {
+      // screen.debug();
       expect(screen.queryByTestId(/left/i)).not.toBeInTheDocument();
       await userEvent.click(screen.getByTestId(/right/i));
       expect(screen.getByTestId(/left/i)).toBeInTheDocument();
     });
   });
 
-  it('should not show right arrow when at the last image, and should show 2 thumbnails', async () => {
+  it.only('should not show right arrow when at the last image, and should show 4 thumbnails', async () => {
     await waitFor(async () => {
-      // click right arrow 5 times to get to the last image
-      for(var i = 0; i < 5; i++) {
-        await userEvent.click(screen.getByTestId(/right/i));
-      }
+      screen.debug();
+      // click right arrow 7 times to get to the last image
+      expect(screen.getByTestId(/right/i)).toBeInTheDocument();
+      await userEvent.click(screen.getByTestId(/right/i));
       expect(screen.queryByTestId(/right/i)).not.toBeInTheDocument();
       const list = screen.getByTestId('thumbnails');
       const thumbnails = within(list).getAllByRole('listitem')
-      expect(thumbnails.length).toBe(2);
+      expect(thumbnails.length).toBe(4);
     });
   });
 

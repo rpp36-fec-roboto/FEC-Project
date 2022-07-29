@@ -23,8 +23,8 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
 
     axios.all([styleRequest, reviewsMeta])
       .then(axios.spread((...responses) => {
-        console.dir(responses[0].data);
-        console.dir(responses[1].data);
+        // console.dir(responses[0].data);
+        // console.dir(responses[1].data);
         setProductStyle(responses[0].data);
         setReviewsMeta(responses[1].data);
         setCurrentStyle(responses[0].data.results[0]);

@@ -10,7 +10,6 @@ const usePanAndZoom = () => {
   const onMouseMoveInWindow = event => {
     event.preventDefault();
     const containerRect = containerRef.current.getBoundingClientRect();
-    console.log('moving');
     dispatch(pan(event, containerRect));
   };
 

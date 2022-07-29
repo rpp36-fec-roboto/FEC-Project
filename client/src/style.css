@@ -242,16 +242,16 @@ body {
   top: 0;
 }
 
-.ov-top-row-default .ov-main-img:hover {
+/* .ov-top-row-default .ov-main-img:hover {
   cursor: zoom-in;
 }
 
-.ov-top-row-expended .ov-main-img:hover {
-  /* cursor: a "+" symbol */
-}
+.ov-main-img-container-expanded .ov-main-img:hover {
+  cursor: crosshair;
+} */
 
-/* .ov-top-row-expended .ov-main-img:hover {
-  cursor: a "-" symbol
+/* .ov-main-img-zoomed {
+  cursor: vertical-text;
 } */
 
 /* Style styling*/

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import usePanAndZoom from './customHook/hooks.js';
 
 import noImg from '../../assets/no-image.jpeg';
+import plusSymbol from '../../assets/plus_icon.png';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown, MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md';
 import { AiOutlineExpand } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
@@ -24,6 +25,14 @@ var ImageGallery = ({
   if (isInZoomMode) {
     return null;
   }
+
+  const cursorOnHover = (isdefaultView) => {
+    if (isdefaultView) {
+      return {cursor: 'zoom-in'};
+    } else {
+      return {cursor: `url(${plusSymbol}), crosshair`};
+    }
+  };
 
   // generate thumbnail img list
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
@@ -77,6 +86,7 @@ var ImageGallery = ({
       <div className={'ov-main-img-container' + (isDefaultView ? '' : '-expanded')}>
         <img
           className="ov-main-img"
+          style={cursorOnHover(isDefaultView)}
           onClick={isDefaultView ? handleChangeView : handleChangeToZoomMode}
           src={currentStyle.photos[mainImgIndex].url || noImg}
           alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}

@@ -20,13 +20,15 @@ var userhelpful = (props) => {
       <div className='qa-float' >|</div>
       <div className='qa-float' >Helpful?</div>
       {props.answer.id !== undefined ?
-        <div className='qa-underline qa-float' onClick={(e) => { props.yesAnswer(props.answer.id); }}>Yes</div> :
-        <div className='qa-underline qa-float' onClick={(e) => { props.yesAnswer(props.answer['answer_id']); }}>Yes</div>}
-      <div className='qa-float' >({props.answer.helpfulness})</div>
+        <div className='qa-underline qa-float' data-testid={`yesanswer${props.answer.id}`} onClick={(e) => { props.yesAnswer(props.answer.id, props.answer.helpfulness); }}>Yes</div> :
+        <div className='qa-underline qa-float' data-testid={`yesanswer${props.answer['answer_id']}`} onClick={(e) => { props.yesAnswer(props.answer['answer_id'], props.answer.helpfulness); }}>Yes</div>}
+      {props.answer.id !== undefined ?
+        <div className={`qa-float helpanswer ${props.answer.id}`} data-testid={`answer${props.answer.id}`}>({props.answer.helpfulness})</div> :
+        <div className={`qa-float helpanswer ${props.answer['answer_id']}`} data-testid={`answer${props.answer['answer_id']}`}>({props.answer.helpfulness})</div>}
       <div className='qa-float' >|</div>
       {props.answer.id !== undefined ?
-        <div className={`qa-underline qa-float ${props.answer.id}`} onClick={(e) => { props.reportAnswer(props.answer.id); }}>Report</div> :
-        <div className={`qa-underline qa-float ${props.answer['answer_id']}`} onClick={(e) => { props.reportAnswer(props.answer['answer_id']); }}>Report</div>}
+        <div className={`qa-underline qa-float ${props.answer.id}`} data-testid={'report' + props.answer.id } onClick={(e) => { props.reportAnswer(props.answer.id); }}>Report</div> :
+        <div className={`qa-underline qa-float ${props.answer['answer_id']}`} data-testid={'report' + props.answer.id } onClick={(e) => { props.reportAnswer(props.answer['answer_id']); }}>Report</div>}
     </div>
   );
 };

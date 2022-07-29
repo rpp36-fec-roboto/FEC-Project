@@ -135,7 +135,7 @@ describe('Overview widget rendering', () => {
   })
 
   describe('ImageGallery component', () => {
-    it('should have 4 thumbnmails displayed', async () => {
+    it('should have 7 thumbnmails displayed', async () => {
      /**
       * async and await waitFor the component render after recieving response from server.
       * Without await waitFor, the test will run against the initial data of the component.
@@ -147,7 +147,7 @@ describe('Overview widget rendering', () => {
       * Otherwise, the test will pass.
       */
       await waitFor(() => {
-        const list = screen.getByTestId('thumbnails');
+        const list = screen.getByTestId(/thumbnails/i);
         const thumbnails = within(list).getAllByRole('listitem');
         expect(thumbnails.length).toBe(7)
       });
@@ -239,10 +239,7 @@ describe('User activities', () => {
       yourOutfit={yourOutfit}
       addHandler={addToYourOutfit}
       removeHandler={removeFromYourOutfit}/>);
-  })
-  afterEach(() => {
-    cleanup();
-  })
+  });
 
   it('should not show scroll-up when at 1st thumbnails and show scroll-up after scrolling down of the thumbnail', async () => {
     await waitFor(async () => {
@@ -269,19 +266,18 @@ describe('User activities', () => {
     });
   });
 
-  it.only('should not show right arrow when at the last image, and should show 4 thumbnails', async () => {
-    await waitFor(async () => {
-      // click right arrow 5 times to get to the last image
-      // for(var i = 0; i < 7; i++) {
-        // await userEvent.click(screen.getByTestId(/right/i));
-        // }
-      const rightArrow = screen.getByTestId(/right/i);
-      await fireEvent.click(rightArrow);
-      expect(screen.queryByTestId(/right/i)).not.toBeInTheDocument();
-      const list = screen.getByTestId('thumbnails');
-      const thumbnails = within(list).getAllByRole('listitem')
-      expect(thumbnails.length).toBe(2);
-    });
+  it('should not show right arrow when at the last image, and should show 1 thumbnail', async () => {
+    const rightArrow = await waitFor(() => { return screen.getByTestId(/right/i); });
+
+    // click right arrow 7 times to get to the last image
+    for(var i = 0; i < 7; i++) {
+      await userEvent.click(rightArrow);
+    }
+    expect(screen.queryByTestId(/right/i)).not.toBeInTheDocument();
+    const list = screen.getByTestId('thumbnails');
+    const thumbnails = within(list).getAllByRole('listitem');
+    screen.debug();
+    expect(thumbnails.length).toBe(1);
   });
 
   it('should update style name and price after click change style', async () => {
@@ -313,7 +309,7 @@ describe('User activities', () => {
     });
   });
 
-  it('clicking on add to cart without selecting a size should show warning message', async () => {
+  it('should show warning message when clicking on add to cart without selecting a size', async () => {
     await waitFor(async () => {
       expect(screen.queryByText(/please select a size/i)).not.toBeInTheDocument();
       expect(screen.getByRole('button', {name: /ADD TO CART/i})).toBeInTheDocument();
@@ -323,6 +319,52 @@ describe('User activities', () => {
       })
     });
   });
+
+  it('should change to expanded view when click once and zoom mode when click second time on the main image', async () => {
+    await waitFor(async() => {
+      // selecting main image to click
+      const imgList = screen.getAllByRole('img', {name: /#1/i});
+      const mainImg = imgList[1];
+
+      userEvent.click(mainImg);
+      // in expanded view, product name should not show
+      expect(screen.queryByText(/camo onesie/i)).not.toBeInTheDocument();
+
+      userEvent.click(mainImg);
+      // in zoom mode, thumbnail should not show
+      expect(screen.getAllByRole('img').length).toBe(1);
+    })
+  });
+
+  it('should zoom by 2.5 in zoom mode with mouse over on the image', async () => {
+    // get to zoom mode first
+    const zoomImgContainer = await waitFor(() => {
+      let mainImg = screen.getAllByRole('img', {name: /#1/i})[1];
+      userEvent.click(mainImg);
+      userEvent.click(mainImg);
+      return screen.getByTestId(/zoom/i);
+    } );
+    // hover over mainImg should zoom
+    const mainImg = screen.getByRole('img');
+    userEvent.hover(mainImg);
+    const zoomStyle = window.getComputedStyle(zoomImgContainer);
+    expect(zoomStyle.getPropertyValue('transform')).toContain('scale(2.5');
+  });
+
+  it('should return to expanded view if not clicking on main image in zoom mode', async () => {
+    // get to zoom mode first
+    const zoomImgContainer = await waitFor(() => {
+      let mainImg = screen.getAllByRole('img', {name: /#1/i})[1];
+      userEvent.click(mainImg);
+      return screen.getByTestId(/zoom/i);
+    } );
+
+    // click mainImg should return to expanded view
+    const mainImg = screen.getByRole('img');
+    await userEvent.click(mainImg);
+    expect(screen.getByTestId(/thumbnails/i)).toBeInTheDocument();
+    expect(screen.queryByTestId(/zoom/i)).not.toBeInTheDocument();
+  })
 });
 
 describe('App level activity', () => {

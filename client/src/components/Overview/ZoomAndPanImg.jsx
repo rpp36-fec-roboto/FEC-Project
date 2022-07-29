@@ -32,6 +32,7 @@ const ZoomAndPanImg = ({
 
   return (
     <div
+      data-testid = "zoom-container"
       className="ov-main-img-container-zoomed"
       ref={containerRef}
       style={{

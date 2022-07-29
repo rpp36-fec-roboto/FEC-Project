@@ -22,7 +22,7 @@ var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
     }
   };
 
-  // render list of thumnails
+  // return list of thumnails
   var thumbnailList = (productStyle, currentStyle) => {
     return productStyle.results.map((style, index) => {
       var imageURL = style.photos[0].thumbnail_url || noImg;

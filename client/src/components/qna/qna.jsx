@@ -132,7 +132,6 @@ class Qna extends React.Component {
           var text = `(${num})`;
           $(`.helpanswer.${id}`)[0].innerText = text;
           this.setState({answerhelpful: tempState});
-          // change number ++ and yes button to clicked?
         }
       });
     } else {
@@ -401,12 +400,14 @@ class Qna extends React.Component {
         console.log('Error uploading photo');
         console.log(err);
       } else {
+        console.log(data)
         var picture = data.data.data.link;
         var files = this.state.files;
         files.push(picture);
         this.setState({files: files});
         console.log('uploaded picture');
         console.log(picture)
+        console.log(files)
       }
     });
   }

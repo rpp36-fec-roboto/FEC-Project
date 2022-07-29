@@ -34,16 +34,13 @@ const ZoomAndPanImg = ({
       className="ov-main-img-container-zoomed"
       ref={containerRef}
       style={{
-        transform: `translate(${translateX}px, ${translateY}px)`,
+        transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
       }}
     >
       <img
         className="ov-main-img-zoomed"
         ref={imgRef}
         onClick={handleChangeToZoomMode}
-        style={{
-          transform: `scale(${scale})`
-        }}
         src={currentStyle.photos[mainImgIndex].url || noImg}
         alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
       />

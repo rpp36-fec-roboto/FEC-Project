@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import usePanAndZoom from './customHook/hooks.js';
 
 import noImg from '../../assets/no-image.jpeg';
+import plusSymbol from '../../assets/plus_icon.png';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown, MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from 'react-icons/md';
 import { AiOutlineExpand } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
@@ -25,6 +26,14 @@ var ImageGallery = ({
     return null;
   }
 
+  const cursorOnHover = (isdefaultView) => {
+    if (isdefaultView) {
+      return {cursor: 'zoom-in'};
+    } else {
+      return {cursor: `url(${plusSymbol}), crosshair`};
+    }
+  };
+
   // generate thumbnail img list
   var imgThumbnails = (currentStyle, thumbnailStartIndex) => {
     var thumbnails = currentStyle.photos.map((photo, index) => {
@@ -32,10 +41,10 @@ var ImageGallery = ({
         return (
           <li
             key={index.toString()}
-            className={ 'ov-thumbnail-container ' + (index === mainImgIndex ? "ov-thumbnail-selected" : "") }
+            className={'ov-thumbnail-container ' + (index === mainImgIndex ? 'ov-thumbnail-selected' : '')}
           >
             <img
-              className="ov-img-thumbnail"
+              className={`ov-img-thumbnail${isDefaultView ? '' : '-expanded'}`}
               src={photo.thumbnail_url || noImg}
               alt={`image #${index + 1} of ${currentStyle.name}`}
               onClick={ (e) => { handleImgThumbnailClick(index); } }
@@ -48,16 +57,7 @@ var ImageGallery = ({
 
   return (
     <>
-      <div className="ov-main-img-container">
-        <img
-          className="ov-main-img"
-          onClick={isDefaultView ? handleChangeView : handleChangeToZoomMode}
-          src={currentStyle.photos[mainImgIndex].url || noImg}
-          alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
-        />
-      </div>
-
-      <div className="ov-thumbnails-list-container">
+      <div className={'ov-thumbnails-list-container' + (isDefaultView ? '' : '-expanded')}>
         {thumbnailStartIndex !== 0 &&
           <div
             className="ov-scroll-btn"
@@ -81,6 +81,16 @@ var ImageGallery = ({
           >
             <MdOutlineKeyboardArrowDown/>
           </div>}
+      </div>
+
+      <div className={'ov-main-img-container' + (isDefaultView ? '' : '-expanded')}>
+        <img
+          className={'ov-main-img' + (isDefaultView ? '' : '-expanded')}
+          style={cursorOnHover(isDefaultView)}
+          onClick={isDefaultView ? handleChangeView : handleChangeToZoomMode}
+          src={currentStyle.photos[mainImgIndex].url || noImg}
+          alt={`image #${mainImgIndex + 1} of style ${currentStyle.name}`}
+        />
       </div>
 
       { // conditionally rendering of left arrow button

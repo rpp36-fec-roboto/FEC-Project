@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import usePanAndZoom from './customHook/hooks.js';
 
 import noImg from '../../assets/no-image.jpeg';
+import minusSymbol from '../../assets/minus_icon.png';
 
 const ZoomAndPanImg = ({
   initialX,
@@ -31,6 +32,7 @@ const ZoomAndPanImg = ({
 
   return (
     <div
+      data-testid = "zoom-container"
       className="ov-main-img-container-zoomed"
       ref={containerRef}
       style={{
@@ -38,7 +40,8 @@ const ZoomAndPanImg = ({
       }}
     >
       <img
-        className="ov-main-img-zoomed"
+        className="ov-main-img"
+        style={{cursor: `url(${minusSymbol}), vertical-text`}}
         ref={imgRef}
         onClick={handleChangeToZoomMode}
         src={currentStyle.photos[mainImgIndex].url || noImg}

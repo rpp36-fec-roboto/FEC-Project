@@ -39,11 +39,6 @@ const reducer = (state, action) => {
         y: scaledDistanceToCenter.y - currentDistanceToCenter.y
       }
 
-      console.log('center of the img container', imgCenter);
-      console.log('mouse distance to center', currentDistanceToCenter);
-      console.log('offset', state.translateX + offSet.x, state.translateY + offSet.y);
-
-
       return {
         ...state,
         scale: 2.5,

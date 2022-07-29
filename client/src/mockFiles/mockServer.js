@@ -38,6 +38,10 @@ const server = setupServer(
     return res(ctx.json(sampleData.answers));
   }),
 
+  rest.post('/cart', (req, res, ctx) => {
+    return res(ctx.status(201));
+  }),
+
   rest.post('/interactions', (req, res, ctx) => {
     const { element, widget, time } = req.body;
     if (element && widget && time) {

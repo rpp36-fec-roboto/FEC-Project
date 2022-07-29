@@ -56,8 +56,6 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
   const [isInZoomMode, setIsInZoomMode] = useState(false);
   const [mainImgIndex, setMainImgIndex] = useState(0);
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(mainImgIndex);
-  // const [initialX, setInitialX] = useState(0);
-  // const [initialY, setInitialY] = useState(0);
 
   // client requests to show up to 7 thumbnails, using 4 to test up/down arrow function
   const maxThumbnails = 4;
@@ -109,10 +107,6 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
 
   const handleChangeToZoomMode = (event) => {
     event.preventDefault();
-
-    // setInitialX(event.clientX);
-    // setInitialY(event.clientY);
-
     setIsInZoomMode(!isInZoomMode);
   };
 
@@ -148,9 +142,6 @@ var Overview = ({ productId, productInfo, yourOutfit, handleAddToYourOutfit, han
           <div className="ov-img-view-container">
             {isInZoomMode ?
               <ZoomAndPanImg
-                // isInZoomMode={isInZoomMode}
-                // initialX={initialX}
-                // initialY={initialY}
                 currentStyle={currentStyle}
                 mainImgIndex={mainImgIndex}
                 handleChangeToZoomMode={handleChangeToZoomMode}

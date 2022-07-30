@@ -3,16 +3,14 @@ A complete remake of a retail site for a mordern look with improvement on user e
 
 ## Table of Content
 [Description](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#description)
-  - [Product Overview](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#product-overview-section)
-  - [Related Product and Your Outfit](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#product-overview-section)
-  - [Question and Answer](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#product-overview-section)
-
 [Installation](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#installation)
-
 [Usage](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#usage)
 
 ## Description
 The design of the site includes 3 sections that provides customer a fluid experience. From browsing the product, to see recommended and saved products, to useful question and answers for the product.
+[Product Overview](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#product-overview-section)
+[Related Product and Your Outfit](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#product-overview-section)
+[Question and Answer](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#product-overview-section)
 
 ### Product Overview Section
 The product overview boats a diversed view of image gallery and key information related to the product.

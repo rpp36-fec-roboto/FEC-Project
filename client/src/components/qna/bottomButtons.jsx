@@ -5,7 +5,7 @@ var bottomButtons = (props) => (
     {props.questions.length > 2 ?
       <button className='morequestions' onClick={(e) => { props.more(e); }}>MORE ANSWERED QUESTIONS</button> :
       <div></div>}
-    <button onClick={(e) => { props.addQuestion(e); }}>ADD A QUESTION +</button>
+    <button className='addquestion' onClick={(e) => { props.addQuestion(e); } } data-testid='addquestion'>ADD A QUESTION +</button>
   </div>
 );
 

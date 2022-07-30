@@ -9,27 +9,23 @@ A complete remake of a retail site for a mordern look with improvement on user e
 ## Description
 The design of the site includes 3 sections that provides customer a fluid experience. From browsing the product, to see recommended and saved products, to useful question and answers for the product.
 
-[Product Overview](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#product-overview-section),
-[Related Product and Your Outfit](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#product-overview-section),
-[Question and Answer](https://github.com/rpp36-fec-roboto/FEC-Project/tree/overview#product-overview-section)
-
 ### Product Overview Section
 The product overview boats a diversed view of image gallery and key information related to the product.
-#### The Image Gallery
-In the default view, the gallery shows a main image with thumbnails that represents a list of pictures available for currently selected product and style. Image and thumbnails are both scrollable.
-Clicking the image will bring customer to a expand view, which brings an immersive experience for viewing images of the product. Furthermore, clicking again on the image will zoom in on the image, where customers can find details of fabric, texture and more.
+#### Image Gallery
+In the default view, customers can scroll through images and thumbnails. Clicking the image will expand image gallery to the page. Furthermore, clicking again on the image will zoom in on the image, where customers can check details of fabric, texture and more.
 
 [Image Gallery Experience] (url) show thumbnail and image scrolls, showing view change, click image to expand view, click again to zoom, click again to expanded, click on expand icon return to default view
 
-#### Product Information and Cart
-Key information are listed on the right side including name, category, price, rating, styles available and cart selection. Sale price is represented in red with original price crossed out. Customer can select from styles available for current product.
+#### Product Information
+Product information are listed on the right side including name, category, price, rating, styles available and cart selection. Sale price is represented in red with original price crossed out. Clikcin on the total reviews will jump to the rating and reviews section. Customer can select from styles available for current product.
 [Rating and Style change] (url) click read all reivews, click style to show icon indicate currently selected style
 
+#### Cart
 Adding to cart requires selection of a size and quantity. Warning will show if a customer attempts to add a product to chart without selecting a size and quantity. The quantity available is linked to the inventory, so no customer will be able to select a quantity that exceeds current inventory of the selected product and style. Quantity show max at 15.
 
 [Add To Cart] (url) click without size selection, select size and show quantity, 15 and less than 15 (71699) size XXL, click add to cart
 
-If a product has not inventory, the customer won't be allowed to that product to cart. However, the customer will always have the option to add the current product to their saved list by clicking on the '☆' right to the add to cart button. Once added, the star will turn solid like so '★' to indicate that it is available in the save outfit list.
+When product is out of stock, the add to cart button will disappear. However, customers can always add the current product to their outfit list by clicking on the '☆'. Once added, the star will turn solid '★' and product will apper in the your outfit list.
 
 [Out Of Stock and Add To My Outfit] (url) out of stock product id, 71698. click star to add and remove, show your outfit section
 

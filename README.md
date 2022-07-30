@@ -25,7 +25,7 @@ Product information are listed on the right side including name, category, price
 Adding to cart requires selection of a size and quantity. Warning will show if a customer attempts to add a product to chart without selecting a size and quantity. The quantity available is linked to the inventory, so no customer will be able to select a quantity that exceeds current inventory of the selected product and style. Quantity show max at 15.
 When product is out of stock, the add to cart button will disappear. However, customers can always add the current product to their outfit list by clicking on the '☆'. Once added, the star will turn solid '★' and product will apper in the your outfit list.
 
-[Add To Cart, Add To My Outfit] (url)
+[Add To Cart, Add To My Outfit](https://recordit.co/yaayTimT5c)
 
 
 ### Related and Saved Product Section

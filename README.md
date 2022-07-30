@@ -30,7 +30,6 @@ When product is out of stock, the add to cart button will disappear. However, cu
 
 ### Related and Saved Product Section
 
-
 ### Question and Answer Section
 The Question and Answer Section will help users looking for a bit more information about the product. Users will be able to find the most asked questions and answers given from other users that have bought the product as well as answers from the seller. Below include the specific sections that will enhance the overall experience for users who are still unsure of
 
@@ -49,6 +48,7 @@ The add answer form will pop up on the page once the button has been clicked. Th
 ### Add a question button
 The add question form will pop up on the page once the button has been clicked. This form is similar to the add answer button in all ways but will not include attachments. After the user submits the question, the page will close and the add a question button will change to “Added question”
 
+
 ## Installation
 Want to try it out on you local machine? Here's what to do:
 1. Clone down the repo to your local machine
@@ -58,3 +58,4 @@ Want to try it out on you local machine? Here's what to do:
 
 ## Usage
 Integrate this page as the product page to your existing ecommerce website to boost customer flow.
+

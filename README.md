@@ -29,6 +29,25 @@ When product is out of stock, the add to cart button will disappear. However, cu
 
 
 ### Related and Saved Product Section
+Two sets of related products are displayed on product cards in carousel like lists. One is a list of products, determined internally, that are related to the product currently being viewed. The other is a list, created by the user, of products which the user has grouped into an 'outfit'.
+
+#### List Behavior
+Related product lists are shown as a list of product cards displayed in a carousel fashion scrolling horizontally. All of the related products are present in the list, but a maximum of four are displayed on screen. Any product cards that do not display on screen initially, appear offscreen in the carousel.  On initial load, the first related product is on the left hand side of the screen.
+
+In order to navigate through and view the rest of the list, arrows appear on the right and left hand edges of the list. Clicking the left and right arrow will scroll through the list displaying previous and subsequent cards in the list, respectively. Clicking on the arrow scrolls through the list one product at a time. When the first card is all the way on the left of the screen, and no previous cards exist to display, the left arrow is hidden. Similarly, when the last card appears on the far right of the list, the right is hidden.
+
+#### Related Products List
+The first list for related products is the same for every customer. It displays products which have been associated with the current product by the company. This list is the same each time the product is loaded.
+
+#### Your Outfit List
+The second list of products appears below the Related Products section. It contains products which the user has explicitly selected to group together as an outfit. The products which appear in this list are unique to each user, a selection one customer makes does not impact any other customers. While a product can only be added to an outfit once, there is no max on the number of items a user may add to their outfit. Each customer has one outfit list, empty by default, but that list persists across page navigation and when the user exits the website and returns at a later time.
+
+Unlike the related products list, the first card that appears on the left hand side of the list does not contain a product. Instead, the card displays a '+' icon and reads 'Add to Outfit'. This card acts as a button that adds the currently viewed product to the outfit list. While this card remains visible, clicking it will not add a product to the outfit more than once.
+
+#### Related Product Cards
+The related product lists consist of cards that display information for a single product. Each card includes the product category, name, price, rating and primary image. Sale price is represented in red with original price crossed out. If the product has not been reviewed or rated, then there will be no product rating displayed.
+
+Each card has an action button located in the upper right corner. The button on cards in the related product list are 'star' icons; clicking it adds the product to the user's outfit list. The button on cards in the user's outfit are 'x' icons; clicking it removes the product from that list. Clicking on any part of a card, other than the action button, navigates to the detail page for that product.
 
 ### Question and Answer Section
 The Question and Answer Section will help users looking for a bit more information about the product. Users will be able to find the most asked questions and answers given from other users that have bought the product as well as answers from the seller. Below include the specific sections that will enhance the overall experience for users who are still unsure of

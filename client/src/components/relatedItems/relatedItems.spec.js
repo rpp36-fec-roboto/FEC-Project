@@ -37,6 +37,15 @@ import helper from '../../../../lib/clientHelpers.js';
 //---------------  TEST SETUP  ----------------//
 /////////////////////////////////////////////////
 
+// mock add/remove yourOutfit handler at local level
+var yourOutfit = [];
+const addToYourOutfit = (productId) => {
+  yourOutfit.push(productId);
+}
+const removeFromYourOutfit = (productId) => {
+  yourOutfit.splice(yourOutfit.indexOf(productId), 1);
+}
+
 // establish API mocking before all tests
 beforeAll(() => mockServer.listen());
 
@@ -70,7 +79,7 @@ describe('Add to outfit', () => {
     });
   });
 
-  it('it calls add to outfit card click', async () => {
+  it('it calls add to outfit on card click', async () => {
     let productId = 71697;
     const mockAdd = jest.fn();
     render(<AddToOutfitCard productId={productId} onAddCardClick={mockAdd} data-testid='add-to-outfit' />);
@@ -78,6 +87,16 @@ describe('Add to outfit', () => {
       const addBtn = screen.getByTestId('add-to-outfit');
       userEvent.click(addBtn);
       expect(mockAdd).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('it calls add to outfit on card click', async () => {
+    let productId = 71697;
+    render(<AddToOutfitCard productId={productId} onAddCardClick={addToYourOutfit} data-testid='add-to-outfit' />);
+    await (() => {
+      const addBtn = screen.getByTestId('add-to-outfit');
+      userEvent.click(addBtn);
+      expect(yourOutfit.length).toBe(1);
     });
   });
 });
@@ -156,7 +175,6 @@ describe('Related Items & Comparison Widget', () => {
     });
 
     it('should show headers', () => {
-      console.log('listType');
       expect(screen.getByText('RELATED PRODUCTS', {exact: false})).toBeInTheDocument();
     });
 

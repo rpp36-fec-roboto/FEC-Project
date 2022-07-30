@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       productId: window.location.href.split('/')[3] || this.props.productId, // get productId from url
-      relatedProduct: [],
+      relatedProduct: {},
       productInfo: {},
       yourOutfit: JSON.parse(localStorage.getItem('myOutfit')) || [],
       isInLightMode: true
@@ -31,19 +31,22 @@ class App extends React.Component {
   }
 
   getRelatedProduct (productId) {
-    axios.get(`/products/${productId}/related`)
-      .then((response) => {
-        this.setState({
-          relatedProduct: response.data
-        });
-      })
-      .catch( err => { console.log(err); });
+    if (this.state.relatedProduct[productId] === undefined) {
+      let relatedProduct = this.state.relatedProduct;
+      axios.get(`/products/${productId}/related`)
+        .then((response) => {
+          relatedProduct[productId] = response.data;
+          this.setState({
+            relatedProduct: relatedProduct
+          });
+        })
+        .catch( err => { console.log(err); });
+    }
   }
 
   getProductInfo (productId) {
     axios.get(`products/${productId}`)
       .then(response => {
-        // console.dir(response.data);
         this.setState({ productInfo: response.data
         });
       })
@@ -108,7 +111,7 @@ class App extends React.Component {
             handleRemoveFromYourOutfit={ () => { this.handleRemoveFromYourOutfit(this.state.productId); } }/>
           <RelatedItemsWithTracker
             productId={this.state.productId}
-            relatedProduct={this.state.relatedProduct}
+            relatedProduct={ (Array.isArray(this.state.relatedProduct[this.state.productId]) ? this.state.relatedProduct[this.state.productId] : []) }
             yourOutfit={this.state.yourOutfit}
             onCardClick={this.handleChangeProductId}
             onStarClick={this.handleAddToYourOutfit}

@@ -15,13 +15,11 @@ The product overview boats a diversed view of image gallery and key information 
 In the default view, customers can scroll through images and thumbnails. Clicking the image will expand image gallery to the page. Furthermore, clicking again on the image will zoom in on the image, where customers can check details of fabric, texture and more.
 
 [Image Gallery Experience](https://recordit.co/9erwEemAVj/)
-https://recordit.co/9erwEemAVj
 
 #### Product Information
 Product information are listed on the right side including name, category, price, rating, styles available and cart selection. Sale price is represented in red with original price crossed out. Clicking on the total reviews will jump to the rating and reviews section. Customer can select from styles available for current product.
 
 [Rating and Style change](https://recordit.co/w9DyJd1OlH/)
-https://recordit.co/w9DyJd1OlH
 
 #### Cart
 Adding to cart requires selection of a size and quantity. Warning will show if a customer attempts to add a product to chart without selecting a size and quantity. The quantity available is linked to the inventory, so no customer will be able to select a quantity that exceeds current inventory of the selected product and style. Quantity show max at 15.

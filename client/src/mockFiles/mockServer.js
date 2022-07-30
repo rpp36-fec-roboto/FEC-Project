@@ -7,7 +7,6 @@ import sampleData from './sampleData.js';
 // declare which API requests to mock
 const server = setupServer(
   rest.get('/products/:product_id', (res, req, ctx) => {
-    console.log('product info');
     // response using a mocked JSON body
     return res(ctx.json(sampleData.productInfo));
   }),

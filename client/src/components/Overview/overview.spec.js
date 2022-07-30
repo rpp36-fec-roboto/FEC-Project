@@ -276,7 +276,6 @@ describe('User activities', () => {
     expect(screen.queryByTestId(/right/i)).not.toBeInTheDocument();
     const list = screen.getByTestId('thumbnails');
     const thumbnails = within(list).getAllByRole('listitem');
-    screen.debug();
     expect(thumbnails.length).toBe(1);
   });
 

@@ -20,7 +20,7 @@ https://recordit.co/9erwEemAVj
 #### Product Information
 Product information are listed on the right side including name, category, price, rating, styles available and cart selection. Sale price is represented in red with original price crossed out. Clicking on the total reviews will jump to the rating and reviews section. Customer can select from styles available for current product.
 
-[Rating and Style](https://recordit.co/w9DyJd1OlH)
+[Rating and Style change](https://recordit.co/w9DyJd1OlH)
 https://recordit.co/w9DyJd1OlH
 
 #### Cart

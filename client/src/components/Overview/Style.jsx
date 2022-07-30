@@ -13,7 +13,7 @@ var Style = ({ currentStyle, productStyle, handleStyleChange }) => {
       return <p style={{marginTop: '5%', marginBottom: '5%'}}><span>${originalPrice}</span></p>;
     } else {
       return (
-        <p>
+        <p style={{marginTop: '5%', marginBottom: '5%'}}>
           <span style={{ color: 'red' }}>${salePrice}</span>
           <span>&nbsp;&nbsp;</span>
           <span style={{ textDecoration: 'line-through' }}>${originalPrice}</span>

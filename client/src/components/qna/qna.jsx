@@ -146,7 +146,7 @@ class Qna extends React.Component {
         url: `/qa/answer/${id}/report`,
         success: () => {
           console.log('Thank you for reporting this answer!');
-          $(`.${id}`).text('Reported');
+          $(`.${id}.report`).text('Reported');
           let tempState = this.state.answerhelpful;
           tempState.push(id);
           this.setState({reportAnswer: tempState});

@@ -343,6 +343,7 @@ class Qna extends React.Component {
         success: () => {
           console.log('Answer has been submitted');
           $('.answer-modal').css('display', 'none');
+          $(`.addanswer.${this.state.currentQuestionId}`)[0].innerText = 'Answer Added';
         }
       });
     }
@@ -387,6 +388,7 @@ class Qna extends React.Component {
         success: () => {
           console.log('Question has been submitted');
           $('.question-modal').css('display', 'none');
+          $('.addquestion')[0].innerText = 'Question Added';
         }
       });
     }
@@ -431,7 +433,8 @@ class Qna extends React.Component {
         <BottomButtons
           questions={this.state.questions}
           addQuestion={this.addQuestionButton}
-          more={this.moreQuestions}/>
+          more={this.moreQuestions}
+          id={this.props.productId}/>
         <AddAnswer
           submitAnswer={this.submitAnswer}
           productName={this.props.productInfo}

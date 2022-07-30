@@ -33,8 +33,16 @@ const server = setupServer(
     return res(ctx.json(sampleData.questions));
   }),
 
+  rest.post('/qa/questions', (req, res, ctx) => {
+    return res(ctx.status(201));
+  }),
+
   rest.get('/qa/questions/:question_id/answers', (req, res, ctx) => {
     return res(ctx.json(sampleData.answers));
+  }),
+
+  rest.post('/qa/questions/:question_id/answers', (req, res, ctx) => {
+    return res(ctx.status(201));
   }),
 
   rest.put('/qa/questions/:question_id/helpful', (req, res, ctx) => {

@@ -6,6 +6,7 @@ A complete remake of a retail site for a mordern look with improvement on user e
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Contributors](#contributors)
 
 ## Description
 The design of the site includes 3 sections that provides customer a fluid experience. From browsing the product, to see recommended and saved products, to useful question and answers for the product.
@@ -79,8 +80,28 @@ Want to try it out on you local machine? Here's what to do:
 1. Clone down the repo to your local machine
 2. `npm install` to install all dependencies
 3. Build bundle for production `npm run build` and star the server `npm start`.
-4. Now, go to `http://localhost:5555/` to have a real shopping experience
+4. Obtain an API Key
+> The API server authenticates users with GitHub Personal Access Tokens. To obtain a token:
+> - Go to: https://github.com/settings/tokens
+> - Click "Generate new token"
+> - Given the Token a Description
+> - Under Select Scopes, select the following:
+>   - read:org
+>   - user
+>   - read:user
+>   - user:email
+>   - user:follow
+> - Generate Token
+5. Create a `.env` file on your local repository as `TOKEN=YOUR_API_KEY`
+6. Now, go to `http://localhost:5555/` to have a real shopping experience.
 
 ## Usage
 Integrate this page as the product page to your existing ecommerce website to boost customer flow.
+
+## Contributors
+[Ziqian Li](https://github.com/zxl3269117): Product Overview
+
+[Mike Manzo](https://github.com/mpmanzo): Related Product
+
+[David Truong](https://github.com/davidltruong): Questions and Answers
 

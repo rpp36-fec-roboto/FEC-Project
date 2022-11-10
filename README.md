@@ -3,9 +3,10 @@ A complete remake of a retail site for a mordern look with improvement on user e
 
 ## Table of Content
 - [Description](https://github.com/rpp36-fec-roboto/FEC-Project/#description)
-- [Technologies](https://github.com/rpp36-fec-roboto/FEC-Project/tree/#technologies)
-- [Installation](https://github.com/rpp36-fec-roboto/FEC-Project/tree/#installation)
-- [Usage](https://github.com/rpp36-fec-roboto/FEC-Project/tree/#usage)
+- [Description](#description)
+- [Technologies](https://github.com/rpp36-fec-roboto/FEC-Project/#technologies)
+- [Installation](https://github.com/rpp36-fec-roboto/FEC-Project/#installation)
+- [Usage](https://github.com/rpp36-fec-roboto/FEC-Project/#usage)
 
 ## Description
 The design of the site includes 3 sections that provides customer a fluid experience. From browsing the product, to see recommended and saved products, to useful question and answers for the product.

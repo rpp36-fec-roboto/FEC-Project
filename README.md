@@ -2,7 +2,7 @@
 A complete remake of a retail site for a mordern look with improvement on user experience. Features includes different views of product images, recommendation list, questions and answers for the product and more.
 
 ## Table of Content
-- [Description](https://github.com/rpp36-fec-roboto/FEC-Project/tree/#description)
+- [Description](https://github.com/rpp36-fec-roboto/FEC-Project/#description)
 - [Technologies](https://github.com/rpp36-fec-roboto/FEC-Project/tree/#technologies)
 - [Installation](https://github.com/rpp36-fec-roboto/FEC-Project/tree/#installation)
 - [Usage](https://github.com/rpp36-fec-roboto/FEC-Project/tree/#usage)

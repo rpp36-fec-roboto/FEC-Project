@@ -11,7 +11,7 @@ The design of the site includes 3 sections that provides customer a fluid experi
 
 ### Product Overview Section
 The product overview boats a diversed view of image gallery and key information related to the product.
-[Product Overview Demo](https://recordit.co/9erwEemAVj/)
+![Product Overview Demo](https://recordit.co/9erwEemAVj/)
 
 #### Image Gallery
 In the default view, customers can scroll through images and thumbnails. Clicking the image will expand image gallery to the page. Furthermore, clicking again on the image will zoom in on the image, where customers can check details of fabric, texture and more.
